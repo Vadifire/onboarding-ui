@@ -7,6 +7,7 @@ app.get('/', (req, res) => {
 	res.sendFile('index.html', { root: 'src/' }, (err) => {
 		if (err) {
 			console.log(err);
+			res.status(500).send('Internal Server Error');
 		}
 	})
 });
