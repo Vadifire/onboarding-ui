@@ -6,7 +6,7 @@ const port = 9000;
 app.get('/', (req, res) => {
 	res.sendFile('index.html', { root: 'src/' }, (err) => {
 		if (err) {
-			console.log(err);
+			console.error(err);
 			res.status(500).send('Internal Server Error');
 		}
 	})
