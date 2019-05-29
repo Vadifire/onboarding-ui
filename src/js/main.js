@@ -6,7 +6,7 @@ const app = express()
 const port = 9000;
 
 app.get('/', (req, res) => {
-	res.sendFile('index2.html', { root: 'src/' }, (err) => {
+	res.sendFile('index.html', { root: 'src/' }, (err) => {
 		if (err) {
 			console.log(err);
 		}
