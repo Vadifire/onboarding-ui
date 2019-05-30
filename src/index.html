@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html> 
-	Hello world
-	<br>
-	<div id="tweets"> </div>
-	<br>
-	<button onclick="getHomeTimeline()">Get Home Timeline</button>
+	<body>
+		Hello world
+		<div id="tweets"> </div>
+		<button onclick="getHomeTimeline()">Get Home Timeline</button>
+	</body>
 </html>
 
 <script>
@@ -13,7 +14,36 @@
 			if (this.readyState == 4) {
 				if (this.status == 200) {
 					var tweetsDiv = document.getElementById("tweets");
-					tweetsDiv.innerHTML = "<br>" + this.responseText;
+					while (tweetsDiv.firstChild) { // First, clear DIV
+						tweetsDiv.removeChild(tweetsDiv.firstChild);
+					}
+					var responseObj = JSON.parse(this.responseText);
+					for (var i = 0; i < responseObj.length; i++) {
+						var tweetDiv = document.createElement("div");
+						if (i % 2 == 0) {
+							tweetDiv.style = "background-color:#e8f5fd;color:black;padding:20px;";
+						} else {
+							tweetDiv.style = "background-color:#e9e9e9;color:black;padding:20px;";
+						}
+
+						var imageElement = document.createElement("img");
+						imageElement.setAttribute("src", responseObj[i].user.profileImageUrl);
+						tweetDiv.appendChild(imageElement);
+
+						tweetDiv.appendChild(
+							document.createTextNode("[" + new Date(responseObj[i].createdAt).toUTCString() + "] ")
+						);
+
+						var messageSpan = document.createElement("span");
+						var messageElement = document.createElement("a");
+						messageElement.href = responseObj[i].url;
+						messageElement.innerHTML = responseObj[i].message;
+						messageElement.setAttribute("target", "_blank");
+						messageSpan.appendChild(messageElement);
+						tweetDiv.appendChild(messageSpan);
+
+						tweetsDiv.appendChild(tweetDiv);
+					}
 				} else {
 					console.error(this.response);
 				}
