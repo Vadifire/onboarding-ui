@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html> 
+	<head>
+	  <link rel="stylesheet" href="main.css">
+	</head>
 	<body>
-		Hello world
-		<div id="tweets"> </div>
+		<div id="title">Lab for Cedric</div>
+		<div id="tweets"></div>
 		<button onclick="getHomeTimeline()">Get Home Timeline</button>
 	</body>
 </html>
-
 <script>
 	function getHomeTimeline() {
 		var xhttp = new XMLHttpRequest();
@@ -20,29 +22,55 @@
 					var responseObj = JSON.parse(this.responseText);
 					for (var i = 0; i < responseObj.length; i++) {
 						var tweetDiv = document.createElement("div");
-						if (i % 2 == 0) {
-							tweetDiv.style = "background-color:#e8f5fd;color:black;padding:20px;";
+						if (i % 2 == 1) {
+							tweetDiv.className = "even-row"; // It's reversed because i == 0 is "1st" tweet 
 						} else {
-							tweetDiv.style = "background-color:#e9e9e9;color:black;padding:20px;";
+							tweetDiv.className = "odd-row";
 						}
+
+						var tweetLink = document.createElement("a");
+						tweetLink.href = responseObj[i].url;
+						tweetLink.setAttribute("target", "_blank");
+
+						var tweetSpan = document.createElement("span");
+						tweetSpan.className = "tweet";
+						tweetSpan.href = responseObj[i].url;
+
+						var userDiv = document.createElement("div");
+						userDiv.className = "user-div";
+						var contentDiv = document.createElement("div");
+						contentDiv.className = "content-div";
 
 						var imageElement = document.createElement("img");
 						imageElement.setAttribute("src", responseObj[i].user.profileImageUrl);
-						tweetDiv.appendChild(imageElement);
+						userDiv.appendChild(imageElement);
 
-						tweetDiv.appendChild(
-							document.createTextNode("[" + new Date(responseObj[i].createdAt).toUTCString() + "] ")
-						);
+						var nameDiv = document.createElement("div");
+						nameDiv.appendChild(document.createTextNode(responseObj[i].user.name));
+						nameDiv.className = "display-name";
+						userDiv.appendChild(nameDiv);
+						var twitterHandleDiv = document.createElement("div");
+						twitterHandleDiv.appendChild(document.createTextNode(responseObj[i].user.twitterHandle));
+						twitterHandleDiv.className = "twitter-handle";
+						userDiv.appendChild(twitterHandleDiv);
 
-						var messageSpan = document.createElement("span");
-						var messageElement = document.createElement("a");
-						messageElement.href = responseObj[i].url;
-						messageElement.innerHTML = responseObj[i].message;
-						messageElement.setAttribute("target", "_blank");
-						messageSpan.appendChild(messageElement);
-						tweetDiv.appendChild(messageSpan);
+						dateDiv = document.createElement("div");
+						dateDiv.className = "date";
+						dateDiv.appendChild(document.createTextNode(
+							new Date(responseObj[i].createdAt).toLocaleString("en-us", {month: "short", day: "numeric"})
+						));
+						contentDiv.appendChild(dateDiv);
 
-						tweetsDiv.appendChild(tweetDiv);
+						var messageDiv = document.createElement("div");
+						messageDiv.className = "message";
+						messageDiv.appendChild(document.createTextNode(responseObj[i].message));
+						contentDiv.appendChild(messageDiv);
+
+						tweetSpan.appendChild(userDiv);
+						tweetSpan.appendChild(contentDiv);
+						tweetDiv.appendChild(tweetSpan);
+						tweetLink.appendChild(tweetDiv);
+						tweetsDiv.appendChild(tweetLink);
 					}
 				} else {
 					console.error(this.response);

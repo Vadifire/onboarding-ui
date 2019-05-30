@@ -3,6 +3,8 @@ const app = express();
 
 const port = 9000;
 
+app.use(express.static("src/css"));
+
 app.get('/', (req, res) => {
 	res.sendFile('index.html', { root: 'src/' }, (err) => {
 		if (err) {
