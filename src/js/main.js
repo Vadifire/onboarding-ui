@@ -1,5 +1,5 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
 const port = 9000;
 
@@ -12,4 +12,4 @@ app.get('/', (req, res) => {
 	})
 });
 
-app.listen(port, () => console.log("NodeJS has been started on port " + port))
+app.listen(port, () => console.log("NodeJS has been started on port " + port));
