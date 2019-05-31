@@ -20,7 +20,7 @@
 			if (this.readyState == XMLHttpRequest.DONE) {
 				var tweetsDiv = document.getElementById("tweets");
 				if (this.status == OK_RESPONSE_CODE) {
-					while (tweetsDiv.firstChild) { // First, clear DIV
+					while (tweetsDiv.firstChild) { // First clear DIV
 						tweetsDiv.removeChild(tweetsDiv.firstChild);
 					}
 					var responseObj = JSON.parse(this.responseText);
@@ -42,8 +42,8 @@
 
 						var messageSpan = document.createElement("span");
 						var messageElement = document.createElement("a");
-						messageElement.href = responseObj[i].url;
 						messageElement.innerHTML = responseObj[i].message;
+						messageElement.setAttribute("href", responseObj[i].url);
 						messageElement.setAttribute("target", "_blank");
 						messageSpan.appendChild(messageElement);
 						tweetDiv.appendChild(messageSpan);
