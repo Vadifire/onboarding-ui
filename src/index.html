@@ -5,17 +5,32 @@
 	</head>
 	<body>
 		<div id="title">Lab for Cedric</div>
-		<div id="tweets"></div>
+		<br>
+		<br>
 		<button onclick="getHomeTimeline()">Get Home Timeline</button>
+		<br>
+		<br>
+		<div id="tweets"> </div>
 	</body>
 </html>
 <script>
+
+	const REQUEST_STATE = {
+		UNSENT: 0,
+		OPENED: 1,
+		HEADERS_RECEIVED: 2,
+		LOADING: 3,
+		DONE: 4
+	};
+
+	const OK_RESPONSE_CODE = 200;
+
 	function getHomeTimeline() {
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4) {
-				if (this.status == 200) {
-					var tweetsDiv = document.getElementById("tweets");
+			if (this.readyState == REQUEST_STATE.DONE) {
+				var tweetsDiv = document.getElementById("tweets");
+				if (this.status == OK_RESPONSE_CODE) {
 					while (tweetsDiv.firstChild) { // First, clear DIV
 						tweetsDiv.removeChild(tweetsDiv.firstChild);
 					}
@@ -74,7 +89,13 @@
 						tweetsDiv.appendChild(tweetLink);
 					}
 				} else {
-					console.error(this.response);
+					if (this.response) {
+						console.error("Server responded with error: " + this.response);
+						tweetsDiv.innerHTML = this.response;
+					} else {
+						console.error("Connection to tweeting server failed.");
+						tweetsDiv.innerHTML = "Service is temporarily unavailable.";
+					}
 				}
 			}
 		}
