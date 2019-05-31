@@ -10,11 +10,22 @@
 </html>
 
 <script>
+
+	const REQUEST_STATE = {
+		UNSENT: 0,
+		OPENED: 1,
+		HEADERS_RECEIVED: 2,
+		LOADING: 3,
+		DONE: 4
+	};
+
+	const OK_RESPONSE_CODE = 200;
+
 	function getHomeTimeline() {
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4) {
-				if (this.status == 200) {
+			if (this.readyState == REQUEST_STATE.DONE) {
+				if (this.status == OK_RESPONSE_CODE) {
 					var tweetsDiv = document.getElementById("tweets");
 					tweetsDiv.innerHTML = "<br>" + this.responseText;
 				} else {
