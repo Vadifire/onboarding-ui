@@ -1,1 +1,36 @@
-Hello world
+<!DOCTYPE html>
+<html> 
+	<body>
+		Hello world
+		<br>
+		<br>
+		<button onclick="getHomeTimeline()">Get Home Timeline</button>
+		<div id="tweets"> </div>
+	</body>
+</html>
+
+<script>
+	const OK_RESPONSE_CODE = 200;
+
+	function getHomeTimeline() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == XMLHttpRequest.DONE) {
+				var tweetsDiv = document.getElementById("tweets");
+				if (this.status == OK_RESPONSE_CODE) {
+					tweetsDiv.innerHTML = "<br>" + this.responseText;
+				} else {
+					if (this.response) {
+						console.error("Server responded with error: " + this.response);
+						tweetsDiv.innerHTML = "<br>" + this.response;
+					} else {
+						console.error("Connection to tweeting server failed.");
+						tweetsDiv.innerHTML = "<br>Service is temporarily unavailable.";
+					}
+				}
+			}
+		}
+		xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline");
+		xhttp.send();
+	}
+</script>
