@@ -1,0 +1,21 @@
+{
+  "name": "onboarding-ui",
+  "version": "1.0.0",
+  "description": "Frontend for tweeting lab",
+  "main": "webpack-config.js",
+  "scripts": {
+    "hello": "echo \"Hello World!\" && exit 0",
+    "dev": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vadifire/onboarding-ui.git"
+  },
+  "author": "Cedric",
+  "homepage": "https://github.com/Vadifire/onboarding-ui#readme",
+  "devDependencies": {
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1"
+  }
+}
