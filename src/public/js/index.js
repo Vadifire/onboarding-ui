@@ -1,33 +1,7 @@
 
 const OK_RESPONSE_CODE = 200;
 
-document.addEventListener('DOMContentLoaded', init);
-
-function init() {
-	var body = document.getElementsByTagName("body")[0];
-
-	var topDiv = document.createElement("div");
-	topDiv.style = "text-align:center;";
-
-	var helloWorldDiv = document.createElement("div");
-	helloWorldDiv.appendChild(document.createTextNode("Hello world"));
-
-	var buttonDiv = document.createElement("div");
-	var button = document.createElement("button");
-	button.setAttribute("onclick", "getHomeTimeline()");
-	button.innerHTML = "Update Home Timeline";
-	buttonDiv.appendChild(button);
-
-	topDiv.appendChild(helloWorldDiv);
-	topDiv.appendChild(buttonDiv);
-
-	var tweetsDiv = document.createElement("div");
-	tweetsDiv.setAttribute("id", "tweets");
-
-	body.appendChild(topDiv);
-	body.appendChild(tweetsDiv);
-	getHomeTimeline();
-}
+document.addEventListener('DOMContentLoaded', getHomeTimeline);
 
 function getHomeTimeline() {
 	var xhttp = new XMLHttpRequest();
