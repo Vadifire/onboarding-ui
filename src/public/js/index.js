@@ -1,13 +1,18 @@
+
+const OK_RESPONSE_CODE = 200;
+
+document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById("update-timeline").onClick = getHomeTimeline();
+	getHomeTimeline();
+});
+
 function getHomeTimeline() {
-	console.log("exec");
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4) {
-			if (this.status == 200) {
-				var tweetsDiv = document.getElementById("tweets");
-				while (tweetsDiv.firstChild) { // First, clear DIV
-					tweetsDiv.removeChild(tweetsDiv.firstChild);
-				}
+		if (this.readyState == XMLHttpRequest.DONE) {
+			var tweetsDiv = document.getElementById("tweets");
+			if (this.status == OK_RESPONSE_CODE) {
+				tweetsDiv.innerHTML = "";
 				var responseObj = JSON.parse(this.responseText);
 				for (var i = 0; i < responseObj.length; i++) {
 					var tweetDiv = document.createElement("div");
@@ -19,6 +24,7 @@ function getHomeTimeline() {
 
 					var tweetLink = document.createElement("a");
 					tweetLink.href = responseObj[i].url;
+					tweetLink.className = "tweet-link";
 					tweetLink.setAttribute("target", "_blank");
 
 					var tweetSpan = document.createElement("span");
@@ -50,7 +56,7 @@ function getHomeTimeline() {
 						new Date(responseObj[i].createdAt).toLocaleString("en-us", {month: "short", day: "numeric"})
 					));
 					contentDiv.appendChild(dateDiv);
-
+					
 					var messageDiv = document.createElement("div");
 					messageDiv.className = "message";
 					messageDiv.appendChild(document.createTextNode(responseObj[i].message));
@@ -63,12 +69,16 @@ function getHomeTimeline() {
 					tweetsDiv.appendChild(tweetLink);
 				}
 			} else {
-				console.error(this.response);
+				if (this.response) {
+					console.error("Server responded with error: " + this.response);
+					tweetsDiv.innerHTML = this.response;
+				} else {
+					console.error("Connection to tweeting server failed.");
+					tweetsDiv.innerHTML = "Service is temporarily unavailable.";
+				}
 			}
 		}
 	}
 	xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline");
 	xhttp.send();
 }
-
-window.getHomeTimeline = getHomeTimeline;
