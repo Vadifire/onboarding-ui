@@ -24,6 +24,7 @@ function getHomeTimeline() {
 
 					var tweetLink = document.createElement("a");
 					tweetLink.href = responseObj[i].url;
+					tweetLink.className = "tweet-link";
 					tweetLink.setAttribute("target", "_blank");
 
 					var tweetSpan = document.createElement("span");
