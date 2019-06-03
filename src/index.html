@@ -20,9 +20,7 @@
 			if (this.readyState == XMLHttpRequest.DONE) {
 				var tweetsDiv = document.getElementById("tweets");
 				if (this.status == OK_RESPONSE_CODE) {
-					while (tweetsDiv.firstChild) { // First clear DIV
-						tweetsDiv.removeChild(tweetsDiv.firstChild);
-					}
+					tweetsDiv.innerHTML = "";
 					var responseObj = JSON.parse(this.responseText);
 					for (var i = 0; i < responseObj.length; i++) {
 						var tweetDiv = document.createElement("div");
