@@ -1,7 +1,10 @@
 
 const OK_RESPONSE_CODE = 200;
 
-document.addEventListener('DOMContentLoaded', getHomeTimeline);
+document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById("update-timeline").onClick = getHomeTimeline();
+	getHomeTimeline();
+});
 
 function getHomeTimeline() {
 	var xhttp = new XMLHttpRequest();
