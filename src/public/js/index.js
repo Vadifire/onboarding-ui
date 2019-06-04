@@ -21,7 +21,7 @@ function getHomeTimeline() {
 					tweetsDiv.style.display = "block";
 					var rowDiv;
 					for (var i = 0; i < responseObj.length; i++) {
-						var rowDiv = document.createElement("div");
+						rowDiv = document.createElement("div");
 						if (i % 2 == 1) {
 							rowDiv.className = "even-row"; // It's reversed because i == 0 is "1st" tweet 
 						} else {
