@@ -1,8 +1,6 @@
 
 const OK_RESPONSE_CODE = 200;
 
-var loadedOnce = false;
-
 document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById("update-timeline").onclick = getHomeTimeline;
 	document.getElementById("tweets").style.display = "none";
@@ -74,11 +72,10 @@ function getHomeTimeline() {
 					tweetLink.appendChild(rowDiv);
 					tweetsDiv.appendChild(tweetLink);
 				}
-				loadedOnce = true;
 			} else {
+				tweetsDiv.style.display = "none";
 				errorDiv.style.display = "block";
-				errorDiv.innerHTML = "Failed to " + (loadedOnce ? "update" : "fetch")
-						+ " home timeline. Please try again later.";
+				errorDiv.innerHTML = "Failed to fetch home timeline. Please try again later.";
 				if (this.response) { // Log error
 					console.error("Server responded with error: " + this.response);
 				} else {
