@@ -5,7 +5,7 @@
 	font-family: "Montserrat";
 }
 
-#body-div {
+#timeline-div {
 	margin-right: 40px;
 	margin-left: 40px;
 	margin-bottom: 20px;
@@ -31,15 +31,13 @@
 	display: inline-grid;
 	grid-template-areas: "user-grid content-grid";
 	color: black;
-	padding-right: 20px;
 	padding-bottom: 20px;
 	padding-top: 20px;
+	padding-right: 10px;
 	align-items: center;
 }
 
 .user-div {
-	margin-right: 10px;
-	margin-left: 10px;
 	text-align: center;
 	grid-area: user-grid;
 	width: 220px;
@@ -52,7 +50,7 @@
 
 .display-name {
 	margin-top: 2px;
-	overflow: scroll;
+	overflow: hidden;
 	justify-content: center;
 	font-size: 22px;
 	font-weight: bold;
@@ -60,7 +58,7 @@
 }
 
 .twitter-handle {
-	overflow: scroll;
+	overflow: hidden;
 	justify-content: center;
 	margin-top: 1px;
 	font-size: 16px;
@@ -70,7 +68,7 @@
 	align-self: center;
 	grid-area: content-grid;
 	min-width: 0px;
-	overflow: scroll;
+	overflow: hidden;
 }
 
 .date {
