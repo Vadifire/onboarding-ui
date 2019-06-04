@@ -75,14 +75,10 @@ function getHomeTimeline() {
 					}
 					rowDiv.style.borderBottom = "none";
 				} else {
-					tweetsDiv.style.display = "none";
-					errorDiv.style.display = "block";
-					errorDiv.innerHTML = "Home timeline is empty.";
+					showError(tweetsDiv, errorDiv, "Home timeline is empty.");
 				}
 			} else {
-				tweetsDiv.style.display = "none";
-				errorDiv.style.display = "block";
-				errorDiv.innerHTML = "Failed to fetch home timeline. Please try again later.";
+				showError(tweetsDiv, errorDiv, "Failed to fetch home timeline. Please try again later.");
 				if (this.response) { // Log error
 					console.error("Server responded with error: " + this.response);
 				} else {
@@ -93,4 +89,10 @@ function getHomeTimeline() {
 	}
 	xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline");
 	xhttp.send();
+}
+
+function showError(tweetsDiv, errorDiv, errorMsg) {
+	tweetsDiv.style.display = "none";
+	errorDiv.style.display = "block";
+	errorDiv.innerHTML = errorMsg;
 }
