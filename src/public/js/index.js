@@ -25,7 +25,9 @@ function getHomeTimeline() {
 					} else {
 						rowDiv.className = "odd-row";
 					}
-
+					if (i == responseObj.length - 1) {
+						rowDiv.style.borderBottom = "none";
+					}
 					var tweetLink = document.createElement("a");
 					tweetLink.href = responseObj[i].url;
 					tweetLink.className = "tweet-link";
