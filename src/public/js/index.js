@@ -1,8 +1,11 @@
 
 const OK_RESPONSE_CODE = 200;
 
+var loadedOnce = false;
+
 document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById("update-timeline").onclick = getHomeTimeline;
+	document.getElementById("tweets").style.display = "none";
 	getHomeTimeline();
 });
 
@@ -11,8 +14,11 @@ function getHomeTimeline() {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == XMLHttpRequest.DONE) {
 			var tweetsDiv = document.getElementById("tweets");
+			var errorDiv = document.getElementById("error-div");
 			if (this.status == OK_RESPONSE_CODE) {
 				tweetsDiv.innerHTML = "";
+				errorDiv.style.display = "none";
+				tweetsDiv.style.display = "block";
 				var responseObj = JSON.parse(this.responseText);
 				for (var i = 0; i < responseObj.length; i++) {
 					var tweetDiv = document.createElement("div");
@@ -68,13 +74,15 @@ function getHomeTimeline() {
 					tweetLink.appendChild(tweetDiv);
 					tweetsDiv.appendChild(tweetLink);
 				}
+				loadedOnce = true;
 			} else {
-				if (this.response) {
+				errorDiv.style.display = "block";
+				errorDiv.innerHTML = "Failed to " + (loadedOnce ? "update" : "fetch")
+						+ " home timeline. Please try again later.";
+				if (this.response) { // Log error
 					console.error("Server responded with error: " + this.response);
-					tweetsDiv.innerHTML = this.response;
 				} else {
 					console.error("Connection to tweeting server failed.");
-					tweetsDiv.innerHTML = "Service is temporarily unavailable.";
 				}
 			}
 		}
