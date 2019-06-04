@@ -21,11 +21,11 @@ function getHomeTimeline() {
 				tweetsDiv.style.display = "block";
 				var responseObj = JSON.parse(this.responseText);
 				for (var i = 0; i < responseObj.length; i++) {
-					var tweetDiv = document.createElement("div");
+					var rowDiv = document.createElement("div");
 					if (i % 2 == 1) {
-						tweetDiv.className = "even-row"; // It's reversed because i == 0 is "1st" tweet 
+						rowDiv.className = "even-row"; // It's reversed because i == 0 is "1st" tweet 
 					} else {
-						tweetDiv.className = "odd-row";
+						rowDiv.className = "odd-row";
 					}
 
 					var tweetLink = document.createElement("a");
@@ -33,9 +33,9 @@ function getHomeTimeline() {
 					tweetLink.className = "tweet-link";
 					tweetLink.setAttribute("target", "_blank");
 
-					var tweetSpan = document.createElement("span");
-					tweetSpan.className = "tweet";
-					tweetSpan.href = responseObj[i].url;
+					var tweetDiv = document.createElement("div");
+					tweetDiv.className = "tweet";
+					tweetDiv.href = responseObj[i].url;
 
 					var userDiv = document.createElement("div");
 					userDiv.className = "user-div";
@@ -68,10 +68,10 @@ function getHomeTimeline() {
 					messageDiv.appendChild(document.createTextNode(responseObj[i].message));
 					contentDiv.appendChild(messageDiv);
 
-					tweetSpan.appendChild(userDiv);
-					tweetSpan.appendChild(contentDiv);
-					tweetDiv.appendChild(tweetSpan);
-					tweetLink.appendChild(tweetDiv);
+					tweetDiv.appendChild(userDiv);
+					tweetDiv.appendChild(contentDiv);
+					rowDiv.appendChild(tweetDiv);
+					tweetLink.appendChild(rowDiv);
 					tweetsDiv.appendChild(tweetLink);
 				}
 				loadedOnce = true;
