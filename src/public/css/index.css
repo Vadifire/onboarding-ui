@@ -5,13 +5,21 @@
 	font-family: "Montserrat";
 }
 
-#tweets {
-	border-style: solid;
-	border-width: 2px;
+#timeline-div {
 	margin-right: 40px;
 	margin-left: 40px;
-	margin-top: 20px;
 	margin-bottom: 20px;
+}
+
+#update-timeline {
+	text-align: left;
+	margin-bottom: 4px;
+}
+
+#tweets {
+	margin-top: 10px;
+	border-style: solid;
+	border-width: 2px;
 	font-family: "Times New Roman";
 }
 
@@ -23,7 +31,10 @@
 	display: inline-grid;
 	grid-template-areas: "user-grid content-grid";
 	color: black;
-	padding: 20px;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	padding-right: 10px;
+	align-items: center;
 }
 
 .user-div {
@@ -33,39 +44,64 @@
 }
 
 .profile-image {
-	width: 84px;
+	border-radius: 50%;
+	width: 80px;
 }
 
 .display-name {
+	margin-top: 2px;
+	overflow: hidden;
+	justify-content: center;
 	font-size: 22px;
 	font-weight: bold;
-	padding: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 15px;
+	max-width: 190px;
 }
 
 .twitter-handle {
+	margin-right: 10px;
+	overflow: hidden;
+	justify-content: center;
+	margin-top: 1px;
 	font-size: 16px;
+	padding-left: 15px;
+	max-width: 190px;
 }
 
 .content-div {
+	align-self: center;
 	grid-area: content-grid;
+	min-width: 0px;
+	overflow: hidden;
 }
 
 .date {
 	font-style: italic;
 	font-size: 16px;
-	margin-top: 48px;
 }
 
 .message {
 	margin-top: 10px;
 	font-size: 22px;
-	margin-top: 8px;
 }
 
 .odd-row {
+	border-bottom: solid;
+	border-color: #bbbbbb;
+	border-width: 1px;
 	background-color:#e8f5fd;
 }
 
 .even-row {
+	border-bottom: solid;
+	border-color: #bbbbbb;
+	border-width: 1px;
 	background-color:#e9e9e9;
+}
+
+#error-div { 
+	margin-top: 5px;
+	font-size: 20px;
 }
