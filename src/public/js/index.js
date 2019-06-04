@@ -3,7 +3,7 @@ const OK_RESPONSE_CODE = 200;
 
 document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById("update-timeline").onclick = getHomeTimeline;
-	document.getElementById("tweets").style.display = "none";
+	document.getElementById("tweets").classList.add("hidden");
 	getHomeTimeline();
 });
 
@@ -17,15 +17,15 @@ function getHomeTimeline() {
 				var responseObj = JSON.parse(this.responseText);
 				if (responseObj.length > 0) {
 					tweetsDiv.innerHTML = "";
-					errorDiv.style.display = "none";
-					tweetsDiv.style.display = "block";
+					errorDiv.classList.add("hidden");
+					tweetsDiv.classList.remove("hidden");
 					var rowDiv;
 					for (var i = 0; i < responseObj.length; i++) {
 						rowDiv = document.createElement("div");
 						if (i % 2 == 1) {
-							rowDiv.className = "even-row"; // It's reversed because i == 0 is "1st" tweet 
+							rowDiv.className = "row even-row"; // It's reversed because i == 0 is "1st" tweet 
 						} else {
-							rowDiv.className = "odd-row";
+							rowDiv.className = "row odd-row";
 						}
 						var tweetLink = document.createElement("a");
 						tweetLink.href = responseObj[i].url;
@@ -73,7 +73,7 @@ function getHomeTimeline() {
 						tweetLink.appendChild(rowDiv);
 						tweetsDiv.appendChild(tweetLink);
 					}
-					rowDiv.style.borderBottom = "none";
+					rowDiv.classList.remove("row"); // Removes the border for last row
 				} else {
 					showError(tweetsDiv, errorDiv, "Home timeline is empty.");
 				}
@@ -92,7 +92,7 @@ function getHomeTimeline() {
 }
 
 function showError(tweetsDiv, errorDiv, errorMsg) {
-	tweetsDiv.style.display = "none";
-	errorDiv.style.display = "block";
+	tweetsDiv.classList.add("hidden");
+	errorDiv.classList.remove("hidden");
 	errorDiv.innerHTML = errorMsg;
 }
