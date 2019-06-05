@@ -1,6 +1,6 @@
 #title {
-	text-align: center;
 	font: bold 40px "Montserrat";
+	text-align: center;
 }
 
 #timeline-div {
@@ -8,19 +8,19 @@
 }
 
 #update-timeline {
-	text-align: left;
 	margin-bottom: 4px;
+	text-align: left;
 }
 
 #tweets {
-	margin-top: 10px;
 	border: 2px solid;
 	font-family: "Times New Roman";
+	margin-top: 10px;
 }
 
 #error-div { 
-	margin-top: 5px;
 	font-size: 12px;
+	margin-top: 5px;
 }
 
 .hidden {
@@ -32,16 +32,16 @@
 }
 
 .tweet {
+	align-items: center;
+	color: black;
 	display: inline-grid;
 	grid-template-areas: "user-grid content-grid";
-	color: black;
 	padding: 20px 10px 20px 0px;
-	align-items: center;
 }
 
 .user-div {
-	text-align: center;
 	grid-area: user-grid;
+	text-align: center;
 	width: 160px;
 }
 
@@ -51,19 +51,19 @@
 }
 
 .display-name {
-	overflow: hidden;
-	justify-content: center;
 	font-size: 15px; font-weight: bold;
-	padding: 4px 0px 2px 10px;
+	justify-content: center;
 	max-width: 140px;
+	overflow: hidden;
+	padding: 4px 0px 2px 10px;
 }
 
 .twitter-handle {
-	overflow: hidden;
-	justify-content: center;
 	font-size: 12px;
-	padding: 1px 10px 0px 10px;
+	justify-content: center;
 	max-width: 140px;
+	padding: 1px 10px 0px 10px;
+	overflow: hidden;
 }
 
 .content-div {
