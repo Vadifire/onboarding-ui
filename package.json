@@ -2,7 +2,6 @@
   "name": "onboarding-ui",
   "version": "1.0.0",
   "description": "Frontend for tweeting lab",
-  "main": "webpack-config.js",
   "scripts": {
     "hello": "echo \"Hello World!\" && exit 0",
     "dev": "webpack-dev-server"
