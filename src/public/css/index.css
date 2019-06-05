@@ -1,0 +1,97 @@
+#title {
+	font: bold 40px "Times New Roman";
+	text-align: center;
+}
+
+#timeline-div {
+	font-family: "Times New Roman";
+	margin: 0px 40px 20px;
+}
+
+#update-timeline {
+	margin-bottom: 4px;
+	text-align: left;
+}
+
+#tweets {
+	border: 2px solid;
+	margin-top: 10px;
+}
+
+#error-div { 
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.hidden {
+	display: none;
+}
+
+.tweet {
+	align-items: center;
+	display: inline-grid;
+	grid-template-areas: "user-grid content-grid";
+	padding: 20px 10px 20px 0px;
+}
+
+.user-div {
+	grid-area: user-grid;
+	text-align: center;
+	width: 160px;
+}
+
+.profile-image {
+	border-radius: 50%;
+	width: 80px;
+}
+
+.display-name {
+	font-size: 15px; 
+	font-weight: bold;
+	justify-content: center;
+	max-width: 140px;
+	overflow: hidden;
+	padding: 4px 0px 2px 10px;
+}
+
+.twitter-handle {
+	font-size: 12px;
+	justify-content: center;
+	max-width: 140px;
+	padding: 1px 10px 0px;
+	overflow: hidden;
+}
+
+.content-div {
+	align-self: center;
+	grid-area: content-grid;
+	min-width: 0px;
+	overflow: hidden;
+}
+
+.date {
+	font-size: 11px;
+	font-weight: italic;
+}
+
+.message {
+	padding-top: 6px;
+	font-size: 12px;
+}
+
+.tweet-link {
+	color: black;
+	text-decoration: none;
+}
+
+.row {
+	border-bottom: 1px solid #bbbbbb;
+}
+
+.odd-row {
+	background-color:#e8f5fd;
+}
+
+.even-row {
+	background-color:#e9e9e9;
+}
