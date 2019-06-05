@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Frontend for tweeting lab",
   "scripts": {
-    "hello": "echo \"Hello World!\" && exit 0",
+    "hello": "echo \"Hello World!\"",
     "dev": "webpack-dev-server"
   },
   "repository": {
