@@ -36,7 +36,7 @@ function getHomeTimeline() {
 						if (!responseObj[i].user) {
 							responseObj[i].user = {
 								name: "Unknown User",
-								twitterHandle: "",
+								twitterHandle: ""
 							};
 						} else { // Only show image if user is known
 							var imageElement = document.createElement("img");
