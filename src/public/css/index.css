@@ -83,7 +83,7 @@
 }
 
 .row {
-	border: 1px solid #bbbbbb;
+	border-bottom: 1px solid #bbbbbb;
 }
 
 .odd-row {
