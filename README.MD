@@ -6,6 +6,3 @@ Make sure you have npm installed and then run ```npm install```.
 
 To start the server, run the following command from the root directory: ```npm run dev```.
 The server should start and can be accessed via ```http://localhost:9000/```.
-
-# Node Version
-v10.15.3
