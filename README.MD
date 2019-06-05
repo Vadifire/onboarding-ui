@@ -1,11 +1,10 @@
 # Overview
-This code serves a simple HTML file on port 9000 using NodeJS.
+UI that displays tweets from home timeline
 
 # How to Run
-First, make sure Node and Express are installed. Express can be installed using the Node Package Manager:
-```npm install express```
+Make sure npm and webpack are installed. Webpack can be installed via ```npm install webpack-dev-server --save-dev```
 
-To start the server run the following command from the root directory: ```node src/js/main.js```.
+To start the server run the following command from the root directory: ```npm run dev```.
 The server should start and can be accessed via ```http://localhost:9000/```
 
 # Node Version
