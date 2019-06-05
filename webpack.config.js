@@ -1,8 +1,6 @@
 path = require("path");
 
 module.exports = {
-    target: "web",
-    mode: "development",
 
     entry: {
         app: ["./src/js/index.js"] // Main JS entry-point (dependencies are generated from here)
