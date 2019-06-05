@@ -1,9 +1,8 @@
 
 const OK_RESPONSE_CODE = 200;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
 	document.getElementById("update-timeline").onclick = getHomeTimeline;
-	document.getElementById("tweets").classList.add("hidden");
 	getHomeTimeline();
 });
 
@@ -27,24 +26,24 @@ function getHomeTimeline() {
 						} else {
 							rowDiv.className = "row odd-row";
 						}
-						var tweetLink = document.createElement("a");
-						tweetLink.href = responseObj[i].url;
-						tweetLink.className = "tweet-link";
-						tweetLink.setAttribute("target", "_blank");
-
 						var tweetDiv = document.createElement("div");
 						tweetDiv.className = "tweet";
-						tweetDiv.href = responseObj[i].url;
 
 						var userDiv = document.createElement("div");
 						userDiv.className = "user-div";
 						var contentDiv = document.createElement("div");
 						contentDiv.className = "content-div";
-
-						var imageElement = document.createElement("img");
-						imageElement.className = "profile-image";
-						imageElement.setAttribute("src", responseObj[i].user.profileImageUrl);
-						userDiv.appendChild(imageElement);
+						if (!responseObj[i].user) {
+							responseObj[i].user = {
+								name: "Unknown User",
+								twitterHandle: "",
+							};
+						} else { // Only show image if user is known
+							var imageElement = document.createElement("img");
+							imageElement.className = "profile-image";
+							imageElement.setAttribute("src", responseObj[i].user.profileImageUrl);
+							userDiv.appendChild(imageElement);
+						}
 
 						var nameDiv = document.createElement("div");
 						nameDiv.appendChild(document.createTextNode(responseObj[i].user.name));
@@ -58,20 +57,25 @@ function getHomeTimeline() {
 						dateDiv = document.createElement("div");
 						dateDiv.className = "date";
 						dateDiv.appendChild(document.createTextNode(
-							new Date(responseObj[i].createdAt).toLocaleString("en-us", {month: "short", day: "numeric"})
+							new Date(responseObj[i].createdAt).toLocaleString("en-us", 
+									{month: "short", day: "numeric"})
 						));
 						contentDiv.appendChild(dateDiv);
 						
 						var messageDiv = document.createElement("div");
 						messageDiv.className = "message";
-						messageDiv.appendChild(document.createTextNode(responseObj[i].message));
+						var tweetLink = document.createElement("a");
+						tweetLink.innerHTML = responseObj[i].message;
+						tweetLink.href = responseObj[i].url;
+						tweetLink.className = "tweet-link";
+						tweetLink.setAttribute("target", "_blank");
+						messageDiv.appendChild(tweetLink);
 						contentDiv.appendChild(messageDiv);
 
 						tweetDiv.appendChild(userDiv);
 						tweetDiv.appendChild(contentDiv);
 						rowDiv.appendChild(tweetDiv);
-						tweetLink.appendChild(rowDiv);
-						tweetsDiv.appendChild(tweetLink);
+						tweetsDiv.appendChild(rowDiv);
 					}
 					rowDiv.classList.remove("row"); // Removes the border for last row
 				} else {

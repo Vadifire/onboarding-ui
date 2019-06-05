@@ -1,10 +1,11 @@
 #title {
-	font: bold 40px "Montserrat";
+	font: bold 40px "Times New Roman";
 	text-align: center;
 }
 
 #timeline-div {
-	margin: 0px 40px 20px 40px;
+	font-family: "Times New Roman";
+	margin: 0px 40px 20px;
 }
 
 #update-timeline {
@@ -14,7 +15,6 @@
 
 #tweets {
 	border: 2px solid;
-	font-family: "Times New Roman";
 	margin-top: 10px;
 }
 
@@ -27,13 +27,8 @@
 	display: none;
 }
 
-.tweet-link {
-	text-decoration: none;
-}
-
 .tweet {
 	align-items: center;
-	color: black;
 	display: inline-grid;
 	grid-template-areas: "user-grid content-grid";
 	padding: 20px 10px 20px 0px;
@@ -62,7 +57,7 @@
 	font-size: 12px;
 	justify-content: center;
 	max-width: 140px;
-	padding: 1px 10px 0px 10px;
+	padding: 1px 10px 0px;
 	overflow: hidden;
 }
 
@@ -74,12 +69,17 @@
 }
 
 .date {
-	font-style: italic; font-size: 11px;
+	font: italic 11px "Times New Roman";
 }
 
 .message {
 	padding-top: 6px;
 	font-size: 12px;
+}
+
+.tweet-link {
+	color: black;
+	text-decoration: none;
 }
 
 .row {
