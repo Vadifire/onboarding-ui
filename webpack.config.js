@@ -1,6 +1,9 @@
 path = require("path");
+webpack = require("webpack");
 
 module.exports = {
+
+    mode: "development",
 
     entry: {
         app: ["./src/js/index.js"] // Main JS entry-point (dependencies are generated from here)
