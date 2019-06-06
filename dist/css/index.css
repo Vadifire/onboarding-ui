@@ -35,20 +35,17 @@
             border-radius: 50%;
             width: 80px; }
           #timeline-div #tweets .row .tweet .user-div .display-name {
+            max-width: 140px;
+            overflow: hidden;
             font-size: 15px;
             font-weight: bold;
-            justify-content: center;
-            max-width: 140px;
-            overflow: hidden;
             padding: 4px 0px 2px 10px; }
           #timeline-div #tweets .row .tweet .user-div .twitter-handle {
-            font-size: 12px;
-            justify-content: center;
             max-width: 140px;
             overflow: hidden;
+            font-size: 12px;
             padding: 1px 10px 0px; }
         #timeline-div #tweets .row .tweet .content-div {
-          align-self: center;
           grid-area: content-grid;
           min-width: 0px;
           overflow: hidden; }
