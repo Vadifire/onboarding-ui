@@ -44,7 +44,7 @@
             max-width: 140px;
             overflow: hidden;
             font-size: 12px;
-            padding: 1px 10px 0px; }
+            padding: 1px 10px 0px 10px; }
         #timeline-div #tweets .row .tweet .content-div {
           grid-area: content-grid;
           min-width: 0px;
