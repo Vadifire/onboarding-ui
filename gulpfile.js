@@ -7,14 +7,14 @@ var webpackConfig = require("./webpack.config.js");
  
 sass.compiler = require("node-sass");
  
-function sass() {
+gulp.task("sass", function() {
 	return gulp.src("./src/css/*.scss")
 		.pipe(sass().on("error", sass.logError))
 		.pipe(gulp.dest("./dist/css"));
-}
+});
 
-function dev() {
-	gulp.watch("./src/css/*.scss", sass);
+gulp.task("dev", function() {
+	gulp.watch("./src/css/*.scss", gulp.series("sass"));
 
 	// Start a webpack-dev-server
 	new WebpackDevServer(webpack(webpackConfig), webpackConfig.devServer)
@@ -23,12 +23,9 @@ function dev() {
 					console.log(err);
 				}
 			});
-};
+});
 
-function hello(done) {
+gulp.task("hello", function(done) {
 	console.log("Hello World!");
 	done();
-};
-
-exports.hello = hello;
-exports.dev = dev;
+});
