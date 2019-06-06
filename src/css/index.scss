@@ -63,14 +63,14 @@ $names-padding: ($user-div-width - $names-width) / 2;
 					}
 
 					.display-name {
-						@include names
+						@include names;
 						font-size: 15px; 
 						font-weight: bold;
 						padding: 4px 0px 2px $names-padding;
 					}
 
 					.twitter-handle {
-						@include names
+						@include names;
 						font-size: 12px;
 						padding: 1px 10px 0px $names-padding;
 					}
