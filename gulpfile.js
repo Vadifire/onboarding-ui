@@ -1,5 +1,6 @@
 var gulp = require("gulp");
 var sass = require("gulp-sass");
+
 var webpack = require("webpack");
 var WebpackDevServer = require("webpack-dev-server");
 var webpackConfig = require("./webpack.config.js");
@@ -13,7 +14,7 @@ function sass() {
 }
 
 function dev() {
-	gulp.watch("./src/css/*.scss", gulp.series(sass));
+	gulp.watch("./src/css/*.scss", sass);
 
 	// Start a webpack-dev-server
 	new WebpackDevServer(webpack(webpackConfig), webpackConfig.devServer)
