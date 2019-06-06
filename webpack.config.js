@@ -25,10 +25,10 @@ module.exports = {
 
     module: {
         rules: [{
-            test: /\.scss$/, // Rule to find resource
+            test: /\.scss$/, // Regular expression rule to find SCSS files
             use: [
-                "style-loader", // Creates style nodes from JS strings
-                "css-loader", // Translates CSS into CommonJS
+                "style-loader", // Injects <style> tags into DOM elements
+                "css-loader", // Reads in CSS file as a String and resolves @imports
                 "sass-loader" // Compiles Sass to CSS
             ]
         }]
