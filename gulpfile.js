@@ -7,16 +7,7 @@ var webpackConfig = require("./webpack.config.js");
  
 sass.compiler = require("node-sass");
  
-function compileSass() {
-	return gulp.src("./src/css/*.scss")
-		.pipe(sass().on("error", sass.logError))
-		.pipe(gulp.dest("./dist/css"));
-};
-
 function dev() {
-	compileSass();
-	gulp.watch("./src/css/*.scss", compileSass);
-
 	// Start a webpack-dev-server
 	new WebpackDevServer(webpack(webpackConfig), webpackConfig.devServer)
 			.listen(webpackConfig.devServer.port, "localhost", function(err) {

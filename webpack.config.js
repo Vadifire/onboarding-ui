@@ -1,6 +1,7 @@
 path = require("path");
 webpack = require("webpack");
 
+
 module.exports = {
 
     mode: "development",
@@ -20,5 +21,16 @@ module.exports = {
         watchContentBase: true, // Live reloading
         compress: true,
         port: 9000
+    },
+
+    module: {
+        rules: [{
+            test: /\.scss$/, // Rule to find resource
+            use: [
+                "style-loader", // Creates style nodes from JS strings
+                "css-loader", // Translates CSS into CommonJS
+                "sass-loader" // Compiles Sass to CSS
+            ]
+        }]
     }
 }

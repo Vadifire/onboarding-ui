@@ -1,3 +1,4 @@
+import "../css/index.scss"
 
 const OK_RESPONSE_CODE = 200;
 
