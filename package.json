@@ -4,7 +4,7 @@
   "description": "Frontend for tweeting lab",
   "scripts": {
     "hello": "echo \"Hello World!\"",
-    "dev": "webpack-dev-server"
+    "dev": "sass --watch src/css/index.scss dist/css/index.css\nwebpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -13,7 +13,10 @@
   "author": "Cedric",
   "homepage": "https://github.com/Vadifire/onboarding-ui#readme",
   "devDependencies": {
+    "sass": "^1.20.3",
     "webpack": "^4.33.0",
-    "webpack-dev-server": "^3.6.0"
+    "webpack-dev-server": "^3.6.0",
+    "gulp-sass": "^4.0.2",
+    "gulp": "^4.0.2"
   }
 }

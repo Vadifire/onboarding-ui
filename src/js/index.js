@@ -18,14 +18,9 @@ function getHomeTimeline() {
 					tweetsDiv.innerHTML = "";
 					errorDiv.classList.add("hidden");
 					tweetsDiv.classList.remove("hidden");
-					var rowDiv;
 					for (var i = 0; i < responseObj.length; i++) {
-						rowDiv = document.createElement("div");
-						if (i % 2 == 1) {
-							rowDiv.className = "row even-row"; // It's reversed because i == 0 is "1st" tweet 
-						} else {
-							rowDiv.className = "row odd-row";
-						}
+						var rowDiv = document.createElement("div");
+						rowDiv.className = "row";
 						var tweetDiv = document.createElement("div");
 						tweetDiv.className = "tweet";
 
@@ -77,7 +72,6 @@ function getHomeTimeline() {
 						rowDiv.appendChild(tweetDiv);
 						tweetsDiv.appendChild(rowDiv);
 					}
-					rowDiv.classList.remove("row"); // Removes the border for last row
 				} else {
 					showError(tweetsDiv, errorDiv, "Home timeline is empty.");
 				}
