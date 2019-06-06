@@ -1,12 +1,13 @@
 # Overview
-This code serves a simple HTML file on port 9000 using NodeJS.
+UI that displays tweets from home timeline
 
-# How to Run
-First, make sure Node and Express are installed. Express can be installed using the Node Package Manager:
-```npm install express```
+### Prior Setup
+Make sure you have NodeJS and npm installed. They can be downloaded [here](https://nodejs.org/en/).
 
-To start the server run the following command from the root directory: ```node src/js/main.js```.
-The server should start and can be accessed via ```http://localhost:9000/```
+### How to Run Hello World task
+From the root directory, run ```npm run hello```.
 
-# Node Version
-v10.15.3
+### How to Run Web Server for Timeline UI
+From the root directory, run ```npm install``` to install this project's depedencies. 
+Next, run ```npm run dev``` to start the web server on port 9000.
+The server should start and can be accessed via ```http://localhost:9000/```.

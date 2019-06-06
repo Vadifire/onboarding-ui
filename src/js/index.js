@@ -54,7 +54,7 @@ function getHomeTimeline() {
 						twitterHandleDiv.className = "twitter-handle";
 						userDiv.appendChild(twitterHandleDiv);
 
-						dateDiv = document.createElement("div");
+						var dateDiv = document.createElement("div");
 						dateDiv.className = "date";
 						dateDiv.appendChild(document.createTextNode(
 							new Date(responseObj[i].createdAt).toLocaleString("en-us", 
