@@ -3,6 +3,7 @@ UI that displays tweets from home timeline
 
 ### Prior Setup
 Make sure you have NodeJS and npm installed. They can be downloaded [here](https://nodejs.org/en/).
+To be able to run gulp from the command line install gulp via ```sudo npm install gulp -g```.
 
 ### How to Run Hello World task
 From the root directory, run ```gulp hello```.
