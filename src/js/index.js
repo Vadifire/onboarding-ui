@@ -1,8 +1,30 @@
 import "../css/index.scss";
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+
+class HelloMessage extends React.Component {
+  render() {
+    /*return (
+      <div>
+        hello react!
+      </div>
+    );*/
+
+    return React.createElement(
+      "div",
+      null,
+      "hello react!"
+    );
+
+  }
+}
 
 const OK_RESPONSE_CODE = 200;
 
 document.addEventListener("DOMContentLoaded", () => {
+	ReactDOM.render(React.createElement(HelloMessage), 
+			document.getElementById("title"));
+
 	document.getElementById("update-timeline").onclick = getHomeTimeline;
 	getHomeTimeline();
 });
