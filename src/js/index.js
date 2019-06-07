@@ -8,8 +8,8 @@ const OK_RESPONSE_CODE = 200;
 document.addEventListener("DOMContentLoaded", () => {
 
 	ReactDOM.render(
-	  <HelloMessage></HelloMessage>,
-	  document.getElementById("hello-react")
+		<HelloMessage></HelloMessage>,
+		document.getElementById("hello-react")
 	);
 
 	document.getElementById("update-timeline").onclick = getHomeTimeline;
