@@ -17,61 +17,67 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function getHomeTimeline() {
-	var xhttp = new XMLHttpRequest();
+	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == XMLHttpRequest.DONE) {
-			var tweetsDiv = document.getElementById("tweets");
-			var errorDiv = document.getElementById("error-div");
+			const tweetsDiv = document.getElementById("tweets");
+			const errorDiv = document.getElementById("error-div");
+
+			function showError(errorMsg) {
+				tweetsDiv.classList.add("hidden");
+				errorDiv.classList.remove("hidden");
+				errorDiv.innerHTML = errorMsg;
+			}
+
 			if (this.status == OK_RESPONSE_CODE) {
-				var responseObj = JSON.parse(this.responseText);
+				const responseObj = JSON.parse(this.responseText);
 				if (responseObj.length > 0) {
 					tweetsDiv.innerHTML = "";
 					errorDiv.classList.add("hidden");
 					tweetsDiv.classList.remove("hidden");
-					for (var i = 0; i < responseObj.length; i++) {
-						var rowDiv = document.createElement("div");
+					responseObj.forEach(tweet => {
+						const rowDiv = document.createElement("div");
 						rowDiv.className = "row";
-						var tweetDiv = document.createElement("div");
+						const tweetDiv = document.createElement("div");
 						tweetDiv.className = "tweet";
 
-						var userDiv = document.createElement("div");
+						const userDiv = document.createElement("div");
 						userDiv.className = "user-div";
-						var contentDiv = document.createElement("div");
+						const contentDiv = document.createElement("div");
 						contentDiv.className = "content-div";
-						if (!responseObj[i].user) {
-							responseObj[i].user = {
+						if (!tweet.user) {
+							tweet.user = {
 								name: "Unknown User",
 								twitterHandle: ""
 							};
 						} else { // Only show image if user is known
-							var imageElement = document.createElement("img");
+							const imageElement = document.createElement("img");
 							imageElement.className = "profile-image";
-							imageElement.setAttribute("src", responseObj[i].user.profileImageUrl);
+							imageElement.setAttribute("src", tweet.user.profileImageUrl);
 							userDiv.appendChild(imageElement);
 						}
 
-						var nameDiv = document.createElement("div");
-						nameDiv.appendChild(document.createTextNode(responseObj[i].user.name));
+						const nameDiv = document.createElement("div");
+						nameDiv.appendChild(document.createTextNode(tweet.user.name));
 						nameDiv.className = "display-name";
 						userDiv.appendChild(nameDiv);
-						var twitterHandleDiv = document.createElement("div");
-						twitterHandleDiv.appendChild(document.createTextNode(responseObj[i].user.twitterHandle));
+						const twitterHandleDiv = document.createElement("div");
+						twitterHandleDiv.appendChild(document.createTextNode(tweet.user.twitterHandle));
 						twitterHandleDiv.className = "twitter-handle";
 						userDiv.appendChild(twitterHandleDiv);
 
-						var dateDiv = document.createElement("div");
+						const dateDiv = document.createElement("div");
 						dateDiv.className = "date";
 						dateDiv.appendChild(document.createTextNode(
-							new Date(responseObj[i].createdAt).toLocaleString("en-us", 
-									{month: "short", day: "numeric"})
+							new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"})
 						));
 						contentDiv.appendChild(dateDiv);
 						
-						var messageDiv = document.createElement("div");
+						const messageDiv = document.createElement("div");
 						messageDiv.className = "message";
-						var tweetLink = document.createElement("a");
-						tweetLink.innerHTML = responseObj[i].message;
-						tweetLink.href = responseObj[i].url;
+						const tweetLink = document.createElement("a");
+						tweetLink.innerHTML = tweet.message;
+						tweetLink.href = tweet.url;
 						tweetLink.className = "tweet-link";
 						tweetLink.setAttribute("target", "_blank");
 						messageDiv.appendChild(tweetLink);
@@ -81,12 +87,12 @@ function getHomeTimeline() {
 						tweetDiv.appendChild(contentDiv);
 						rowDiv.appendChild(tweetDiv);
 						tweetsDiv.appendChild(rowDiv);
-					}
+					});
 				} else {
-					showError(tweetsDiv, errorDiv, "Home timeline is empty.");
+					showError("Home timeline is empty.");
 				}
 			} else {
-				showError(tweetsDiv, errorDiv, "Failed to fetch home timeline. Please try again later.");
+				showError("Failed to fetch home timeline. Please try again later.");
 				if (this.response) { // Log error
 					console.error("Server responded with error: " + this.response);
 				} else {
@@ -97,10 +103,4 @@ function getHomeTimeline() {
 	}
 	xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline");
 	xhttp.send();
-}
-
-function showError(tweetsDiv, errorDiv, errorMsg) {
-	tweetsDiv.classList.add("hidden");
-	errorDiv.classList.remove("hidden");
-	errorDiv.innerHTML = errorMsg;
 }
