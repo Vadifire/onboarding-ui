@@ -8,13 +8,20 @@ $names-padding: ($user-div-width - $names-width) / 2;
 	overflow: hidden;
 }
 
+body {
+	font: $font-family;
+}
+
+#hello-react {
+	text-align: center;
+}
+
 #title {
 	font: bold 40px $font-family;
 	text-align: center;
 }
 
 #timeline-div {
-	font-family: $font-family;
 	margin: 0px 40px 20px;
 
 	#update-timeline {
