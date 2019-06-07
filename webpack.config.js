@@ -31,6 +31,11 @@ module.exports = {
                 "css-loader", // Reads in CSS file as a String and resolves @imports
                 "sass-loader" // Compiles Sass to CSS
             ]
+        }, 
+        {
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
         }]
     }
 }
