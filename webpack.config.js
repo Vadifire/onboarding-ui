@@ -1,7 +1,6 @@
 path = require("path");
 webpack = require("webpack");
 
-
 module.exports = {
 
     mode: "development",

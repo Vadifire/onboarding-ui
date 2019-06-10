@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import HelloMessage from "./HelloMessage";
 
-const OK_RESPONSE_CODE = 200;
-
 document.addEventListener("DOMContentLoaded", () => {
 
 	ReactDOM.render(
@@ -12,12 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		document.getElementById("hello-react")
 	);
 
-	document.getElementById("update-timeline").onclick = getHomeTimeline;
-	getHomeTimeline();
+	document.getElementById("update-timeline").onclick = fetchHomeTimeline;
+	fetchHomeTimeline();
 
 });
 
-const getHomeTimeline = () => {
+const fetchHomeTimeline = () => {
 
 	const tweetsDiv = document.getElementById("tweets");
 	const errorDiv = document.getElementById("error-div");
