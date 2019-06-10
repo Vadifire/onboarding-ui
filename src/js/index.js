@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import HelloMessage from "./HelloMessage";
 
-export const OK_RESPONSE_CODE = 200;
+const OK_RESPONSE_CODE = 200;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	getHomeTimeline();
 });
 
-export function getHomeTimeline() {
+function getHomeTimeline() {
 
 	const tweetsDiv = document.getElementById("tweets");
 	const errorDiv = document.getElementById("error-div");
