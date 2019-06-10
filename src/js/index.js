@@ -21,20 +21,14 @@ export function getHomeTimeline() {
 	const tweetsDiv = document.getElementById("tweets");
 	const errorDiv = document.getElementById("error-div");
 
-	function showError(errorMsg) {
-		tweetsDiv.classList.add("hidden");
-		errorDiv.classList.remove("hidden");
-		errorDiv.innerHTML = errorMsg;
-	}
-
-	fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => {
+	fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => { // Attempt to fetch tweets
 		if (response.ok == true) {
 			return response.json();
 		} else {
 			return Promise.reject(new Error("Failed to fetch tweets. Server responded with status code: " + 
 				response.status + ", error message: " + response.statusText));
 		}
-	}).then(responseJson => {
+	}).then(responseJson => { // Got JSON
 		if (responseJson.length > 0) {
 			tweetsDiv.innerHTML = "";
 			errorDiv.classList.add("hidden");
@@ -96,8 +90,14 @@ export function getHomeTimeline() {
 			showError("Home timeline is empty.");
 		}
 
-	}).catch((error) => {
+	}).catch((error) => { // Failed to fetch tweets
 		showError("Failed to fetch home timeline. Please try again later.");
 		console.log(error);
 	});
+
+	function showError(errorMsg) {
+		tweetsDiv.classList.add("hidden");
+		errorDiv.classList.remove("hidden");
+		errorDiv.innerHTML = errorMsg;
+	}
 }

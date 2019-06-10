@@ -14,6 +14,7 @@
   "homepage": "https://github.com/Vadifire/onboarding-ui#readme",
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
@@ -30,6 +31,8 @@
     "react-dom": "^16.8.6"
   },
   "babel": {
-    "presets": ["@babel/preset-react"]
+    "presets": [
+      "@babel/preset-react", "@babel/preset-env"
+    ]
   }
 }

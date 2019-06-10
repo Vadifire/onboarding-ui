@@ -34,8 +34,12 @@ module.exports = {
         }, 
         {
             test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: ['babel-loader'] // Compiles JSX to JS
+            use: {
+                loader: 'babel-loader', // Converts JSX to JS
+                options: {
+                    presets: ['@babel/preset-env'] // Used for browser compatability
+                }
+            }
         }]
     }
 }
