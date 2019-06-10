@@ -14,19 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	document.getElementById("update-timeline").onclick = getHomeTimeline;
 	getHomeTimeline();
+
 });
 
-var getHomeTimeline = () => {
+const getHomeTimeline = () => {
 
 	const tweetsDiv = document.getElementById("tweets");
 	const errorDiv = document.getElementById("error-div");
 
 	fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => { // Attempt to fetch tweets
-		if (response.ok == true) {
+		if (response.ok === true) {
 			return response.json();
 		} else {
 			return Promise.reject(new Error("Failed to fetch tweets. Server responded with status code: " + 
-				response.status + ", error message: " + response.statusText));
+					response.status + ", error message: " + response.statusText));
 		}
 	}).then(responseJson => { // Got JSON
 		if (responseJson.length > 0) {
@@ -90,12 +91,12 @@ var getHomeTimeline = () => {
 			showError("Home timeline is empty.");
 		}
 
-	}).catch((error) => { // Failed to fetch tweets
+	}).catch(error => { // Failed to fetch tweets
 		showError("Failed to fetch home timeline. Please try again later.");
 		console.log(error);
 	});
 
-	var showError = (errorMsg) => {
+	const showError = errorMsg => {
 		tweetsDiv.classList.add("hidden");
 		errorDiv.classList.remove("hidden");
 		errorDiv.innerHTML = errorMsg;
