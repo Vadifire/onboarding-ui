@@ -22,6 +22,8 @@ module.exports = {
         port: 9000
     },
 
+    devtool: "source-map",
+
     module: {
         rules: [{
             test: /\.scss$/, // Regular expression rule to find SCSS files
