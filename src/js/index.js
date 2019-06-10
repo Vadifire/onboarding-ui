@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	getHomeTimeline();
 });
 
-function getHomeTimeline() {
+var getHomeTimeline = () => {
 
 	const tweetsDiv = document.getElementById("tweets");
 	const errorDiv = document.getElementById("error-div");
@@ -95,7 +95,7 @@ function getHomeTimeline() {
 		console.log(error);
 	});
 
-	function showError(errorMsg) {
+	var showError = (errorMsg) => {
 		tweetsDiv.classList.add("hidden");
 		errorDiv.classList.remove("hidden");
 		errorDiv.innerHTML = errorMsg;
