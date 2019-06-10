@@ -22,7 +22,7 @@ class TimelineContainer extends React.Component {
 
 	pullTweets() {
 		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
+		xhttp.onreadystatechange = () => {
 			if (this.readyState == XMLHttpRequest.DONE) {
 				if (this.status == OK_RESPONSE_CODE) {
 					var tweets = JSON.parse(this.responseText);
