@@ -31,9 +31,9 @@ export function getHomeTimeline() {
 		if (response.ok == true) {
 			return response.json();
 		} else {
-			throw new Error(response.statusText); // Yikes. 
+			return Promise.reject(new Error("Failed to fetch tweets. Server responded with status code: " + 
+				response.status + ", error message: " + response.statusText));
 		}
-
 	}).then(responseJson => {
 		if (responseJson.length > 0) {
 			tweetsDiv.innerHTML = "";
