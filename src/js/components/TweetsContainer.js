@@ -21,6 +21,7 @@ export default class TweetsContainer extends React.Component {
 	}
 
 	fetchTweets() {
+		console.log("update");
 		fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => { // Attempt to fetch tweets
 			if (response.ok === true) {
 				return response.json();
