@@ -1,7 +1,6 @@
 path = require("path");
 webpack = require("webpack");
 
-
 module.exports = {
 
     mode: "development",
@@ -23,6 +22,8 @@ module.exports = {
         port: 9000
     },
 
+    devtool: "source-map",
+
     module: {
         rules: [{
             test: /\.scss$/, // Regular expression rule to find SCSS files
@@ -34,8 +35,12 @@ module.exports = {
         }, 
         {
             test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: ['babel-loader'] // Compiles JSX to JS
+            use: {
+                loader: 'babel-loader', // Converts JSX to JS
+                options: {
+                    presets: ['@babel/preset-env'] // Used for browser compatability
+                }
+            }
         }]
     }
 }

@@ -2,14 +2,14 @@ import "../css/index.scss";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import HelloMessage from "./HelloMessage";
-import TimelineContainer from "./TimelineContainer";
+import TimelineUI from "./TimelineUI";
 
 document.addEventListener("DOMContentLoaded", () => {
 	ReactDOM.render(
 	    <React.Fragment>
     		<div id="title">Lab for Cedric</div>
 			<HelloMessage id="hello-react"></HelloMessage>
-			<TimelineContainer id="timeline-div"></TimelineContainer>
+			<TimelineUI id="timeline-div"></TimelineUI>
 		</React.Fragment>,
 		document.getElementById("root")
 	);
