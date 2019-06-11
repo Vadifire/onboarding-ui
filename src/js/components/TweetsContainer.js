@@ -14,14 +14,12 @@ export default class TweetsContainer extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.tweets);
 		return (
 			<TimelineUI error={this.state.error} tweets={this.state.tweets} fetchTweets={() => this.fetchTweets()}/>
 		);
 	}
 
 	fetchTweets() {
-		console.log("update");
 		fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => { // Attempt to fetch tweets
 			if (response.ok === true) {
 				return response.json();
