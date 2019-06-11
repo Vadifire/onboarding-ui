@@ -9,7 +9,7 @@ export default class TimelineUI extends React.Component {
 		if (this.props.error) {
 			displayedElem = <div id="error-div">{this.props.error}</div>
 		}
-		else if (this.props.tweets) {
+		else if (this.props.tweets && Object.keys(this.props.tweets).length > 0) {
 			displayedElem = 
 				<div id="tweets">{
 					this.props.tweets.map((tweet, index) => 
@@ -23,9 +23,14 @@ export default class TimelineUI extends React.Component {
 
 		return (
 		    <div id="timeline-div">
-				<button id="update-timeline" onClick={() => this.props.fetchTweets}>Update Home Timeline</button>
+				<button id="update-timeline" onClick={() => this.props.fetchTweets()}>Update Home Timeline</button>
 				{displayedElem}
 			</div>
 		);
+	}
+
+
+	test() {
+		console.log("test");
 	}
 }

@@ -7,15 +7,16 @@ export default class TweetsContainer extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			error: null,
-			tweets: null
+			error: "",
+			tweets: {}
 		};
 		this.fetchTweets();
 	}
 
 	render() {
+		console.log(this.state.tweets);
 		return (
-			<TimelineUI error={this.state.error} tweets={this.state.tweets} fetchTweets={this.fetchTweets}/>
+			<TimelineUI error={this.state.error} tweets={this.state.tweets} fetchTweets={() => this.fetchTweets()}/>
 		);
 	}
 
@@ -51,7 +52,7 @@ export default class TweetsContainer extends React.Component {
 		this.setState(() => {
 			return { 
 				tweets: tweets, 
-				error: null
+				error: ""
 			}
 		});
 	}
@@ -59,7 +60,7 @@ export default class TweetsContainer extends React.Component {
 	setError(message) {
 		this.setState(() => {
 			return { 
-				tweets: null,
+				tweets: {},
 				error: message
 			}
 		});
