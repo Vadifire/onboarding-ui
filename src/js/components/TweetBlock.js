@@ -6,8 +6,7 @@ export default class TweetBlock extends React.Component {
 		return (
 			<div className="tweet">
 				<div className="user-div">
-					<img className="profile-image" src={this.props.tweet.user.profileImageUrl}>
-					</img>
+					<img className="profile-image" src={this.props.tweet.user.profileImageUrl}></img>
 					<div className="display-name">
 						{this.props.tweet.user.name}
 					</div>
