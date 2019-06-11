@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 
-const OK_RESPONSE_CODE = 200;
-
-class TimelineUI extends React.Component {
+export default class TimelineUI extends React.Component {
 
 	constructor() {
 		super();
@@ -15,8 +13,8 @@ class TimelineUI extends React.Component {
 		if (this.state.tweets) {
 			mainElem = 
 				<div id="tweets">{
-					this.state.tweets.map(tweet => 
-						<div className="row">
+					this.state.tweets.map((tweet, index) => 
+						<div key={index} className="row">
 							<div className="tweet">
 								<div className="user-div">
 									<img className="profile-image" src={tweet.user.profileImageUrl}>
@@ -29,9 +27,11 @@ class TimelineUI extends React.Component {
 									</div>
 								</div>
 								<div className="content-div">
-									<div className="date">
-										{new Date(tweet.createdAt).toLocaleString("en-us", 
-												{month: "short", day: "numeric"})}
+									<div className="date">{
+											new Date(tweet.createdAt).toLocaleString("en-us", 
+													{month: "short", day: "numeric"}
+											)
+										}
 									</div>
 									<div className="message">
 										<a className="tweet-link">
@@ -78,22 +78,28 @@ class TimelineUI extends React.Component {
 	}
 
 	showTweets(tweets) {
-		this.setState((prevState, props) => {
+		tweets.map(tweet => { // Populate default values to avoid reference error
+			if (!tweet.user) {
+				tweet.user = {
+					name: "Unknown Handle"
+				}
+			}
+			return tweet;
+		});
+		this.setState(() => {
 			return { 
 				tweets: tweets, 
-				error: null,
+				error: null
 			}
 		});
 	}
 
 	showError(message) {
-		this.setState((prevState, props) => {
+		this.setState(() => {
 			return { 
 				tweets: null,
-				error: message,
+				error: message
 			}
 		});
 	}
 }
-
-export default TimelineUI;
