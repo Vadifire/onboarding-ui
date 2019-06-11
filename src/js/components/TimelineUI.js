@@ -28,9 +28,4 @@ export default class TimelineUI extends React.Component {
 			</div>
 		);
 	}
-
-
-	test() {
-		console.log("test");
-	}
 }
