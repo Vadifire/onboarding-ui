@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import HelloMessage from "./HelloMessage";
-import TimelineUI from "./TimelineUI";
+import TweetsContainer from "./TweetsContainer";
 import "../../css/components/PageLayout.scss";
 
 // Contains Title, Hello Message, and Timeline UI
@@ -9,8 +9,8 @@ export default class PageLayout extends React.Component {
 		return (
 			<div>
 				<div id="title">Lab for Cedric</div>
-				<HelloMessage message="hello react!"></HelloMessage>
-				<TimelineUI></TimelineUI>
+				<HelloMessage message="hello react!" />
+				<TweetsContainer />
 			</div>
 		);
 	}
