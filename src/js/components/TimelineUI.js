@@ -30,7 +30,7 @@ export default class TimelineUI extends React.Component {
 		return (
 		    <div id="timeline-div">
 				<button id="update-timeline" onClick={() => this.fetchTweets()}>Update Home Timeline</button>
-		    	{displayedElem}
+				{displayedElem}
 			</div>
 		);
 	}
