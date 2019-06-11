@@ -20,10 +20,11 @@ export default class TimelineUI extends React.Component {
 				}
 			</div>;
 		} 
-
 		return (
 		    <div id="timeline-div">
-				<button id="update-timeline" onClick={() => this.props.fetchTweets()}>Update Home Timeline</button>
+				<button id="update-timeline" onClick={() => {
+						return this.props.fetchTweets(this.props.url)
+					}}>Update Home Timeline</button>
 				{displayedElem}
 			</div>
 		);

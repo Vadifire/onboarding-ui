@@ -10,7 +10,7 @@ export default class PageLayout extends React.Component {
 			<div>
 				<div id="title">Lab for Cedric</div>
 				<HelloMessage message="hello react!" />
-				<TweetsContainer />
+				<TweetsContainer url="http://localhost:8080/api/1.0/twitter/timeline"/>
 			</div>
 		);
 	}

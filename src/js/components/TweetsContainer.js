@@ -10,17 +10,21 @@ export default class TweetsContainer extends React.Component {
 			error: "",
 			tweets: {}
 		};
-		this.fetchTweets();
+	}
+
+	componentDidMount() {
+		this.fetchTweets(this.props.url);
 	}
 
 	render() {
 		return (
-			<TimelineUI error={this.state.error} tweets={this.state.tweets} fetchTweets={() => this.fetchTweets()}/>
+			<TimelineUI error={this.state.error} tweets={this.state.tweets} url={this.props.url}
+					fetchTweets={() => this.fetchTweets(this.props.url)}/>
 		);
 	}
 
-	fetchTweets() {
-		fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => { // Attempt to fetch tweets
+	fetchTweets(url) {
+		fetch(url).then(response => { // Attempt to fetch tweets
 			if (response.ok === true) {
 				return response.json();
 			} else {
