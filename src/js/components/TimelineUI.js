@@ -20,7 +20,7 @@ export default class TimelineUI extends React.Component {
 				<div id="tweets">{
 					this.state.tweets.map((tweet, index) => 
 						<div key={tweet.url} className="row">
-							<TweetBlock className="tweet" tweet={tweet}/>
+							<TweetBlock tweet={tweet}/>
 						</div>
 					)
 				}
@@ -28,7 +28,7 @@ export default class TimelineUI extends React.Component {
 		} 
 
 		return (
-		    <div id={this.props.id}>
+		    <div id="timeline-div">
 				<button id="update-timeline" onClick={() => this.fetchTweets()}>Update Home Timeline</button>
 		    	{displayedElem}
 			</div>

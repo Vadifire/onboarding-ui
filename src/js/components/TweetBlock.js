@@ -4,7 +4,7 @@ import "../../css/components/TweetBlock.scss";
 export default class TweetBlock extends React.Component {
 	render() {
 		return (
-			<div className={this.props.className}>
+			<div className="tweet">
 				<div className="user-div">
 					<img className="profile-image" src={this.props.tweet.user.profileImageUrl}>
 					</img>
