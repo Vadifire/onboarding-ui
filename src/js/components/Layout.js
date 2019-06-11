@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import HelloMessage from "./HelloMessage";
 import TimelineUI from "./TimelineUI";
+import "../../css/Layout.scss";
 
 export default class Layout extends React.Component {
 	render() {
