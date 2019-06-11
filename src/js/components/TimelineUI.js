@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TweetBlock from "./TweetBlock";
 
 export default class TimelineUI extends React.Component {
 
@@ -9,50 +10,26 @@ export default class TimelineUI extends React.Component {
 	}
 
 	render() {
-		let mainElem;
-		if (this.state.tweets) {
-			mainElem = 
+		let displayedElem;
+		if (this.state.error) {
+			displayedElem = <div id="error-div">{this.state.error}</div>
+		}
+		else if (this.state.tweets) {
+			displayedElem = 
 				<div id="tweets">{
 					this.state.tweets.map((tweet, index) => 
-						<div key={index} className="row">
-							<div className="tweet">
-								<div className="user-div">
-									<img className="profile-image" src={tweet.user.profileImageUrl}>
-									</img>
-									<div className="display-name">
-										{tweet.user.name}
-									</div>
-									<div className="twitter-handle">
-										{tweet.user.twitterHandle}
-									</div>
-								</div>
-								<div className="content-div">
-									<div className="date">{
-											new Date(tweet.createdAt).toLocaleString("en-us", 
-													{month: "short", day: "numeric"}
-											)
-										}
-									</div>
-									<div className="message">
-										<a className="tweet-link">
-											{tweet.message}
-										</a>
-									</div>
-								</div>
-							</div>
+						<div key={tweet.url} className="row">
+							<TweetBlock className="tweet" tweet={tweet}/>
 						</div>
 					)
 				}
 			</div>;
-		}
-		if (this.state.error) {
-			mainElem = <div id="error-div">{this.state.error}</div>
-		}
+		} 
 
 		return (
 		    <div id={this.props.id}>
 				<button id="update-timeline" onClick={() => this.fetchTweets()}>Update Home Timeline</button>
-				{mainElem}
+		    	{displayedElem}
 			</div>
 		);
 	}

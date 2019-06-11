@@ -3,6 +3,7 @@ import HelloMessage from "./HelloMessage";
 import TimelineUI from "./TimelineUI";
 import "../../css/Layout.scss";
 
+// Contains Title, Hello Message, and Timeline UI
 export default class Layout extends React.Component {
 	render() {
 		return (
