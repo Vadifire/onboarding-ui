@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./HelloMessage.scss";
+//import "./HelloMessage.scss";
 
 export default class HelloMessage extends React.Component {
 

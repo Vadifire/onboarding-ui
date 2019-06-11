@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Frontend for tweeting lab",
   "scripts": {
+    "test": "jest",
     "dev": "webpack-dev-server",
     "hello": "echo \"Hello World!\""
   },
@@ -16,6 +17,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
     "enzyme": "^3.10.0",
