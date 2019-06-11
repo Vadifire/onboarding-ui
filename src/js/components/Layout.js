@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import HelloMessage from "./HelloMessage";
 import TimelineUI from "./TimelineUI";
-import "../../css/Layout.scss";
+import "../../css/components/Layout.scss";
 
 // Contains Title, Hello Message, and Timeline UI
 export default class Layout extends React.Component {

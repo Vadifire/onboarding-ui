@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TweetBlock from "./TweetBlock";
+import "../../css/components/TimelineUI.scss";
 
 export default class TimelineUI extends React.Component {
 
@@ -10,7 +11,7 @@ export default class TimelineUI extends React.Component {
 	}
 
 	render() {
-		let displayedElem;
+		let displayedElem; // Either display error or tweets
 		if (this.state.error) {
 			displayedElem = <div id="error-div">{this.state.error}</div>
 		}
@@ -55,7 +56,7 @@ export default class TimelineUI extends React.Component {
 	}
 
 	showTweets(tweets) {
-		tweets.map(tweet => { // Populate default values to avoid reference error
+		tweets.map(tweet => { // Populate default value to avoid reference error
 			if (!tweet.user) {
 				tweet.user = {
 					name: "Unknown Handle"
