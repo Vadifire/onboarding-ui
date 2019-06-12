@@ -2,12 +2,11 @@ import React from "react";
 import { shallow } from "enzyme";
 import TimelineUI from "../../../main/js/components/TimelineUI";
 
-const API_PATH = "../../../main/js/twitter-api";
-jest.mock(API_PATH);
+jest.mock("../../../main/js/twitter-api");
 
 describe("TimelineUI", () => {
 	const dummyErrorMsg = "error";
-	const mockedAPI = require(API_PATH);
+	const mockedAPI = require("../../../main/js/twitter-api");
 	mockedAPI.__setResponse({
 		tweets: null,
 		error: dummyErrorMsg
