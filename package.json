@@ -15,6 +15,7 @@
   "homepage": "https://github.com/Vadifire/onboarding-ui#readme",
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-jest": "^24.8.0",
@@ -25,6 +26,7 @@
     "enzyme-react-16-adapter-setup": "^0.1.0",
     "jest": "^24.8.0",
     "jest-enzyme": "^7.0.2",
+    "jest-fetch-mock": "^2.1.2",
     "node-sass": "^4.12.0",
     "sass": "^1.20.3",
     "sass-loader": "^7.1.0",
@@ -34,6 +36,7 @@
     "webpack-dev-server": "^3.6.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.4.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
@@ -41,14 +44,21 @@
     "presets": [
       "@babel/preset-react",
       "@babel/preset-env"
+    ],
+    "plugins": [
+      [
+        "@babel/transform-runtime"
+      ]
     ]
   },
   "jest": {
+    "automock": false,
+    "setupFiles": [
+      "enzyme-react-16-adapter-setup",
+      "./src/test/js/setupFetchMock.js"
+    ],
     "setupFilesAfterEnv": [
       "./node_modules/jest-enzyme/lib/index.js"
-    ],
-    "setupFiles": [
-      "enzyme-react-16-adapter-setup"
     ],
     "moduleNameMapper": {
       "\\.(css|scss)$": "<rootDir>/src/main/js/__mocks__/style-mock.js"

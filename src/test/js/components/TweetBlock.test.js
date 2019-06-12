@@ -21,7 +21,7 @@ describe("TweetBlock", () => {
 	// Declare UI elements
 	var tweetDiv, userDiv, profileImage, displayName, twitterHandle, contentDiv, date, message, tweetLink;
 
-	it("should adhere to correct tweet layout", () => {
+	test("should adhere to correct tweet layout", () => {
 		tweetDiv = wrapper.find("div.tweet");
 		expect(tweetDiv.length).toEqual(1);
 
@@ -50,25 +50,25 @@ describe("TweetBlock", () => {
 		expect(tweetLink.length).toEqual(1);
 	});
 
-	it("profile image should be provided by tweet", () => {
+	test("profile image should be provided by tweet", () => {
 		expect(profileImage.at(0).prop("src")).toEqual(dummyTweet.user.profileImageUrl);
 	});
 
-	it("display name should match that of tweet", () => {
+	test("display name should match that of tweet", () => {
 		expect(displayName.at(0).text()).toEqual(dummyTweet.user.name);
 	});
 
-	it("twitter handle should match that of tweet", () => {
+	test("twtestter handle should match that of tweet", () => {
 		expect(twitterHandle.at(0).text()).toEqual(dummyTweet.user.twitterHandle);
 	});
 
-	it("date should match that of tweet and be in American month/day format", () => {
+	test("date should match that of tweet and be in American month/day format", () => {
 		expect(date.at(0).text())
 				.toEqual(new Date(dummyTweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"})
 		);
 	});
 
-	it("message should link to tweet url", () => {
+	test("message should link to tweet url", () => {
 		expect(tweetLink.at(0).prop("href")).toEqual(dummyTweet.url);
 	});
 

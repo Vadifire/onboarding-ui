@@ -5,6 +5,10 @@ import TimelineUI from "../../../main/js/components/TimelineUI";
 jest.mock("../../../main/js/twitter-api");
 
 describe("TimelineUI", () => {
+
+	let timelineDiv;
+
+	/* Test Error Case */	
 	const dummyErrorMsg = "error";
 	const mockedAPI = require("../../../main/js/twitter-api");
 	mockedAPI.__setResponse({
@@ -12,27 +16,40 @@ describe("TimelineUI", () => {
 		error: dummyErrorMsg
 	});
 
-	const wrapper = shallow(<TimelineUI/>);
-
-	let timelineDiv;
-
-	it("should contain div with 'timeline-div' id", () => {
-		timelineDiv = wrapper.find("div#timeline-div");
+	const errorWrapper = shallow(<TimelineUI/>);
+	test("should contain div with 'timeline-div' id", () => {
+		timelineDiv = errorWrapper.find("div#timeline-div");
 		expect(timelineDiv.length).toEqual(1);
 	});
-	it("should contain a buton with id 'update-timeline' within timeline-div", () => {
+	test("should contain a buton with id 'update-timeline' within timeline-div", () => {
 		expect(timelineDiv.find("button#update-timeline").length).toEqual(1);
 	});
-	it("should display error message in div with 'error-div' id", () => {
+	test("should display error message in div with 'error-div' id", () => {
 		expect(timelineDiv.find("div#error-div").length).toEqual(1);
 	});
-	it(("error div should contain text: " + dummyErrorMsg), () => {
+	test(("error div should contain text: " + dummyErrorMsg), () => {
 		expect(timelineDiv.find("div#error-div").at(0).text()).toEqual(dummyErrorMsg);
 	});
 
+	/* Test Tweets Case */	
+	const dummyTweets = [
+		{url: "url1"},
+		{url: "url2"}
+	];
 	mockedAPI.__setResponse({
-		tweets: [],
+		tweets: dummyTweets,
 		error: null
+	});
+	const tweetsWrapper = shallow(<TimelineUI/>);
+	test("should contain div with 'timeline-div' id", () => {
+		timelineDiv = tweetsWrapper.find("div#timeline-div");
+		expect(timelineDiv.length).toEqual(1);
+	});
+	test("should contain a buton with id 'update-timeline' within timeline-div", () => {
+		expect(timelineDiv.find("button#update-timeline").length).toEqual(1);
+	});
+	test(("should display tweets in div with 'tweets' id"), () => {
+		expect(timelineDiv.find("div#tweets").length).toEqual(1);
 	});
 
 });

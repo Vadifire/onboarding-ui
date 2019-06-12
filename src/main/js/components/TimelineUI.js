@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {fetchHomeTimeline} from "../twitter-api.js";
+import {fetchHomeTimeline} from "../twitter-api";
 import TweetBlock from "./TweetBlock";
 import "../../css/components/TimelineUI.scss";
 
@@ -42,10 +42,8 @@ export default class TimelineUI extends React.Component {
 		);
 	}
 
-	updateTimeline() {
-		fetchHomeTimeline().then(response => {
-			this.setState(response);
-		});
+	async updateTimeline() {
+		this.setState(await fetchHomeTimeline());
 	}
 
 }
