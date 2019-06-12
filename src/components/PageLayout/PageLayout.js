@@ -7,11 +7,11 @@ import "./PageLayout.scss";
 export default class PageLayout extends React.Component {
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<div id="title">Lab for Cedric</div>
 				<HelloMessage message="hello react!" />
 				<TimelineUI />
-			</div>
+			</React.Fragment>
 		);
 	}
 }
