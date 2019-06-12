@@ -6,7 +6,7 @@
  *   tweets: [...]
  *   error: String
  * } 
- * Invariant: Exactly one of tweets or error will be defined
+ * Invariant: Exactly one of tweets or error will be null
  */
 export function fetchHomeTimeline() {
 	return fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => { // Attempt to fetch tweets
@@ -26,13 +26,19 @@ export function fetchHomeTimeline() {
 			}
 			return tweet;
 		});
-			return {tweets};
+			return {
+				tweets, 
+				error: null
+			};
 		} else {
-			return {error: "Home timeline is empty."};
+			return {
+				tweets: null,
+				error: "Home timeline is empty."
+			};
 		}
 	}).catch(error => { // Failed to fetch tweets
-		console.log(error);
 		return {
+			tweets: null,
 			error: "Failed to fetch home timeline. Please try again later."
 		};
 	});

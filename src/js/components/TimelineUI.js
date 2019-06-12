@@ -15,10 +15,7 @@ export default class TimelineUI extends React.Component {
 	}
 
 	componentDidMount() {
-		fetchHomeTimeline().then(response => {
-			console.log(response)
-			this.setState(response);
-		});
+		this.updateTimeline();
 	}
 
 	render() {
@@ -27,7 +24,6 @@ export default class TimelineUI extends React.Component {
 			displayedElem = <div id="error-div">{this.state.error}</div>
 		}
 		else if (this.state.tweets) {
-			console.log(this.state.tweets);
 			displayedElem = 
 				<div id="tweets">{
 					this.state.tweets.map((tweet, index) => 
@@ -40,10 +36,16 @@ export default class TimelineUI extends React.Component {
 		} 
 		return (
 		    <div id="timeline-div">
-				<button id="update-timeline" onClick={() => fetchHomeTimeline()}>Update Home Timeline</button>
+				<button id="update-timeline" onClick={this.updateTimeline.bind(this)}>Update Home Timeline</button>
 				{displayedElem}
 			</div>
 		);
+	}
+
+	updateTimeline() {
+		fetchHomeTimeline().then(response => {
+			this.setState(response);
+		});
 	}
 
 }
