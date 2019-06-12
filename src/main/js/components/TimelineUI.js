@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import {fetchHomeTimeline} from "../../twitter-api.js";
-import TweetBlock from "../TweetBlock/TweetBlock";
-import "./TimelineUI.scss";
+import {fetchHomeTimeline} from "../twitter-api.js";
+import TweetBlock from "./TweetBlock";
+import "../../css/components/TimelineUI.scss";
 
 // Presentational Component for Timeline
 export default class TimelineUI extends React.Component {

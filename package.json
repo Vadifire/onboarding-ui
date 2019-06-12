@@ -51,7 +51,7 @@
       "enzyme-react-16-adapter-setup"
     ],
     "moduleNameMapper": {
-      "\\.(css|scss)$": "<rootDir>/src/__mocks__/style-mock.js"
+      "\\.(css|scss)$": "<rootDir>/src/main/js/__mocks__/style-mock.js"
     }
   }
 }

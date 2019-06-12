@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./TweetBlock.scss";
+import "../../css/components/TweetBlock.scss";
 
 export default class TweetBlock extends React.Component {
 	render() {

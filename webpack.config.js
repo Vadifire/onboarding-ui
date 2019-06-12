@@ -6,7 +6,7 @@ module.exports = {
     mode: "development",
 
     entry: {
-        app: ["./src/index.js"] // Main JS entry-point (dependencies are generated from here)
+        app: ["./src/main/js/index.js"] // Main JS entry-point (dependencies are generated from here)
     },
 
     output: {
