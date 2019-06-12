@@ -9,7 +9,7 @@ export default class PageLayout extends React.Component {
 		return (
 			<div>
 				<div id="title">Lab for Cedric</div>
-				<HelloMessage message="hello react!"></HelloMessage>
+				<HelloMessage message="hello react!" />
 				<TimelineUI />
 			</div>
 		);

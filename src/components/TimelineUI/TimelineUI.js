@@ -1,13 +1,21 @@
 import React, { Component } from "react";
+import {fetchHomeTimeline} from "../../twitter-api.js";
 import TweetBlock from "../TweetBlock/TweetBlock";
 import "./TimelineUI.scss";
 
+// Presentational Component for Timeline
 export default class TimelineUI extends React.Component {
 
 	constructor() {
 		super();
-		this.state = {};
-		this.fetchTweets();
+		this.state = {
+			tweets: null,
+			error: null
+		}
+	}
+
+	componentDidMount() {
+		this.updateTimeline();
 	}
 
 	render() {
@@ -26,58 +34,18 @@ export default class TimelineUI extends React.Component {
 				}
 			</div>;
 		} 
-
 		return (
 		    <div id="timeline-div">
-				<button id="update-timeline" onClick={() => this.fetchTweets()}>Update Home Timeline</button>
+				<button id="update-timeline" onClick={this.updateTimeline.bind(this)}>Update Home Timeline</button>
 				{displayedElem}
 			</div>
 		);
 	}
 
-	fetchTweets() {
-		fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => { // Attempt to fetch tweets
-			if (response.ok === true) {
-				return response.json();
-			} else {
-				return Promise.reject(new Error("Failed to fetch tweets. Server responded with status code: " + 
-						response.status + ", error message: " + response.statusText));
-			}
-		}).then(responseJson => { // Got JSON
-			if (responseJson.length > 0) {
-				this.showTweets(responseJson);
-			} else {
-				this.showError("Home timeline is empty.");
-			}
-		}).catch(error => { // Failed to fetch tweets
-			this.showError("Failed to fetch home timeline. Please try again later.");
-			console.log(error);
+	updateTimeline() {
+		fetchHomeTimeline().then(response => {
+			this.setState(response);
 		});
 	}
 
-	showTweets(tweets) {
-		tweets.map(tweet => { // Populate default value to avoid reference error
-			if (!tweet.user) {
-				tweet.user = {
-					name: "Unknown Handle"
-				}
-			}
-			return tweet;
-		});
-		this.setState(() => {
-			return { 
-				tweets: tweets, 
-				error: null
-			}
-		});
-	}
-
-	showError(message) {
-		this.setState(() => {
-			return { 
-				tweets: null,
-				error: message
-			}
-		});
-	}
 }

@@ -40,5 +40,10 @@
       "@babel/preset-react",
       "@babel/preset-env"
     ]
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./src/test-setup.js"
+    ]
   }
 }
