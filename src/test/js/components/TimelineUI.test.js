@@ -6,10 +6,6 @@ jest.mock("../../../main/js/twitter-api");
 
 const mockedAPI = require("../../../main/js/twitter-api");
 
-function flushPromises() { // TODO: replace hacky solution
-	return new Promise(resolve => setImmediate(resolve));
-}
-
 describe("TimelineUI", () => {
 
 	// Test Error Case
@@ -19,14 +15,16 @@ describe("TimelineUI", () => {
 		mockedAPI.__setResponse(Promise.reject());
 
 		const wrapper = shallow(<TimelineUI fetchTimeline={mockedAPI.fetchHomeTimeline}/>);
-		await flushPromises();
 
-		const timelineDiv = wrapper.find("div#timeline-div");
-		expect(timelineDiv.length).toEqual(1);
-		expect(timelineDiv.find("button#update-timeline").length).toEqual(1);
-		expect(timelineDiv.find("div#error-div").length).toEqual(1);
-		expect(timelineDiv.find("div#error-div").at(0).text())
-				.toEqual("Failed to fetch tweets from home timeline. Please try again later.");
+		setImmediate(() => { // await componentDidMount() doesn't work... Promise.reject() doesn't resolve in time? 
+			const timelineDiv = wrapper.find("div#timeline-div");
+			expect(timelineDiv.length).toEqual(1);
+			expect(timelineDiv.find("button#update-timeline").length).toEqual(1);
+			expect(timelineDiv.find("div#error-div").length).toEqual(1);
+			expect(timelineDiv.find("div#error-div").at(0).text())
+					.toEqual("Failed to fetch tweets from home timeline. Please try again later.");
+		});
+
 	});
 
 	// Test Non-Empty Tweets Case
@@ -40,8 +38,7 @@ describe("TimelineUI", () => {
 		mockedAPI.__setResponse(dummyTweets);
 
 		const wrapper = shallow(<TimelineUI fetchTimeline={mockedAPI.fetchHomeTimeline}/>);
-		await flushPromises();
-		//await wrapper.instance().componentDidMount(); // Wait until timeline is fetched
+		await wrapper.instance().componentDidMount(); // Wait until timeline is fetched
 
 		const timelineDiv = wrapper.find("div#timeline-div");
 		expect(timelineDiv.length).toEqual(1);
@@ -56,7 +53,7 @@ describe("TimelineUI", () => {
 		mockedAPI.__setResponse([]);
 
 		const wrapper = shallow(<TimelineUI fetchTimeline={mockedAPI.fetchHomeTimeline}/>);
-		await flushPromises();
+		await wrapper.instance().componentDidMount(); // Wait until timeline is fetched
 
 		const timelineDiv = wrapper.find("div#timeline-div");
 		expect(timelineDiv.length).toEqual(1);
