@@ -42,6 +42,7 @@ export default class TimelineUI extends React.Component {
 		);
 	}
 
+	// Property 'fetchTimeline' must point to function that returns Promise with tweets
 	updateTimeline() {
 		this.props.fetchTimeline().then(tweets => {
 			if (tweets.length > 0) {
