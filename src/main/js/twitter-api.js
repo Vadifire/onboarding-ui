@@ -37,6 +37,7 @@ export function fetchHomeTimeline() {
 			};
 		}
 	}).catch(error => { // Failed to fetch tweets
+		console.log(error);
 		return {
 			tweets: null,
 			error: "Failed to fetch home timeline. Please try again later."

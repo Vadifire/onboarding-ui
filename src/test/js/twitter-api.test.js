@@ -50,7 +50,7 @@ describe("twitter-api", () => {
 			expect(response.error).toBeNull();
 			expect(response.tweets).toEqual([{
 				user: {
-					name: "Unknown Handle"
+					name: "Unknown User"
 				}
 			}]);
 		});
