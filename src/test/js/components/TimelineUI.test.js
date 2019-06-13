@@ -45,7 +45,16 @@ describe("TimelineUI", () => {
 		const timelineDiv = wrapper.find("div#timeline-div");
 		expect(timelineDiv.length).toEqual(1);
 		expect(timelineDiv.find("button#update-timeline").length).toEqual(1);
-		expect(timelineDiv.find("div#tweets").length).toEqual(1);
+		const tweets = timelineDiv.find("div#tweets");
+		expect(tweets.length).toEqual(1);
+
+		const rows = tweets.find("div.row");
+		expect(rows.length).toEqual(dummyTweets.length);
+		rows.map((row, index) => {
+			const tweets = row.find("TweetBlock");
+			expect(tweets.length).toEqual(1);
+			expect(tweets.at(0).prop("tweet")).toEqual(dummyTweets[index]);
+		});
 	});
 
 	// Test Empty Tweets Case
@@ -63,5 +72,26 @@ describe("TimelineUI", () => {
 		expect(timelineDiv.find("div#error-div").length).toEqual(1);
 		expect(timelineDiv.find("div#error-div").at(0).text()).toEqual("Home timeline is empty.");
 	});
+
+/*
+	// Simulate button click
+	test("should update tweets on button click" , async () => {
+
+		mockedAPI.__setResponse([{url: "old url"}]);
+
+		const wrapper = shallow(<TimelineUI fetchTimeline={mockedAPI.fetchHomeTimeline}/>);
+		await wrapper.instance().componentDidMount(); // Wait until timeline is fetched
+
+		const timelineDiv = wrapper.find("div#timeline-div");
+
+		const button = timelineDiv.find("button#update-timeline").at(0);
+		const newTweets = [{url: "new url"}];
+		button.simulate("click");
+
+		setImmediate(() => {
+			const tweets = timelineDiv.find("div#tweets div.row TweetBlock");
+			expect(tweets.prop("tweet")).toEqual(newTweets[0]);
+		});
+	});*/
 
 });
