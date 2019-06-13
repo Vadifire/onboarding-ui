@@ -54,8 +54,7 @@
   "jest": {
     "automock": false,
     "setupFiles": [
-      "enzyme-react-16-adapter-setup",
-      "./src/test/js/setupFetchMock.js"
+      "enzyme-react-16-adapter-setup"
     ],
     "setupFilesAfterEnv": [
       "./node_modules/jest-enzyme/lib/index.js"

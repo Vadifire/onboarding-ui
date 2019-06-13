@@ -1,4 +1,5 @@
 import {fetchHomeTimeline} from "../../main/js/twitter-api";
+global.fetch = require('jest-fetch-mock');
 
 describe("twitter-api", () => {
 
@@ -14,7 +15,7 @@ describe("twitter-api", () => {
 	test("should attempt to fetch tweets and on reject return promise with error", done => {
 		fetch.mockReject();
 
-		fetchHomeTimeline().then((response) => {
+		fetchHomeTimeline().then(response => {
 			expect(response.error).toEqual("Failed to fetch home timeline. Please try again later.");
 			expect(response.tweets).toBeNull();
 			done();
@@ -24,7 +25,7 @@ describe("twitter-api", () => {
 	test("should attempt to fetch tweets and on OK return promise with empty timeline 'error'", done => {
 		fetch.mockResponse(JSON.stringify({}));
 
-		fetchHomeTimeline().then((response) => {
+		fetchHomeTimeline().then(response => {
 			expect(response.error).toEqual("Home timeline is empty.");
 			expect(response.tweets).toBeNull();
 			done();
@@ -37,7 +38,7 @@ describe("twitter-api", () => {
 		}];
 		fetch.mockResponse(JSON.stringify(tweets));
 
-		fetchHomeTimeline().then((response) => {
+		fetchHomeTimeline().then(response => {
 			expect(response.error).toBeNull();
 			expect(response.tweets).toEqual(tweets);
 			done();
@@ -47,7 +48,7 @@ describe("twitter-api", () => {
 	test("should attempt to fetch tweets and on OK return tweets with missing user replaced", done => {
 		fetch.mockResponse(JSON.stringify([{}]));
 
-		fetchHomeTimeline().then((response) => {
+		fetchHomeTimeline().then(response => {
 			expect(response.error).toBeNull();
 			expect(response.tweets).toEqual([{
 				user: {
