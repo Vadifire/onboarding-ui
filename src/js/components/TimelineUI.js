@@ -50,7 +50,7 @@ export default class TimelineUI extends React.Component {
 			} else {
 				this.setState({tweets : null, error: "Home timeline is empty."});
 			}
-		}).catch(err => {
+		}).catch(() => {
 			this.setState({tweets: null, error: "Failed to fetch tweets from home timeline. Please try again later."});
 		});
 	}
