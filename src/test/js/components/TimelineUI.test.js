@@ -6,11 +6,6 @@ jest.mock("../../../main/js/twitter-api");
 
 const mockedAPI = require("../../../main/js/twitter-api");
 
-function flushPromises() {
-	// https://github.com/facebook/jest/issues/2157#issuecomment-279171856
-	return new Promise(resolve => setImmediate(resolve));
-}
-
 describe("TimelineUI", () => {
 
 	// Test Error Case
@@ -24,7 +19,7 @@ describe("TimelineUI", () => {
 		});
 
 		const wrapper = shallow(<TimelineUI/>);
-		await flushPromises(); // Forces to wait for fetchHomeTimeline() result
+		await wrapper.instance().componentDidMount(); // Wait until timeline is fetched
 
 		const timelineDiv = wrapper.find("div#timeline-div");
 		expect(timelineDiv.length).toEqual(1);
@@ -47,7 +42,7 @@ describe("TimelineUI", () => {
 		});
 
 		const wrapper = shallow(<TimelineUI/>);
-		await flushPromises(); // Forces to wait for fetchHomeTimeline() result
+		await wrapper.instance().componentDidMount(); // Wait until timeline is fetched
 
 		const timelineDiv = wrapper.find("div#timeline-div");
 		expect(timelineDiv.length).toEqual(1);
