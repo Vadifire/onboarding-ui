@@ -10,22 +10,22 @@
  */
 export function fetchHomeTimeline() {
 	return fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => { // Attempt to fetch tweets
-		if (response.ok === true) {
-			return response.json();
+		if (!response.ok) {
+			throw new Error("Failed to fetch tweets. Server responded with status code: " + 
+					response.status + ", error message: " + response.statusText);
 		} else {
-			return Promise.reject(new Error("Failed to fetch tweets. Server responded with status code: " + 
-					response.status + ", error message: " + response.statusText));
+			return response.json();
 		}
 	}).then(tweets => { // Got JSON
 		if (tweets.length > 0) {
 			tweets.map(tweet => { // Populate default user to avoid reference error
-			if (!tweet.user) {
-				tweet.user = {
-					name: "Unknown Handle"
+				if (!tweet.user) {
+					tweet.user = {
+						name: "Unknown User"
+					}
 				}
-			}
-			return tweet;
-		});
+				return tweet;
+			});
 			return {
 				tweets, 
 				error: null
