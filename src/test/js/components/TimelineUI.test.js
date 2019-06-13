@@ -10,7 +10,8 @@ describe("TimelineUI", () => {
 
 	// Test Error Case
 	test("should contain div#timeline-div as top level element. " + 
-			"That div should then contain button#update-timeline and div#error-div with error message", async () => {
+			"That div should then contain button#update-timeline and div#error-div with error message", 
+			async (done) => {
 
 		mockedAPI.__setResponse(Promise.reject());
 
@@ -23,6 +24,7 @@ describe("TimelineUI", () => {
 			expect(timelineDiv.find("div#error-div").length).toEqual(1);
 			expect(timelineDiv.find("div#error-div").at(0).text())
 					.toEqual("Failed to fetch tweets from home timeline. Please try again later.");
+			done();
 		});
 
 	});
