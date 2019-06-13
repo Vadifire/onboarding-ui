@@ -10,7 +10,7 @@ export default class TimelineUI extends React.Component {
 		super();
 		this.state = {
 			tweets: null,
-			error: null
+			message: null
 		}
 	}
 
@@ -19,9 +19,9 @@ export default class TimelineUI extends React.Component {
 	}
 
 	render() {
-		let displayedElem; // Either display error or tweets
-		if (this.state.error) {
-			displayedElem = <div id="error-div">{this.state.error}</div>
+		let displayedElem; // Either display message or tweets
+		if (this.state.message) {
+			displayedElem = <div id="error-div">{this.state.message}</div>
 		}
 		if (this.state.tweets) {
 			displayedElem = 
@@ -46,12 +46,12 @@ export default class TimelineUI extends React.Component {
 	updateTimeline() {
 		fetchHomeTimeline().then(tweets => {
 			if (tweets.length > 0) {
-				this.setState({tweets, error: null});
+				this.setState({tweets, message: null});
 			} else {
-				this.setState({tweets : null, error: "Home timeline is empty."});
+				this.setState({tweets : null, message: "Home timeline is empty."});
 			}
 		}).catch(() => {
-			this.setState({tweets: null, error: "Failed to fetch tweets from home timeline. Please try again later."});
+			this.setState({tweets: null, message: "Failed to fetch tweets from home timeline. Please try again later."});
 		});
 	}
 
