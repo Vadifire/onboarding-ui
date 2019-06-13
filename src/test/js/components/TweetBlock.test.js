@@ -58,11 +58,11 @@ describe("TweetBlock", () => {
 		expect(displayName.at(0).text()).toEqual(dummyTweet.user.name);
 	});
 
-	test("twtestter handle should match that of tweet", () => {
+	test("twitter handle should match that of tweet", () => {
 		expect(twitterHandle.at(0).text()).toEqual(dummyTweet.user.twitterHandle);
 	});
 
-	test("date should match that of tweet and be in American month/day format", () => {
+	test("date should match that of tweet and be in US month/day format", () => {
 		expect(date.at(0).text())
 				.toEqual(new Date(dummyTweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"})
 		);
