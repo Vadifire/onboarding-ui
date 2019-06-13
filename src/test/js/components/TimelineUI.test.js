@@ -4,14 +4,14 @@ import TimelineUI from "../../../main/js/components/TimelineUI";
 
 jest.mock("../../../main/js/twitter-api");
 
+const mockedAPI = require("../../../main/js/twitter-api");
+
 function flushPromises() {
 	// https://github.com/facebook/jest/issues/2157#issuecomment-279171856
 	return new Promise(resolve => setImmediate(resolve));
 }
 
 describe("TimelineUI", () => {
-
-	const mockedAPI = require("../../../main/js/twitter-api");
 
 	// Test Error Case
 	test("should contain div#timeline-div as top level element. " + 
@@ -32,7 +32,6 @@ describe("TimelineUI", () => {
 		expect(timelineDiv.find("div#error-div").length).toEqual(1);
 		expect(timelineDiv.find("div#error-div").at(0).text()).toEqual(dummyErrorMsg);
 	});
-
 
 	// Test Tweets Case
 	test("should contain div#timeline-div as top level element. " + 
