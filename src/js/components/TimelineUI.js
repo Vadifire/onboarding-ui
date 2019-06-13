@@ -44,8 +44,14 @@ export default class TimelineUI extends React.Component {
 	}
 
 	updateTimeline() {
-		fetchHomeTimeline().then(response => {
-			this.setState({tweets : response.tweets, error: response.error});
+		fetchHomeTimeline().then(tweets => {
+			if (tweets.length > 0) {
+				this.setState({tweets, error: null});
+			} else {
+				this.setState({tweets : null, error: "Home timeline is empty."});
+			}
+		}).catch(err => {
+			this.setState({tweets: null, error: "Failed to fetch tweets from home timeline. Please try again later."});
 		});
 	}
 
