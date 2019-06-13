@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import {fetchHomeTimeline} from "../twitter-api";
 import TweetBlock from "./TweetBlock";
+import {fetchHomeTimeline} from "../twitter-api.js";
 import "../../css/components/TimelineUI.scss";
 
 // Presentational Component for Timeline
@@ -23,27 +23,30 @@ export default class TimelineUI extends React.Component {
 		if (this.state.error) {
 			displayedElem = <div id="error-div">{this.state.error}</div>
 		}
-		else if (this.state.tweets) {
+		if (this.state.tweets) {
 			displayedElem = 
-				<div id="tweets">{
-					this.state.tweets.map((tweet, index) => 
+				<div id="tweets">
+				{
+					this.state.tweets.map(tweet => 
 						<div key={tweet.url} className="row">
 							<TweetBlock tweet={tweet}/>
 						</div>
 					)
 				}
-			</div>;
+				</div>;
 		} 
 		return (
 		    <div id="timeline-div">
-				<button id="update-timeline" onClick={this.updateTimeline.bind(this)}>Update Home Timeline</button>
+				<button id="update-timeline" onClick={()=>this.updateTimeline()}>Update Home Timeline</button>
 				{displayedElem}
 			</div>
 		);
 	}
 
-	async updateTimeline() {
-		this.setState(await fetchHomeTimeline());
+	updateTimeline() {
+		fetchHomeTimeline().then(response => {
+			this.setState({tweets : response.tweets, error: response.error});
+		});
 	}
 
 }
