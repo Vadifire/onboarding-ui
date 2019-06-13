@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import TweetBlock from "./TweetBlock";
-import {fetchHomeTimeline} from "../twitter-api.js";
 import "../../css/components/TimelineUI.scss";
 
 // Presentational Component for Timeline
@@ -10,7 +9,7 @@ export default class TimelineUI extends React.Component {
 		super();
 		this.state = {
 			tweets: null,
-			error: null
+			message: null
 		}
 	}
 
@@ -19,9 +18,9 @@ export default class TimelineUI extends React.Component {
 	}
 
 	render() {
-		let displayedElem; // Either display error or tweets
-		if (this.state.error) {
-			displayedElem = <div id="error-div">{this.state.error}</div>
+		let displayedElem; // Either display message or tweets
+		if (this.state.message) {
+			displayedElem = <div id="error-div">{this.state.message}</div>
 		}
 		if (this.state.tweets) {
 			displayedElem = 
@@ -43,9 +42,16 @@ export default class TimelineUI extends React.Component {
 		);
 	}
 
+	// Property 'fetchTimeline' must point to function that returns Promise with tweets
 	updateTimeline() {
-		fetchHomeTimeline().then(response => {
-			this.setState({tweets : response.tweets, error: response.error});
+		this.props.fetchTimeline().then(tweets => {
+			if (tweets.length > 0) {
+				this.setState({tweets, message: null});
+			} else {
+				this.setState({tweets : null, message: "Home timeline is empty."});
+			}
+		}).catch(() => {
+			this.setState({tweets: null, message: "Failed to fetch tweets from home timeline. Please try again later."});
 		});
 	}
 

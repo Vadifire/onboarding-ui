@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import PageLayout from "./components/PageLayout";
+import Application from "./components/Application";
 
 ReactDOM.render(
-	<PageLayout />, document.getElementById("root")
+	<Application />, document.getElementById("root")
 );

@@ -1,0 +1,10 @@
+$font-family: "Times New Roman";
+
+body {
+	font: $font-family;
+}
+
+#title {
+	font: bold 40px $font-family;
+	text-align: center;
+}
