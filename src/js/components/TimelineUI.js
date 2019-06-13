@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import TweetBlock from "./TweetBlock";
-import {fetchHomeTimeline} from "../twitter-api.js";
 import "../../css/components/TimelineUI.scss";
 
 // Presentational Component for Timeline
@@ -44,7 +43,7 @@ export default class TimelineUI extends React.Component {
 	}
 
 	updateTimeline() {
-		fetchHomeTimeline().then(tweets => {
+		this.props.fetchTimeline().then(tweets => {
 			if (tweets.length > 0) {
 				this.setState({tweets, message: null});
 			} else {
