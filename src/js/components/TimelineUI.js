@@ -43,6 +43,7 @@ export default class TimelineUI extends React.Component {
 
 	// Property 'fetchTimeline' must point to function that returns Promise with tweets
 	updateTimeline() {
+		//console.log(this.props.fetchTimeline());
 		this.props.fetchTimeline().then(tweets => {
 			if (tweets.length > 0) {
 				const trimmedTweets = tweets.map(tweet => { // Only copy information we need
@@ -62,7 +63,6 @@ export default class TimelineUI extends React.Component {
 				this.setState({tweets : null, message: "Home timeline is empty."});
 			}
 		}).catch(err => {
-			console.log(err);
 			this.setState({tweets: null, message: "Failed to fetch tweets from home timeline. Please try again later."});
 		});
 	}
