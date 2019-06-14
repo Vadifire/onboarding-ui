@@ -23,16 +23,13 @@ export default class TimelineUI extends React.Component {
 			displayedElem = <div id="error-div">{this.state.message}</div>
 		}
 		if (this.state.tweets) {
-			displayedElem = 
-				<div id="tweets">
-				{
-					this.state.tweets.map(tweet => 
-						<div key={tweet.url} className="row">
-							<TweetBlock tweet={tweet}/>
-						</div>
-					)
-				}
-				</div>;
+			// Map tweets to React Components
+			const tweets = this.state.tweets.map(tweet =>
+				<div key={tweet.url} className="row">
+					<TweetBlock tweet={tweet}/>
+				</div>
+			);
+			displayedElem = <div id="tweets">{tweets}</div>;
 		} 
 		return (
 		    <div id="timeline-div">
@@ -46,11 +43,15 @@ export default class TimelineUI extends React.Component {
 	updateTimeline() {
 		this.props.fetchTimeline().then(tweets => {
 			if (tweets.length > 0) {
-				this.setState({tweets, message: null});
+				const trimmedTweets = tweets.map((tweet) => { // Trim any extra top-level KV pairs
+					return {message: tweet.message, user: tweet.user, createdAt: tweet.createdAt, url: tweet.url};
+				});
+				this.setState({tweets: trimmedTweets, message: null});
 			} else {
 				this.setState({tweets : null, message: "Home timeline is empty."});
 			}
-		}).catch(() => {
+		}).catch(err => {
+			console.log(err);
 			this.setState({tweets: null, message: "Failed to fetch tweets from home timeline. Please try again later."});
 		});
 	}

@@ -15,7 +15,7 @@ module.exports = {
 
     // "webpack-dev-server" configuration
     devServer: {
-        contentBase: path.resolve(__dirname, "./dist"), // Root directory served at localhost
+        contentBase: path.resolve(__dirname, "./src"), // Root directory served at localhost
         publicPath: "/js/", // Relative path bundled JS will be in
         watchContentBase: true, // Live reloading
         compress: true,
