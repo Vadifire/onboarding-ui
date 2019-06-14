@@ -11,7 +11,7 @@ export function fetchHomeTimeline() {
 		}
 		return response.json();
 	}).then(tweets => { // Got JSON
-		tweets.forEach(tweet => { // Populate default user to avoid reference error
+		return tweets.map(tweet => { // Populate default user to avoid reference error
 			if (!tweet.user) {
 				tweet.user = {
 					name: "Unknown User",
@@ -19,7 +19,7 @@ export function fetchHomeTimeline() {
 					profileImageUrl: ""
 				}
 			}
+			return tweet;
 		});
-		return tweets;
 	});
 }
