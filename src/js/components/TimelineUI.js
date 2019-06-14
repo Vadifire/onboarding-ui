@@ -11,6 +11,8 @@ export default class TimelineUI extends React.Component {
 			tweets: null,
 			message: null
 		}
+
+		this.updateTimeline = this.updateTimeline.bind(this);
 	}
 
 	componentDidMount() {
@@ -33,7 +35,7 @@ export default class TimelineUI extends React.Component {
 		} 
 		return (
 		    <div id="timeline-div">
-				<button id="update-timeline" onClick={()=>this.updateTimeline()}>Update Home Timeline</button>
+				<button id="update-timeline" onClick={this.updateTimeline}>Update Home Timeline</button>
 				{displayedElem}
 			</div>
 		);
@@ -43,8 +45,17 @@ export default class TimelineUI extends React.Component {
 	updateTimeline() {
 		this.props.fetchTimeline().then(tweets => {
 			if (tweets.length > 0) {
-				const trimmedTweets = tweets.map((tweet) => { // Trim any extra top-level KV pairs
-					return {message: tweet.message, user: tweet.user, createdAt: tweet.createdAt, url: tweet.url};
+				const trimmedTweets = tweets.map((tweet) => { // Only copy information we need
+					return {
+							createdAt: tweet.createdAt,
+							message: tweet.message,
+							url: tweet.url,
+							user: {
+								name: tweet.user.name,
+								profileImageUrl: tweet.user.profileImageUrl,
+								twitterHandle: tweet.user.twitterHandle
+							}
+					};
 				});
 				this.setState({tweets: trimmedTweets, message: null});
 			} else {
