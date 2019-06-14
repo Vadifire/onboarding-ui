@@ -45,7 +45,7 @@ export default class TimelineUI extends React.Component {
 	updateTimeline() {
 		this.props.fetchTimeline().then(tweets => {
 			if (tweets.length > 0) {
-				const trimmedTweets = tweets.map((tweet) => { // Only copy information we need
+				const trimmedTweets = tweets.map(tweet => { // Only copy information we need
 					return {
 							createdAt: tweet.createdAt,
 							message: tweet.message,
