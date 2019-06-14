@@ -11,7 +11,6 @@ export function fetchHomeTimeline() {
 		}
 		return response.json();
 	}).then(tweets => { // Got JSON
-		tweets[1].user = null;
 		tweets.map(tweet => { // Populate default user to avoid reference error
 			if (!tweet.user) {
 				tweet.user = {
@@ -22,7 +21,6 @@ export function fetchHomeTimeline() {
 			}
 			return tweet;
 		});
-		console.log(tweets);
 		return tweets;
 	});
 }
