@@ -69,7 +69,7 @@ describe("TimelineUI", () => {
 	}
 
 	// Test API Error Case
-	test.only("should render button and error message in API failure case", async() => {
+	test("should render button and error message in API failure case", async() => {
 
 		mockedAPI.__setResponse(Promise.reject());
 		const wrapper = shallow(<TimelineUI />);
