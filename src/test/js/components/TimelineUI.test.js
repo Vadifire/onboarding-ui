@@ -69,48 +69,69 @@ describe("TimelineUI", () => {
 	}
 
 	// Test API Error Case
-	test("should render button and error message in API failure case", async() => {
+	test("should render button and error message in API failure case", (done) => {
 
-		mockedAPI.__setResponse(Promise.reject());
+		const rejectedPromise = Promise.reject();
+		mockedAPI.__setPromisedResponse(rejectedPromise); // Makes API call return Promise.reject()
 		const wrapper = shallow(<TimelineUI />);
-		await wrapper.instance().updateTimeline();
-		expectErrorMessage(wrapper, API_ERROR_MESSAGE);
+
+		rejectedPromise.then(() => {
+			done.fail(Error("Promise should not resolve."));
+		}).catch(() => {
+			expectErrorMessage(wrapper, API_ERROR_MESSAGE);
+			done();
+		});
+
 	});
 
 	// Test Empty Tweets Case
 	test("should contain div#timeline-div as top level element. " + 
-			"That div should then contain button#update-timeline and div#error-div", async () => {
+			"That div should then contain button#update-timeline and div#error-div", (done) => {
 
-		mockedAPI.__setResponse([]);
+		const emptyPromise = Promise.resolve([]);
+		mockedAPI.__setPromisedResponse(emptyPromise);
 		const wrapper = shallow(<TimelineUI />);
-		await wrapper.instance().updateTimeline();
-		expectErrorMessage(wrapper, EMPTY_TIMELINE_MESSAGE);
+
+		emptyPromise.then(() => {
+			expectErrorMessage(wrapper, EMPTY_TIMELINE_MESSAGE);
+			done();
+		});
 	});
 
 
 	// Test Non-Empty Tweets Case
 	test("should contain div#timeline-div as top level element. " + 
-			"That div should then contain button#update-timeline and div#tweets", async () => {
+			"That div should then contain button#update-timeline and div#tweets", (done) => {
 
-		mockedAPI.__setResponse(dummyTweets);
+		const promisedTweets = Promise.resolve(dummyTweets);
+		mockedAPI.__setPromisedResponse(promisedTweets);
 		const wrapper = shallow(<TimelineUI />);
-		await wrapper.instance().updateTimeline();
-		expectTweets(wrapper, dummyTweets);
+
+		promisedTweets.then(() => {
+			expectTweets(wrapper, dummyTweets);
+			done();
+		});
 	});
 
 	// Simulate button click
-	test("should update tweets on button click" , async () => {
-		mockedAPI.__setResponse([]); // Start with blank tweets
+	test("should update tweets on button click" , (done) => {
+		const emptyPromise = Promise.resolve([]);
+		mockedAPI.__setPromisedResponse(emptyPromise); // Start with blank tweets
 		const wrapper = shallow(<TimelineUI />);
-		await wrapper.instance().updateTimeline(); // Wait until timeline is fetched from initial rendering
-		expectErrorMessage(wrapper, EMPTY_TIMELINE_MESSAGE);
 
-		const button = wrapper.find("div#timeline-div button#update-timeline").at(0);
-		mockedAPI.__setResponse(dummyTweets); // Define 'updated tweets' retrieved on button click
-		button.simulate("click");
-		await wrapper.instance().updateTimeline(); // Wait until timeline is updated from button click
-		expectTweets(wrapper, dummyTweets);
+		emptyPromise.then(() => {
+			expectErrorMessage(wrapper, EMPTY_TIMELINE_MESSAGE);
 
+			const promisedTweets = Promise.resolve(dummyTweets);
+			mockedAPI.__setPromisedResponse(promisedTweets); // Define updated tweets retrieved on button click
+			const button = wrapper.find("div#timeline-div button#update-timeline").at(0);
+			button.simulate("click");
+
+			promisedTweets.then(() => {
+				expectTweets(wrapper, dummyTweets);
+				done();
+			});
+		});
 	});
 
 });

@@ -1,11 +1,9 @@
 var response;
 
 export function fetchHomeTimeline() {
-	return new Promise((resolve, reject) => {
-		return resolve(response);
-	});
+	return response;
 }
 
-export function __setResponse(res) {
+export function __setPromisedResponse(res) {
 	response = res;
 }

@@ -43,9 +43,8 @@ export default class TimelineUI extends React.Component {
 		);
 	}
 
-	// Property 'fetchTimeline' must point to function that returns Promise with tweets
-	async updateTimeline() {
-		await fetchHomeTimeline().then(tweets => {
+	updateTimeline() {
+		return fetchHomeTimeline().then(tweets => {
 			if (tweets.length) {
 				const trimmedTweets = tweets.map(tweet => {
 					const trimmedTweet = _.pick(tweet, "message", "url", "createdAt", "user");

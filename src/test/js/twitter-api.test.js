@@ -25,7 +25,7 @@ describe("twitter-api", () => {
 	test("should attempt to fetch tweets and on OK return return promise with tweets", done => {
 		const tweets = [{
 			user: {},
-			message: "blah blah"
+			message: "some message"
 		}];
 		fetch.mockResponse(JSON.stringify(tweets));
 
