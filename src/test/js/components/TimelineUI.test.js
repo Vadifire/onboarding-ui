@@ -2,10 +2,9 @@ import React from "react";
 import { shallow } from "enzyme";
 import TimelineUI from "../../../main/js/components/TimelineUI";
 
+// Mock out API calls
 jest.mock("../../../main/js/twitter-api");
-
 const mockedAPI = require("../../../main/js/twitter-api");
-
 
 const dummyTweets = 
 	[{
@@ -53,20 +52,21 @@ describe("TimelineUI", () => {
 
 		const rows = tweets.find("div.row");
 		expect(rows.length).toEqual(tweetsResponse.length);
+
+		// Defines the expected (tweet object from API call) -> (tweet content used in rendering) conversion
+		function convTweet(tweet) {
+			tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
+			if (!tweet.user) {
+				tweet.user = {name: "Unknown User"};
+			}
+			return tweet;
+		}
+
 		rows.forEach((row, index) => {
 			const tweetBlocks = row.find("TweetBlock");
 			expect(tweetBlocks.length).toEqual(1);
 			expect(tweetBlocks.at(0).prop("tweet")).toEqual(convTweet(tweetsResponse[index]));
 		});
-	}
-
-	// Defines the expected (tweet object from API call) -> (tweet content used in rendering) conversion
-	function convTweet(tweet) {
-		tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
-		if (!tweet.user) {
-			tweet.user = {name: "Unknown User"};
-		}
-		return tweet;
 	}
 
 	// Test API Error Case
