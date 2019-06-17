@@ -5,15 +5,15 @@ import Application from "../../../main/js/components/Application";
 describe("TimelineUI", () => {
 	const wrapper = shallow(<Application/>);
 
-	test("should contain div with 'title' id", () => {
+	test("should contain a single div with 'title' id", () => {
 		expect(wrapper.find("div#title").length).toEqual(1);
 	});
 
-	test("should contain HelloMessage", () => {
+	test("should contain a single HelloMessage component", () => {
 		expect(wrapper.find("HelloMessage").length).toEqual(1);
 	});
 	
-	test("should contain TimelineUI", () => {
+	test("should contain a single TimelineUI component", () => {
 		expect(wrapper.find("TimelineUI").length).toEqual(1);
 	});
 });

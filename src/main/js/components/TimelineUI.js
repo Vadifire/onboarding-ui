@@ -13,7 +13,6 @@ export default class TimelineUI extends React.Component {
 			tweets: null,
 			message: null
 		}
-
 		this.updateTimeline = this.updateTimeline.bind(this);
 	}
 

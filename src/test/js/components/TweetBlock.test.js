@@ -18,32 +18,32 @@ describe("TweetBlock", () => {
 		};
 		const wrapper = shallow(<TweetBlock tweet={dummyTweet}/>);
 
-		const tweetDiv = wrapper.find("div.tweet");
-		expect(tweetDiv.length).toEqual(1);
+		const tweetDivs = wrapper.find("div.tweet");
+		expect(tweetDivs.length).toEqual(1);
 
-		const userDiv = tweetDiv.find("div.user-div");
-		expect(userDiv.length).toEqual(1);
+		const userDivs = tweetDivs.find("div.user-div");
+		expect(userDivs.length).toEqual(1);
 
-		const contentDiv = tweetDiv.find("div.content-div");
-		expect(contentDiv.length).toEqual(1);
+		const contentDivs = tweetDivs.find("div.content-div");
+		expect(contentDivs.length).toEqual(1);
 
-		const profileImages = userDiv.find("img.profile-image");
+		const profileImages = userDivs.find("img.profile-image");
 		expect(profileImages.length).toEqual(1);
 		expect(profileImages.at(0).prop("src")).toEqual(dummyTweet.user.profileImageUrl);
 
-		const displayName = userDiv.find("div.display-name");
-		expect(displayName.length).toEqual(1);
-		expect(displayName.at(0).text()).toEqual(dummyTweet.user.name);
+		const displayNames = userDivs.find("div.display-name");
+		expect(displayNames.length).toEqual(1);
+		expect(displayNames.at(0).text()).toEqual(dummyTweet.user.name);
 
-		const twitterHandles = userDiv.find("div.twitter-handle");
+		const twitterHandles = userDivs.find("div.twitter-handle");
 		expect(twitterHandles.length).toEqual(1);
 		expect(twitterHandles.at(0).text()).toEqual(dummyTweet.user.twitterHandle);
 
-		const dates = contentDiv.find("div.date");
+		const dates = contentDivs.find("div.date");
 		expect(dates.length).toEqual(1);
 		expect(dates.at(0).text()).toEqual(dummyTweet.createdAt);
 
-		const messages = contentDiv.find("div.message");
+		const messages = contentDivs.find("div.message");
 		expect(messages.length).toEqual(1);
 		expect(messages.at(0).text()).toEqual(dummyTweet.message);
 
