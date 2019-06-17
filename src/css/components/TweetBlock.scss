@@ -1,0 +1,61 @@
+$user-div-width: 160px;
+$names-width: 140px;
+$names-padding: ($user-div-width - $names-width) / 2;
+
+@mixin names() {
+	max-width: $names-width;
+	overflow: hidden;
+}
+
+.tweet {
+	align-items: center;
+	display: inline-grid;
+	grid-template-areas: "user-grid content-grid";
+	padding: 20px 10px 20px 0px;
+
+	.user-div {
+		grid-area: user-grid;
+		text-align: center;
+		width: $user-div-width;
+
+		.profile-image {
+			border-radius: 50%;
+			width: 80px;
+		}
+
+		.display-name {
+			@include names;
+			font-size: 15px; 
+			font-weight: bold;
+			padding: 4px 0px 2px $names-padding;
+		}
+
+		.twitter-handle {
+			@include names;
+			font-size: 12px;
+			padding: 1px 10px 0px $names-padding;
+		}
+
+	}
+
+	.content-div {
+		grid-area: content-grid;
+		min-width: 0px;
+		overflow: hidden;
+
+		.date {
+			font-size: 11px;
+			font-weight: italic;
+		}
+
+		.message {
+			padding-top: 6px;
+			font-size: 12px;
+
+			.tweet-link {
+				color: black;
+				text-decoration: none;
+			}
+		}
+	}
+}
