@@ -15,7 +15,7 @@ describe("TimelineUI", () => {
 
 		mockedAPI.__setResponse(Promise.reject());
 
-		const wrapper = shallow(<TimelineUI fetchTimeline={mockedAPI.fetchHomeTimeline}/>);
+		const wrapper = shallow(<TimelineUI />);
 
 		setImmediate(() => { // await componentDidMount() doesn't work... Promise.reject() doesn't resolve in time? 
 			const timelineDiv = wrapper.find("div#timeline-div");
@@ -34,13 +34,32 @@ describe("TimelineUI", () => {
 			"That div should then contain button#update-timeline and div#tweets", async () => {
 
 		const dummyTweets = [
-			{url: "url1"},
-			{url: "url2"}
+			{
+				message: "some message",
+				user: {
+					name: "george",
+					profileImageUrl: "www.twitter.com/george.png",
+					twitterHandle: "the_real_george"
+				},
+				createdAt: 1560440907000,
+				url: "twitter.com/filler"
+			},
+			{
+				message: "another message",
+				createdAt: 1560440901000,
+				url: "twitter.com/a_url"
+			}
 		];
 		mockedAPI.__setResponse(dummyTweets);
 
 		const wrapper = shallow(<TimelineUI fetchTimeline={mockedAPI.fetchHomeTimeline}/>);
 		await wrapper.instance().componentDidMount(); // Wait until timeline is fetched
+		dummyTweets.forEach(tweet => { // Convert tweets for comparison
+			tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
+			if (!tweet.user) {
+				tweet.user = {name: "Unknown User"};
+			}
+		});
 
 		const timelineDiv = wrapper.find("div#timeline-div");
 		expect(timelineDiv.length).toEqual(1);

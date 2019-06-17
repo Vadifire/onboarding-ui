@@ -24,25 +24,13 @@ describe("twitter-api", () => {
 
 	test("should attempt to fetch tweets and on OK return return promise with tweets", done => {
 		const tweets = [{
-			user: {}
+			user: {},
+			message: "blah blah"
 		}];
 		fetch.mockResponse(JSON.stringify(tweets));
 
 		fetchHomeTimeline().then(response => {
 			expect(response).toEqual(tweets);
-			done();
-		});
-	});
-
-	test("should attempt to fetch tweets and on OK return tweets with missing user replaced", done => {
-		fetch.mockResponse(JSON.stringify([{}]));
-
-		fetchHomeTimeline().then(response => {
-			expect(response).toEqual([{
-				user: {
-					name: "Unknown User"
-				}
-			}]);
 			done();
 		});
 	});

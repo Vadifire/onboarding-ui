@@ -62,10 +62,8 @@ describe("TweetBlock", () => {
 		expect(twitterHandle.at(0).text()).toEqual(dummyTweet.user.twitterHandle);
 	});
 
-	test("date should match that of tweet and be in US month/day format", () => {
-		expect(date.at(0).text())
-				.toEqual(new Date(dummyTweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"})
-		);
+	test("date should match that of tweet", () => {
+		expect(date.at(0).text()).toEqual(dummyTweet.createdAt);
 	});
 
 	test("message should link to tweet url", () => {
