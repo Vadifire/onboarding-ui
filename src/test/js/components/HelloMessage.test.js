@@ -10,7 +10,7 @@ describe("HelloMessage", () => {
 		expect(wrapper.text()).toEqual(dummyMessage);
 	});
 	
-	test("should contain div wtesth 'hello-message' id", () => {
+	test("should contain div with 'hello-message' id", () => {
 		expect(wrapper.find("div#hello-message").length).toEqual(1);
 	});
 
