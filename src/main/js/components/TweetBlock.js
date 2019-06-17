@@ -15,11 +15,8 @@ export default class TweetBlock extends React.Component {
 					</div>
 				</div>
 				<div className="content-div">
-					<div className="date">{
-							new Date(this.props.tweet.createdAt).toLocaleString("en-us", 
-									{month: "short", day: "numeric"}
-							)
-						}
+					<div className="date">
+							{this.props.tweet.createdAt}
 					</div>
 					<div className="message">
 						<a className="tweet-link" href={this.props.tweet.url}>
