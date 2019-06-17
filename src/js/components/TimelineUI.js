@@ -47,12 +47,13 @@ export default class TimelineUI extends React.Component {
 		this.props.fetchTimeline().then(tweets => {
 			if (tweets.length > 0) {
 				const trimmedTweets = tweets.map(tweet => {
-					const ret = _.pick(tweet, "message", "url", "createdAt", "user");
-					ret.createdAt = new Date(ret.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
-					if (!ret.user) {
-						ret.user = {name: "Unknown User"};
+					const trimmedTweet = _.pick(tweet, "message", "url", "createdAt", "user");
+					trimmedTweet.createdAt = new Date(trimmedTweet.createdAt)
+							.toLocaleString("en-us", {month: "short", day: "numeric"});
+					if (!trimmedTweet.user) {
+						trimmedTweet.user = {name: "Unknown User"};
 					}
-					return ret;
+					return trimmedTweet;
 				});
 				this.setState({tweets: trimmedTweets, message: null});
 			} else {
