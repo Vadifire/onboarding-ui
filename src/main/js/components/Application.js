@@ -3,12 +3,15 @@ import HelloMessage from "./HelloMessage";
 import TimelineUI from "./TimelineUI";
 import "../../css/components/Application.scss";
 
-// Contains Title, Hello Message, and Timeline UI
+export const classNames = {
+	TITLE: "title"
+};
+
 export default class Application extends React.Component {
 	render() {
 		return (
 			<div>
-				<div id="title">Lab for Cedric</div>
+				<div className={classNames.TITLE}>Lab for Cedric</div>
 				<HelloMessage message="hello react!" />
 				<TimelineUI />
 			</div>

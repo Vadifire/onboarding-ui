@@ -4,8 +4,10 @@
  * Returns a Promise wrapping tweets or a rejected Promise
  */
 
+export const HOME_TIMELINE_ENDPOINT = "http://localhost:8080/api/1.0/twitter/timeline";
+
 export function fetchHomeTimeline() {
-	return fetch("http://localhost:8080/api/1.0/twitter/timeline").then(response => { // Attempt to fetch tweets
+	return fetch(HOME_TIMELINE_ENDPOINT).then(response => { // Attempt to fetch tweets
 		return response.json();
 	}).then(tweets => { // Got JSON
 		return tweets;

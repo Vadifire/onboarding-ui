@@ -1,7 +1,5 @@
-import {fetchHomeTimeline} from "../../main/js/twitter-api";
+import {fetchHomeTimeline, HOME_TIMELINE_ENDPOINT} from "../../main/js/twitter-api";
 global.fetch = require('jest-fetch-mock');
-
-const HOME_TIMELINE_ENDPOINT = "http://localhost:8080/api/1.0/twitter/timeline";
 
 describe("twitter-api", () => {
 

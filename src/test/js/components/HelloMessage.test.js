@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
-import HelloMessage from "../../../main/js/components/HelloMessage";
+import HelloMessage, {classNames} from "../../../main/js/components/HelloMessage";
+import {expectOne} from "../test-util";
 
 describe("HelloMessage", () => {
 	const dummyMessage = "2 + 2 = 5";
@@ -10,8 +11,8 @@ describe("HelloMessage", () => {
 		expect(wrapper.text()).toEqual(dummyMessage);
 	});
 	
-	test("should contain div with 'hello-message' id", () => {
-		expect(wrapper.find("div#hello-message").length).toEqual(1);
+	test("should contain div with 'hello-message' class name", () => {
+		expectOne(wrapper, "div."+classNames.HELLO_MESSAGE);
 	});
 
 });
