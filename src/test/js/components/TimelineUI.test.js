@@ -1,7 +1,7 @@
 import React from "react";
-import {shallow} from "enzyme";
+import { shallow } from "enzyme";
 import TimelineUI from "../../../main/js/components/TimelineUI";
-import {expectOne} from "../test-util";
+import { expectOne } from "../test-util";
 
 // Mock out API calls
 jest.mock("../../../main/js/twitter-api");
