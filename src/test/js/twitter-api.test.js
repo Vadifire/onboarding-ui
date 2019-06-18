@@ -1,16 +1,26 @@
 import {fetchHomeTimeline, HOME_TIMELINE_ENDPOINT} from "../../main/js/twitter-api";
 
 const someNum = 4; // Just need readyState and DONE to be same
+
+
 const mockXHR = {
 	open: jest.fn(),
 	send: jest.fn(),
 	readyState: someNum,
 	DONE: someNum,
 };
+
 window.XMLHttpRequest = jest.fn(() => mockXHR);
 
 describe("twitter-api", () => {
 
+	afterEach(() => { // Ensure XHR retrieves from correct endpoint
+		expect(mockXHR.open).toHaveBeenCalledTimes(1);
+		expect(mockXHR.open).toHaveBeenCalledWith("GET", HOME_TIMELINE_ENDPOINT);
+		mockXHR.open.mockClear();
+		expect(mockXHR.send).toHaveBeenCalledTimes(1);
+		mockXHR.send.mockClear();
+	});
 
 	test("should attempt to fetch tweets and on reject let error propogate", done => {
 		

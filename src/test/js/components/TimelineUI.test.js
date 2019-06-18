@@ -24,34 +24,34 @@ const dummyTweets =
 		url: "twitter.com/a_url"
 	}];
 
+// Used in error message test cases
+function expectErrorMessage(wrapper, message) {
+	const timelineDiv = expectOne(wrapper, "div.timeline-div");
+	expectOne(timelineDiv, "button.update-timeline");
+	const errorDiv = expectOne(timelineDiv, "div.error-div");
+	expect(errorDiv.text()).toEqual(message);
+}
+
+// Used in valid response test cases
+function expectTweets(wrapper, response) {
+	const timelineDiv = expectOne(wrapper, "div.timeline-div");
+	expectOne(timelineDiv, "button.update-timeline");
+	const tweetsDiv = expectOne(timelineDiv, "div.tweets");
+
+	const rows = tweetsDiv.find("div.row");
+
+	const tweets = extractTweets(response);
+	rows.forEach((row, index) => {
+		const tweetBlock = expectOne(row, "TweetBlock");
+		expect(tweetBlock.prop("tweet")).toEqual(tweets[index]);
+	});
+}
+
 
 describe("TimelineUI", () => {
 
-	// Used in error message test cases
-	function expectErrorMessage(wrapper, message) {
-		const timelineDiv = expectOne(wrapper, "div.timeline-div");
-		expectOne(timelineDiv, "button.update-timeline");
-		const errorDiv = expectOne(timelineDiv, "div.error-div");
-		expect(errorDiv.text()).toEqual(message);
-	}
-
-	// Used in valid response test cases
-	function expectTweets(wrapper, response) {
-		const timelineDiv = expectOne(wrapper, "div.timeline-div");
-		expectOne(timelineDiv, "button.update-timeline");
-		const tweetsDiv = expectOne(timelineDiv, "div.tweets");
-
-		const rows = tweetsDiv.find("div.row");
-
-		const tweets = extractTweets(response);
-		rows.forEach((row, index) => {
-			const tweetBlock = expectOne(row, "TweetBlock");
-			expect(tweetBlock.prop("tweet")).toEqual(tweets[index]);
-		});
-	}
-
 	// Test API Error Case
-	test("should render button and error message: " + errorMessages.API_ERROR_MESSAGE, (done) => {
+	test("should render button and error message in API failure case", async() => {
 
 		mockedAPI.__setResponse(null); // TODO: make this make more sense...
 		const wrapper = shallow(<TimelineUI />);
