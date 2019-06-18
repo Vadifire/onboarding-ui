@@ -1,7 +1,6 @@
-import {fetchHomeTimeline, HOME_TIMELINE_ENDPOINT} from "../../main/js/twitter-api";
+import * as API from "../../main/js/twitter-api";
 
 const someNum = 4; // Just need readyState and DONE to be same
-
 
 const mockXHR = {
 	open: jest.fn(),
@@ -16,7 +15,7 @@ describe("twitter-api", () => {
 
 	afterEach(() => { // Ensure XHR retrieves from correct endpoint
 		expect(mockXHR.open).toHaveBeenCalledTimes(1);
-		expect(mockXHR.open).toHaveBeenCalledWith("GET", HOME_TIMELINE_ENDPOINT);
+		expect(mockXHR.open).toHaveBeenCalledWith("GET", API.HOME_TIMELINE_ENDPOINT);
 		mockXHR.open.mockClear();
 		expect(mockXHR.send).toHaveBeenCalledTimes(1);
 		mockXHR.send.mockClear();
@@ -26,7 +25,7 @@ describe("twitter-api", () => {
 		
 		mockXHR.responseText = "Invalid JSON"; // Return invalid JSON
 
-		fetchHomeTimeline(response => {
+		API.fetchHomeTimeline(response => {
 			expect(response).toBeNull();
 			done();
 		});
@@ -41,7 +40,7 @@ describe("twitter-api", () => {
 
 		mockXHR.responseText = JSON.stringify(tweets); // Set response to valid tweets
 
-		fetchHomeTimeline(response => {
+		API.fetchHomeTimeline(response => {
 			expect(response).toEqual(tweets);
 			done();
 		});

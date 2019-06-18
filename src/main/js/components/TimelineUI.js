@@ -4,26 +4,6 @@ import "../../css/components/TimelineUI.scss";
 import {fetchHomeTimeline} from "../twitter-api";
 const _ = require('lodash');
 
-export const errorMessages = {
-	API_ERROR_MESSAGE: "Failed to fetch tweets from home timeline. Please try again later.",
-	EMPTY_TIMELINE_MESSAGE: "Home timeline is empty."
-};
-
-export const DEFAULT_NAME = "Unknown User";
-
-// Utility function that defines what UI actually wants to use in state
-export function extractTweets(response) {
-	return response.map(tweet => {
-		const trimmedTweet = _.pick(tweet, "message", "url", "createdAt", "user");
-		trimmedTweet.createdAt = new Date(trimmedTweet.createdAt)
-				.toLocaleString("en-us", {month: "short", day: "numeric"});
-		if (!trimmedTweet.user) {
-			trimmedTweet.user = {name: DEFAULT_NAME};
-		}
-		return trimmedTweet;
-	});
-}
-
 // Presentational Component for Timeline
 export default class TimelineUI extends React.Component {
 
@@ -34,6 +14,30 @@ export default class TimelineUI extends React.Component {
 			message: null
 		}
 		this.updateTimeline = this.updateTimeline.bind(this);
+	}
+
+	static get DEFAULT_NAME() {
+		return "Unknown User";
+	}
+
+	static get API_ERROR_MESSAGE() {
+		return "Failed to fetch tweets from home timeline. Please try again later.";
+	}
+
+	static get EMPTY_TIMELINE_MESSAGE() {
+		return "Home timeline is empty.";
+	}
+
+	static extractTweets(response) {
+		return response.map(tweet => {
+			const trimmedTweet = _.pick(tweet, "message", "url", "createdAt", "user");
+			trimmedTweet.createdAt = new Date(trimmedTweet.createdAt)
+					.toLocaleString("en-us", {month: "short", day: "numeric"});
+			if (!trimmedTweet.user) {
+				trimmedTweet.user = {name: TimelineUI.DEFAULT_NAME};
+			}
+			return trimmedTweet;
+		});
 	}
 
 	componentDidMount() {
@@ -66,12 +70,12 @@ export default class TimelineUI extends React.Component {
 		fetchHomeTimeline(tweets => {
 			if (tweets) {
 				if (tweets.length) {
-					this.setState({tweets: extractTweets(tweets), message: null});
+					this.setState({tweets: TimelineUI.extractTweets(tweets), message: null});
 				} else {
-					this.setState({tweets : null, message: errorMessages.EMPTY_TIMELINE_MESSAGE});
+					this.setState({tweets : null, message: TimelineUI.EMPTY_TIMELINE_MESSAGE});
 				}
 			} else {
-				this.setState({tweets: null, message: errorMessages.API_ERROR_MESSAGE});
+				this.setState({tweets: null, message: TimelineUI.API_ERROR_MESSAGE});
 			}
 		});
 	}
