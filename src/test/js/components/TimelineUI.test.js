@@ -1,6 +1,6 @@
 import React from "react";
 import {shallow} from "enzyme";
-import TimelineUI, {errorMessages, classNames, DEFAULT_NAME} from "../../../main/js/components/TimelineUI";
+import TimelineUI, {errorMessages, DEFAULT_NAME} from "../../../main/js/components/TimelineUI";
 import {expectOne} from "../test-util";
 
 // Mock out API calls
@@ -29,19 +29,19 @@ describe("TimelineUI", () => {
 
 	// Used in error message test cases
 	function expectErrorMessage(wrapper, message) {
-		const timelineDiv = expectOne(wrapper, "div." + classNames.TIMELINE_DIV);
-		expectOne(timelineDiv, "button." + classNames.BUTTON);
-		const errorDiv = expectOne(timelineDiv, "div." + classNames.ERROR_DIV);
+		const timelineDiv = expectOne(wrapper, "div.timeline-div");
+		expectOne(timelineDiv, "button.update-timeline");
+		const errorDiv = expectOne(timelineDiv, "div.error-div");
 		expect(errorDiv.text()).toEqual(message);
 	}
 
 	// Used in valid response test cases
 	function expectTweets(wrapper, tweetsResponse) {
-		const timelineDiv = expectOne(wrapper, "div." + classNames.TIMELINE_DIV);
-		expectOne(timelineDiv, "button." + classNames.BUTTON);
-		const tweets = expectOne(timelineDiv, "div."+classNames.TWEETS);
+		const timelineDiv = expectOne(wrapper, "div.timeline-div");
+		expectOne(timelineDiv, "button.update-timeline");
+		const tweets = expectOne(timelineDiv, "div.tweets");
 
-		const rows = tweets.find("div." + classNames.ROW);
+		const rows = tweets.find("div.row");
 
 		// Defines the expected (tweet object from API call) -> (tweet content used in rendering) conversion
 		function convTweet(tweet) {
@@ -111,7 +111,7 @@ describe("TimelineUI", () => {
 
 			const promisedTweets = Promise.resolve(dummyTweets);
 			mockedAPI.__setPromisedResponse(promisedTweets); // Define updated tweets retrieved on button click
-			const button = expectOne(wrapper, "div." + classNames.TIMELINE_DIV + " button." + classNames.BUTTON);
+			const button = expectOne(wrapper, "div.timeline-div button.update-timeline");
 			button.simulate("click");
 
 			promisedTweets.then(() => {

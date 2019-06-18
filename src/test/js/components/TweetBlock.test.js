@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import TweetBlock, {classNames} from "../../../main/js/components/TweetBlock";
+import TweetBlock from "../../../main/js/components/TweetBlock";
 import {expectOne} from "../test-util";
 
 describe("TweetBlock", () => {
@@ -19,28 +19,28 @@ describe("TweetBlock", () => {
 		};
 		const wrapper = shallow(<TweetBlock tweet={dummyTweet}/>);
 
-		const tweetDiv = expectOne(wrapper, "div." + classNames.TWEET);
+		const tweetDiv = expectOne(wrapper, "div.tweet");
 
-		const userDiv = expectOne(tweetDiv, "div." + classNames.USER_DIV);
+		const userDiv = expectOne(tweetDiv, "div.user-div");
 
-		const contentDiv = expectOne(tweetDiv, "div." + classNames.CONTENT_DIV);
+		const contentDiv = expectOne(tweetDiv, "div.content-div");
 
-		const profileImage = expectOne(userDiv, "img." + classNames.PROFILE_IMAGE);
+		const profileImage = expectOne(userDiv, "img.profile-image");
 		expect(profileImage.prop("src")).toEqual(dummyTweet.user.profileImageUrl);
 
-		const displayName = expectOne(userDiv, "div." + classNames.DISPLAY_NAME);
+		const displayName = expectOne(userDiv, "div.display-name");
 		expect(displayName.text()).toEqual(dummyTweet.user.name);
 
-		const twitterHandle = expectOne(userDiv, "div." + classNames.TWITTER_HANDLE);
+		const twitterHandle = expectOne(userDiv, "div.twitter-handle");
 		expect(twitterHandle.text()).toEqual(dummyTweet.user.twitterHandle);
 
-		const date = expectOne(contentDiv, "div." + classNames.DATE);
+		const date = expectOne(contentDiv, "div.date");
 		expect(date.text()).toEqual(dummyTweet.createdAt);
 
-		const message = expectOne(contentDiv, "div." + classNames.MESSAGE);
+		const message = expectOne(contentDiv, "div.message");
 		expect(message.text()).toEqual(dummyTweet.message);
 
-		const tweetLink = expectOne(message, "a." + classNames.TWEET_LINK);
+		const tweetLink = expectOne(message, "a.tweet-link");
 		expect(tweetLink.prop("href")).toEqual(dummyTweet.url);
 
 	});

@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import HelloMessage, {classNames} from "../../../main/js/components/HelloMessage";
+import HelloMessage from "../../../main/js/components/HelloMessage";
 import {expectOne} from "../test-util";
 
 describe("HelloMessage", () => {
@@ -12,7 +12,7 @@ describe("HelloMessage", () => {
 	});
 	
 	test("should contain div with 'hello-message' class name", () => {
-		expectOne(wrapper, "div."+classNames.HELLO_MESSAGE);
+		expectOne(wrapper, "div.hello-message");
 	});
 
 });
