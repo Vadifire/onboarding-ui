@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import TweetBlock from "../../../main/js/components/TweetBlock";
-import {expectOne} from "../test-util";
+import { expectOne } from "../test-util";
 
 describe("TweetBlock", () => {
 

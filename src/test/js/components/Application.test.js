@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import Application from "../../../main/js/components/Application";
-import {expectOne} from "../test-util";
+import { expectOne } from "../test-util";
 
 describe("TimelineUI", () => {
 	const wrapper = shallow(<Application/>);
