@@ -1,20 +1,16 @@
 import * as API from "../../main/js/twitter-api";
-global.fetch = require('jest-fetch-mock');
+global.fetch = jest.fn();
 
 describe("twitter-api", () => {
 
-	beforeEach(() => {
-		fetch.resetMocks()
-	});
-
 	afterEach(() => {
-		expect(fetch.mock.calls.length).toEqual(1);
-		expect(fetch.mock.calls[0][0]).toEqual(API.HOME_TIMELINE_ENDPOINT);
+		expect(global.fetch).toHaveBeenCalledTimes(1);
+		global.fetch.mockReset();
 	});
 
 	test("should attempt to fetch tweets and on reject let error propogate", done => {
 		const error = new Error("an error");
-		fetch.mockReject(error);
+		global.fetch = jest.fn(() => Promise.reject(error));
 
 		API.fetchHomeTimeline().catch(err => {
 			expect(err).toEqual(error);
@@ -27,7 +23,9 @@ describe("twitter-api", () => {
 			user: {},
 			message: "some message"
 		}];
-		fetch.mockResponse(JSON.stringify(tweets));
+		global.fetch = jest.fn(() => {
+			return Promise.resolve({json: () => tweets});
+		});
 
 		API.fetchHomeTimeline().then(response => {
 			expect(response).toEqual(tweets);
