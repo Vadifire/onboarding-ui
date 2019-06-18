@@ -1,6 +1,6 @@
 import React from "react";
 import {shallow} from "enzyme";
-import TimelineUI, {errorMessages, DEFAULT_NAME, extractTweets} from "../../../main/js/components/TimelineUI";
+import TimelineUI from "../../../main/js/components/TimelineUI";
 import {expectOne} from "../test-util";
 
 // Mock out API calls
@@ -24,34 +24,33 @@ const dummyTweets =
 		url: "twitter.com/a_url"
 	}];
 
+// Used in error message test cases
+function expectErrorMessage(wrapper, message) {
+	const timelineDiv = expectOne(wrapper, "div.timeline-div");
+	expectOne(timelineDiv, "button.update-timeline");
+	const errorDiv = expectOne(timelineDiv, "div.error-div");
+	expect(errorDiv.text()).toEqual(message);
+}
+
+// Used in valid response test cases
+function expectTweets(wrapper, response) {
+	const timelineDiv = expectOne(wrapper, "div.timeline-div");
+	expectOne(timelineDiv, "button.update-timeline");
+	const tweetsDiv = expectOne(timelineDiv, "div.tweets");
+
+	const rows = tweetsDiv.find("div.row");
+
+	const tweets = TimelineUI.extractTweets(response);
+	rows.forEach((row, index) => {
+		const tweetBlock = expectOne(row, "TweetBlock");
+		expect(tweetBlock.prop("tweet")).toEqual(tweets[index]);
+	});
+}
 
 describe("TimelineUI", () => {
 
-	// Used in error message test cases
-	function expectErrorMessage(wrapper, message) {
-		const timelineDiv = expectOne(wrapper, "div.timeline-div");
-		expectOne(timelineDiv, "button.update-timeline");
-		const errorDiv = expectOne(timelineDiv, "div.error-div");
-		expect(errorDiv.text()).toEqual(message);
-	}
-
-	// Used in valid response test cases
-	function expectTweets(wrapper, response) {
-		const timelineDiv = expectOne(wrapper, "div.timeline-div");
-		expectOne(timelineDiv, "button.update-timeline");
-		const tweetsDiv = expectOne(timelineDiv, "div.tweets");
-
-		const rows = tweetsDiv.find("div.row");
-
-		const tweets = extractTweets(response);
-		rows.forEach((row, index) => {
-			const tweetBlock = expectOne(row, "TweetBlock");
-			expect(tweetBlock.prop("tweet")).toEqual(tweets[index]);
-		});
-	}
-
 	// Test API Error Case
-	test("should render button and error message: " + errorMessages.API_ERROR_MESSAGE, (done) => {
+	test("should render button and error message: " + TimelineUI.API_ERROR_MESSAGE, (done) => {
 
 		const rejectedPromise = Promise.reject();
 		mockedAPI.__setPromisedResponse(rejectedPromise); // Makes API call return Promise.reject()
@@ -60,21 +59,21 @@ describe("TimelineUI", () => {
 		rejectedPromise.then(() => {
 			done.fail(Error("Promise should not resolve."));
 		}).catch(() => {
-			expectErrorMessage(wrapper, errorMessages.API_ERROR_MESSAGE);
+			expectErrorMessage(wrapper, TimelineUI.API_ERROR_MESSAGE);
 			done();
 		});
 
 	});
 
 	// Test Empty Tweets Case
-	test("should render button and error message: " + errorMessages.EMPTY_TIMELINE_MESSAGE, (done) => {
+	test("should render button and error message: " + TimelineUI.EMPTY_TIMELINE_MESSAGE, (done) => {
 
 		const emptyPromise = Promise.resolve([]);
 		mockedAPI.__setPromisedResponse(emptyPromise);
 		const wrapper = shallow(<TimelineUI />);
 
 		emptyPromise.then(() => {
-			expectErrorMessage(wrapper, errorMessages.EMPTY_TIMELINE_MESSAGE);
+			expectErrorMessage(wrapper, TimelineUI.EMPTY_TIMELINE_MESSAGE);
 			done();
 		});
 	});
@@ -99,7 +98,7 @@ describe("TimelineUI", () => {
 		const wrapper = shallow(<TimelineUI />);
 
 		emptyPromise.then(() => {
-			expectErrorMessage(wrapper, errorMessages.EMPTY_TIMELINE_MESSAGE);
+			expectErrorMessage(wrapper, TimelineUI.EMPTY_TIMELINE_MESSAGE);
 
 			const promisedTweets = Promise.resolve(dummyTweets);
 			mockedAPI.__setPromisedResponse(promisedTweets); // Define updated tweets retrieved on button click

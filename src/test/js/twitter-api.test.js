@@ -1,4 +1,4 @@
-import {fetchHomeTimeline, HOME_TIMELINE_ENDPOINT} from "../../main/js/twitter-api";
+import * as API from "../../main/js/twitter-api";
 global.fetch = require('jest-fetch-mock');
 
 describe("twitter-api", () => {
@@ -9,14 +9,14 @@ describe("twitter-api", () => {
 
 	afterEach(() => {
 		expect(fetch.mock.calls.length).toEqual(1);
-		expect(fetch.mock.calls[0][0]).toEqual(HOME_TIMELINE_ENDPOINT);
+		expect(fetch.mock.calls[0][0]).toEqual(API.HOME_TIMELINE_ENDPOINT);
 	});
 
 	test("should attempt to fetch tweets and on reject let error propogate", done => {
 		const error = new Error("an error");
 		fetch.mockReject(error);
 
-		fetchHomeTimeline().catch(err => {
+		API.fetchHomeTimeline().catch(err => {
 			expect(err).toEqual(error);
 			done();
 		});
@@ -29,7 +29,7 @@ describe("twitter-api", () => {
 		}];
 		fetch.mockResponse(JSON.stringify(tweets));
 
-		fetchHomeTimeline().then(response => {
+		API.fetchHomeTimeline().then(response => {
 			expect(response).toEqual(tweets);
 			done();
 		});
