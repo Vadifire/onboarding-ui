@@ -11,7 +11,7 @@ describe("HelloMessage", () => {
 		expect(wrapper.text()).toEqual(dummyMessage);
 	});
 	
-	test("should contain div with 'hello-message' class name", () => {
+	test("should contain a single hello message div", () => {
 		expectOne(wrapper, "div.hello-message");
 	});
 

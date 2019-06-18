@@ -6,7 +6,7 @@ import {expectOne} from "../test-util";
 describe("TimelineUI", () => {
 	const wrapper = shallow(<Application/>);
 
-	test("should contain a single div", () => {
+	test("should contain a single title div", () => {
 		expectOne(wrapper, "div.title");
 	});
 
