@@ -11,6 +11,19 @@ export const errorMessages = {
 
 export const DEFAULT_NAME = "Unknown User";
 
+// Utility function that defines what UI actually wants to use in state
+export function extractTweets(response) {
+	return response.map(tweet => {
+		const trimmedTweet = _.pick(tweet, "message", "url", "createdAt", "user");
+		trimmedTweet.createdAt = new Date(trimmedTweet.createdAt)
+				.toLocaleString("en-us", {month: "short", day: "numeric"});
+		if (!trimmedTweet.user) {
+			trimmedTweet.user = {name: DEFAULT_NAME};
+		}
+		return trimmedTweet;
+	});
+}
+
 // Presentational Component for Timeline
 export default class TimelineUI extends React.Component {
 
@@ -52,16 +65,7 @@ export default class TimelineUI extends React.Component {
 	updateTimeline() {
 		return fetchHomeTimeline().then(tweets => {
 			if (tweets.length) {
-				const trimmedTweets = tweets.map(tweet => {
-					const trimmedTweet = _.pick(tweet, "message", "url", "createdAt", "user");
-					trimmedTweet.createdAt = new Date(trimmedTweet.createdAt)
-							.toLocaleString("en-us", {month: "short", day: "numeric"});
-					if (!trimmedTweet.user) {
-						trimmedTweet.user = {name: DEFAULT_NAME};
-					}
-					return trimmedTweet;
-				});
-				this.setState({tweets: trimmedTweets, message: null});
+				this.setState({tweets: extractTweets(tweets), message: null});
 			} else {
 				this.setState({tweets : null, message: errorMessages.EMPTY_TIMELINE_MESSAGE});
 			}

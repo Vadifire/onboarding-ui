@@ -1,6 +1,6 @@
 import React from "react";
 import {shallow} from "enzyme";
-import TimelineUI, {errorMessages, DEFAULT_NAME} from "../../../main/js/components/TimelineUI";
+import TimelineUI, {errorMessages, DEFAULT_NAME, extractTweets} from "../../../main/js/components/TimelineUI";
 import {expectOne} from "../test-util";
 
 // Mock out API calls
@@ -36,25 +36,17 @@ describe("TimelineUI", () => {
 	}
 
 	// Used in valid response test cases
-	function expectTweets(wrapper, tweetsResponse) {
+	function expectTweets(wrapper, response) {
 		const timelineDiv = expectOne(wrapper, "div.timeline-div");
 		expectOne(timelineDiv, "button.update-timeline");
-		const tweets = expectOne(timelineDiv, "div.tweets");
+		const tweetsDiv = expectOne(timelineDiv, "div.tweets");
 
-		const rows = tweets.find("div.row");
+		const rows = tweetsDiv.find("div.row");
 
-		// Defines the expected (tweet object from API call) -> (tweet content used in rendering) conversion
-		function convTweet(tweet) {
-			tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
-			if (!tweet.user) {
-				tweet.user = {name: DEFAULT_NAME};
-			}
-			return tweet;
-		}
-
+		const tweets = extractTweets(response);
 		rows.forEach((row, index) => {
 			const tweetBlock = expectOne(row, "TweetBlock");
-			expect(tweetBlock.prop("tweet")).toEqual(convTweet(tweetsResponse[index]));
+			expect(tweetBlock.prop("tweet")).toEqual(tweets[index]);
 		});
 	}
 
