@@ -1,10 +1,10 @@
 var response;
 
 // Mock API call
-export function fetchHomeTimeline() {
-	return response;
+export function fetchHomeTimeline(callback) {
+	callback(response);
 }
 
-export function __setPromisedResponse(res) {
+export function __setResponse(res) {
 	response = res;
 }

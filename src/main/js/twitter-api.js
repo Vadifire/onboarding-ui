@@ -6,10 +6,20 @@
 
 export const HOME_TIMELINE_ENDPOINT = "http://localhost:8080/api/1.0/twitter/timeline";
 
-export function fetchHomeTimeline() {
-	return fetch(HOME_TIMELINE_ENDPOINT).then(response => { // Attempt to fetch tweets
-		return response.json();
-	}).then(tweets => { // Got JSON
-		return tweets;
-	});
+export function fetchHomeTimeline(callback) {
+
+	const xhttp = new XMLHttpRequest();
+
+	xhttp.open("GET", HOME_TIMELINE_ENDPOINT);
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState === xhttp.DONE) {
+			try {
+				const tweets = JSON.parse(xhttp.responseText);
+				callback(tweets);
+			} catch {
+				callback(null);
+			}
+		}
+	};
+	xhttp.send();
 }

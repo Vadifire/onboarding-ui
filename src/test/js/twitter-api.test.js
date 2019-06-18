@@ -1,38 +1,42 @@
 import {fetchHomeTimeline, HOME_TIMELINE_ENDPOINT} from "../../main/js/twitter-api";
-global.fetch = require('jest-fetch-mock');
+
+const someNum = 4; // Just need readyState and DONE to be same
+const mockXHR = {
+	open: jest.fn(),
+	send: jest.fn(),
+	readyState: someNum,
+	DONE: someNum,
+};
+window.XMLHttpRequest = jest.fn(() => mockXHR);
 
 describe("twitter-api", () => {
 
-	beforeEach(() => {
-		fetch.resetMocks()
-	});
-
-	afterEach(() => {
-		expect(fetch.mock.calls.length).toEqual(1);
-		expect(fetch.mock.calls[0][0]).toEqual(HOME_TIMELINE_ENDPOINT);
-	});
 
 	test("should attempt to fetch tweets and on reject let error propogate", done => {
-		const error = new Error("an error");
-		fetch.mockReject(error);
+		
+		mockXHR.responseText = "Invalid JSON"; // Return invalid JSON
 
-		fetchHomeTimeline().catch(err => {
-			expect(err).toEqual(error);
+		fetchHomeTimeline(response => {
+			expect(response).toBeNull();
 			done();
 		});
+
+		mockXHR.onreadystatechange();
 	});
 
-	test("should fetch tweets from API, parse from JSON, and return tweets", done => {
+	test("should fetch from API, parse tweets from JSON, and call callback with tweets", done => {
 		const tweets = [{
-			user: {},
 			message: "some message"
 		}];
-		fetch.mockResponse(JSON.stringify(tweets));
 
-		fetchHomeTimeline().then(response => {
+		mockXHR.responseText = JSON.stringify(tweets); // Set response to valid tweets
+
+		fetchHomeTimeline(response => {
 			expect(response).toEqual(tweets);
 			done();
 		});
+
+		mockXHR.onreadystatechange();
 	});
 
 });

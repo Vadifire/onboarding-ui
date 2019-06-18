@@ -53,64 +53,47 @@ describe("TimelineUI", () => {
 	// Test API Error Case
 	test("should render button and error message: " + errorMessages.API_ERROR_MESSAGE, (done) => {
 
-		const rejectedPromise = Promise.reject();
-		mockedAPI.__setPromisedResponse(rejectedPromise); // Makes API call return Promise.reject()
+		mockedAPI.__setResponse(null); // TODO: make this make more sense...
 		const wrapper = shallow(<TimelineUI />);
 
-		rejectedPromise.then(() => {
-			done.fail(Error("Promise should not resolve."));
-		}).catch(() => {
-			expectErrorMessage(wrapper, errorMessages.API_ERROR_MESSAGE);
-			done();
-		});
+		expectErrorMessage(wrapper, errorMessages.API_ERROR_MESSAGE);
+		done();
 
 	});
 
 	// Test Empty Tweets Case
 	test("should render button and error message: " + errorMessages.EMPTY_TIMELINE_MESSAGE, (done) => {
 
-		const emptyPromise = Promise.resolve([]);
-		mockedAPI.__setPromisedResponse(emptyPromise);
+		mockedAPI.__setResponse([]);
 		const wrapper = shallow(<TimelineUI />);
 
-		emptyPromise.then(() => {
-			expectErrorMessage(wrapper, errorMessages.EMPTY_TIMELINE_MESSAGE);
-			done();
-		});
+		expectErrorMessage(wrapper, errorMessages.EMPTY_TIMELINE_MESSAGE);
+		done();
 	});
 
 	// Test Non-Empty Tweets Case
 	test("should render button and tweets", (done) => {
 
-		const promisedTweets = Promise.resolve(dummyTweets);
-		mockedAPI.__setPromisedResponse(promisedTweets);
+		mockedAPI.__setResponse(dummyTweets);
 		const wrapper = shallow(<TimelineUI />);
 
-		promisedTweets.then(() => {
-			expectTweets(wrapper, dummyTweets);
-			done();
-		});
+		expectTweets(wrapper, dummyTweets);
+		done();
 	});
 
 	// Simulate button click
 	test("should render updated tweets on button click" , (done) => {
-		const emptyPromise = Promise.resolve([]);
-		mockedAPI.__setPromisedResponse(emptyPromise); // Start with blank tweets
+		mockedAPI.__setResponse([]); // Start with blank tweets
 		const wrapper = shallow(<TimelineUI />);
 
-		emptyPromise.then(() => {
-			expectErrorMessage(wrapper, errorMessages.EMPTY_TIMELINE_MESSAGE);
+		expectErrorMessage(wrapper, errorMessages.EMPTY_TIMELINE_MESSAGE);
 
-			const promisedTweets = Promise.resolve(dummyTweets);
-			mockedAPI.__setPromisedResponse(promisedTweets); // Define updated tweets retrieved on button click
-			const button = expectOne(wrapper, "div.timeline-div button.update-timeline");
-			button.simulate("click");
+		mockedAPI.__setResponse(dummyTweets); // Define updated tweets retrieved on button click
+		const button = expectOne(wrapper, "div.timeline-div button.update-timeline");
+		button.simulate("click");
 
-			promisedTweets.then(() => {
-				expectTweets(wrapper, dummyTweets);
-				done();
-			});
-		});
+		expectTweets(wrapper, dummyTweets);
+		done();
 	});
 
 });
