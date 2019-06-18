@@ -24,6 +24,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-react-16-adapter-setup": "^0.1.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
     "jest-enzyme": "^7.0.2",
     "jest-fetch-mock": "^2.1.2",
@@ -61,7 +62,7 @@
       "./node_modules/jest-enzyme/lib/index.js"
     ],
     "moduleNameMapper": {
-      "\\.(css|scss)$": "<rootDir>/src/main/js/__mocks__/style-mock.js"
+      "\\.(css|scss)$": "identity-obj-proxy"
     }
   }
 }
