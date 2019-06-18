@@ -1,5 +1,4 @@
 import * as API from "../../main/js/twitter-api";
-global.fetch = jest.fn();
 
 describe("twitter-api", () => {
 
