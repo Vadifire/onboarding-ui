@@ -56,9 +56,7 @@ describe("TimelineUI", () => {
 		mockedAPI.__setPromisedResponse(rejectedPromise); // Makes API call return Promise.reject()
 		const wrapper = shallow(<TimelineUI />);
 
-		rejectedPromise.then(() => {
-			done.fail(Error("Promise should not resolve."));
-		}).catch(() => {
+		rejectedPromise.catch(() => {
 			expectErrorMessage(wrapper, TimelineUI.API_ERROR_MESSAGE);
 			done();
 		});
