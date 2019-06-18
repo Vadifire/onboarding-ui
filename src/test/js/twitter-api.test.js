@@ -4,6 +4,7 @@ describe("twitter-api", () => {
 
 	afterEach(() => {
 		expect(global.fetch).toHaveBeenCalledTimes(1);
+		expect(global.fetch).toHaveBeenCalledWith(API.HOME_TIMELINE_ENDPOINT);
 		global.fetch.mockReset();
 	});
 
