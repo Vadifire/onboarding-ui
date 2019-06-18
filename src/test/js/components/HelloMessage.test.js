@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import HelloMessage from "../../../main/js/components/HelloMessage";
-import {expectOne} from "../test-util";
+import { expectOne } from "../test-util";
 
 describe("HelloMessage", () => {
 	const dummyMessage = "2 + 2 = 5";

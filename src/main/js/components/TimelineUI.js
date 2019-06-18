@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TweetBlock from "./TweetBlock";
 import "../../css/components/TimelineUI.scss";
-import {fetchHomeTimeline} from "../twitter-api";
+import { fetchHomeTimeline } from "../twitter-api";
 const _ = require('lodash');
 
 // Presentational Component for Timeline
