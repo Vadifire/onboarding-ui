@@ -25,12 +25,10 @@ describe("twitter-api", () => {
 	test("should attempt to fetch tweets and on reject execute callback with null", done => {
 		
 		mockXHR.responseText = "Invalid JSON"; // Return invalid JSON
-
 		Api.fetchHomeTimeline(response => {
 			expect(response).toBeNull();
 			done();
 		});
-
 		mockXHR.onreadystatechange();
 	});
 
@@ -40,12 +38,10 @@ describe("twitter-api", () => {
 		}];
 
 		mockXHR.responseText = JSON.stringify(tweets); // Set response to valid tweets
-
 		Api.fetchHomeTimeline(response => {
 			expect(response).toEqual(tweets);
 			done();
 		});
-
 		mockXHR.onreadystatechange();
 	});
 
