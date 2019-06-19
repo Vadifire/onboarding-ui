@@ -8,24 +8,25 @@ describe("TimelineUI", () => {
 
 	let dummyTweets, timelineUI;
 
-	function getTimelineDiv(timelineUI) {
+	function getTimelineDiv() {
 		return expectOne(timelineUI, "div.timeline-div");
 	}
 
-	function expectButton(timelineUI) { // These elements never change
+	function expectButton() { // These elements never change
 		const button = expectOne(getTimelineDiv(timelineUI), "button.update-timeline");
 		expect(button.prop("onClick")).toEqual(timelineUI.instance().updateTimeline);
 	}
 
 	// Used in error message test cases
-	function expectErrorMessage(timelineUI, message) {
+	function expectErrorMessage(message) {
+		const timelineDiv = getTimelineDiv(timelineUI);
 		const errorDiv = expectOne(getTimelineDiv(timelineUI), "div.error-div");
 		expect(errorDiv.text()).toEqual(message);
 		expect(API.fetchHomeTimeline).toHaveBeenCalledTimes(1);
 	}
 
 	// Used in valid response test cases
-	function expectTweets(timelineUI, response) {
+	function expectTweets(response) {
 		const tweetsDiv = expectOne(getTimelineDiv(timelineUI), "div.tweets");
 		const rows = tweetsDiv.find("div.row");
 		const tweets = TimelineUI.extractTweets(response);
@@ -66,7 +67,7 @@ describe("TimelineUI", () => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.reject());
 		timelineUI.instance().updateTimeline().then(() => {
-			expectErrorMessage(timelineUI, TimelineUI.API_ERROR_MESSAGE);
+			expectErrorMessage(timelineUI.API_ERROR_MESSAGE);
 			done();
 		});
 	});
@@ -76,7 +77,7 @@ describe("TimelineUI", () => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.resolve([]));
 		timelineUI.instance().updateTimeline().then(() => {
-			expectErrorMessage(timelineUI, TimelineUI.EMPTY_TIMELINE_MESSAGE);
+			expectErrorMessage(TimelineUI.EMPTY_TIMELINE_MESSAGE);
 			done();
 		});
 	});
@@ -86,7 +87,7 @@ describe("TimelineUI", () => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.resolve(dummyTweets));
 		timelineUI.instance().updateTimeline().then(() => {
-			expectTweets(timelineUI, dummyTweets);
+			expectTweets(dummyTweets);
 			done();
 		});
 	});
