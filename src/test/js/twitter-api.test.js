@@ -1,10 +1,10 @@
-import * as API from "../../main/js/twitter-api";
+import * as Api from "../../main/js/twitter-api";
 
 describe("twitter-api", () => {
 
 	afterEach(() => {
 		expect(global.fetch).toHaveBeenCalledTimes(1);
-		expect(global.fetch).toHaveBeenCalledWith(API.HOME_TIMELINE_ENDPOINT);
+		expect(global.fetch).toHaveBeenCalledWith(Api.homeTimelineEndpoint);
 		global.fetch.mockReset();
 	});
 
@@ -12,7 +12,7 @@ describe("twitter-api", () => {
 		const error = new Error("an error");
 		global.fetch = jest.fn(() => Promise.reject(error));
 
-		API.fetchHomeTimeline().catch(err => {
+		Api.fetchHomeTimeline().catch(err => {
 			expect(err).toEqual(error);
 			done();
 		});
@@ -27,7 +27,7 @@ describe("twitter-api", () => {
 			return Promise.resolve({json: () => tweets});
 		});
 
-		API.fetchHomeTimeline().then(response => {
+		Api.fetchHomeTimeline().then(response => {
 			expect(response).toEqual(tweets);
 			done();
 		});
