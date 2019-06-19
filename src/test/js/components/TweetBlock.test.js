@@ -17,9 +17,9 @@ describe("TweetBlock", () => {
 			createdAt: "123",
 			url: "tweet url"
 		};
-		const wrapper = shallow(<TweetBlock tweet={dummyTweet}/>);
+		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet}/>);
 
-		const tweetDiv = expectOne(wrapper, "div.tweet");
+		const tweetDiv = expectOne(tweetBlock, "div.tweet");
 
 		const userDiv = expectOne(tweetDiv, "div.user-div");
 
@@ -42,7 +42,6 @@ describe("TweetBlock", () => {
 
 		const tweetLink = expectOne(message, "a.tweet-link");
 		expect(tweetLink.prop("href")).toEqual(dummyTweet.url);
-
 	});
 
 });
