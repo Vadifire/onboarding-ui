@@ -17,7 +17,7 @@ describe("twitter-api", () => {
 
 	afterEach(() => { // Ensure XHR retrieves from correct endpoint
 		expect(mockXHR.open).toHaveBeenCalledTimes(1);
-		expect(mockXHR.open).toHaveBeenCalledWith("GET", API.HOME_TIMELINE_ENDPOINT);
+		expect(mockXHR.open).toHaveBeenCalledWith("GET", API.homeTimelineEndpoint);
 		mockXHR.open.mockClear();
 		expect(mockXHR.send).toHaveBeenCalledTimes(1);
 		mockXHR.send.mockClear();
