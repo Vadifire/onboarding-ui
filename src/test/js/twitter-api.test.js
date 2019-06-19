@@ -25,21 +25,27 @@ describe("twitter-api", () => {
 	test("should attempt to fetch tweets and on reject execute callback with null", done => {
 		
 		mockedRequest.responseText = "Invalid JSON"; // Return invalid JSON
-		Api.fetchHomeTimeline(response => {
-			expect(response).toBeNull();
-			done();
+		Api.fetchHomeTimeline((err, tweets) => {
+			if (err) {
+				done();
+			} else {
+				done.fail();
+			}
 		});
 		mockedRequest.onreadystatechange();
 	});
 
 	test("should fetch from Api, parse tweets from JSON, and execute callback with tweets", done => {
-		const tweets = [{
+		const dummyTweets = [{
 			message: "some message"
 		}];
 
-		mockedRequest.responseText = JSON.stringify(tweets); // Set response to valid tweets
-		Api.fetchHomeTimeline(response => {
-			expect(response).toEqual(tweets);
+		mockedRequest.responseText = JSON.stringify(dummyTweets); // Set response to valid tweets
+		Api.fetchHomeTimeline((err, tweets) => {
+			if (err) {
+				done.fail();
+			}
+			expect(tweets).toEqual(dummyTweets);
 			done();
 		});
 		mockedRequest.onreadystatechange();
