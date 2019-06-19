@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Frontend for tweeting lab",
   "scripts": {
+    "test": "jest",
     "dev": "webpack-dev-server",
     "hello": "echo \"Hello World!\""
   },
@@ -14,10 +15,18 @@
   "homepage": "https://github.com/Vadifire/onboarding-ui#readme",
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-react-16-adapter-setup": "^0.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.8.0",
+    "jest-enzyme": "^7.0.2",
     "node-sass": "^4.12.0",
     "sass": "^1.20.3",
     "sass-loader": "^7.1.0",
@@ -27,12 +36,31 @@
     "webpack-dev-server": "^3.6.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.4.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
   "babel": {
     "presets": [
-      "@babel/preset-react", "@babel/preset-env"
+      "@babel/preset-react",
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      [
+        "@babel/transform-runtime"
+      ]
     ]
+  },
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "enzyme-react-16-adapter-setup"
+    ],
+    "setupFilesAfterEnv": [
+      "./node_modules/jest-enzyme/lib/index.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "identity-obj-proxy"
+    }
   }
 }

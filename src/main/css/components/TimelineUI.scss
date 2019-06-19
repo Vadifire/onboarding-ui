@@ -1,17 +1,17 @@
-#timeline-div {
+.timeline-div {
 	margin: 0px 40px 20px;
 
-	#update-timeline {
+	.update-timeline {
 		margin-bottom: 4px;
 		text-align: left;
 	}
 
-	#error-div { 
+	.error-div {
 		font-size: 12px;
 		margin-top: 5px;
 	}
 
-	#tweets {
+	.tweets {
 		border: 2px solid;
 		margin-top: 10px;
 
