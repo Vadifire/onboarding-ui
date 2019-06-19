@@ -3,9 +3,10 @@ import { shallow } from "enzyme";
 import HelloMessage from "../../../main/js/components/HelloMessage";
 import { expectOne } from "../test-util";
 
+const dummyMessage = "2 + 2 = 5";
+const wrapper = shallow(<HelloMessage message={dummyMessage}/>);
+
 describe("HelloMessage", () => {
-	const dummyMessage = "2 + 2 = 5";
-	const wrapper = shallow(<HelloMessage message={dummyMessage}/>);
 
 	test("should render passed in message", () => {
 		expect(wrapper.text()).toEqual(dummyMessage);
