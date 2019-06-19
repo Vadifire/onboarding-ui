@@ -26,13 +26,12 @@ describe("TimelineUI", () => {
 	}
 
 	// Used in valid response test cases
-	function expectTweets(response) {
+	function expectTweets(tweets) {
 		const tweetsDiv = expectOne(getTimelineDiv(timelineUI), "div.tweets");
 		const rows = tweetsDiv.find("div.row");
-		const tweets = TimelineUI.extractTweets(response);
 		rows.forEach((row, index) => {
 			const tweetBlock = expectOne(row, "TweetBlock");
-			expect(tweetBlock.prop("tweet")).toEqual(tweets[index]);
+			expect(tweetBlock.prop("tweet")).toEqual(TimelineUI.formatTweet(tweets[index]));
 		});
 		expect(API.fetchHomeTimeline).toHaveBeenCalledTimes(1);
 	}
@@ -63,21 +62,21 @@ describe("TimelineUI", () => {
 	});
 
 	// Test API Error Case
-	test("should render error message: '" + TimelineUI.API_ERROR_MESSAGE + "'", (done) => {
+	test("should render error message: '" + TimelineUI.apiErrorMessage + "'", (done) => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.reject());
 		timelineUI.instance().updateTimeline().then(() => {
-			expectErrorMessage(TimelineUI.API_ERROR_MESSAGE);
+			expectErrorMessage(TimelineUI.apiErrorMessage);
 			done();
 		});
 	});
 
 	// Test Empty Tweets Case
-	test("should render error message: '" + TimelineUI.EMPTY_TIMELINE_MESSAGE + "'", (done) => {
+	test("should render error message: '" + TimelineUI.emptyTimelineMessage + "'", (done) => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.resolve([]));
 		timelineUI.instance().updateTimeline().then(() => {
-			expectErrorMessage(TimelineUI.EMPTY_TIMELINE_MESSAGE);
+			expectErrorMessage(TimelineUI.emptyTimelineMessage);
 			done();
 		});
 	});
