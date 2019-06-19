@@ -11,14 +11,14 @@ export function fetchHomeTimeline(callback) {
 
 	xhttp.open("GET", homeTimelineEndpoint);
 	xhttp.onreadystatechange = function() {
-		try {
-			if (xhttp.readyState === xhttp.DONE) {
+		if (xhttp.readyState === xhttp.DONE) {
+			try {
 				const tweets = JSON.parse(xhttp.responseText);
 				callback(null, tweets);
+			} catch (err) {
+				callback(err);
 			}
-		} catch (err) {
-			callback(err);
-		}
+		} 
 	};
 	xhttp.send();
 }

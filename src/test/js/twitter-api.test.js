@@ -22,7 +22,7 @@ describe("twitter-api", () => {
 		mockedRequest.send.mockClear();
 	});
 
-	test("should attempt to fetch tweets and on reject execute callback with null", done => {
+	test("should attempt to fetch tweets and on reject execute callback with error", done => {
 		
 		mockedRequest.responseText = "Invalid JSON"; // Return invalid JSON
 		Api.fetchHomeTimeline((err, tweets) => {
