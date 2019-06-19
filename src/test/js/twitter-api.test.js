@@ -1,4 +1,4 @@
-import * as API from "../../main/js/twitter-api";
+import * as Api from "../../main/js/twitter-api";
 
 describe("twitter-api", () => {
 
@@ -17,7 +17,7 @@ describe("twitter-api", () => {
 
 	afterEach(() => { // Ensure XHR retrieves from correct endpoint
 		expect(mockXHR.open).toHaveBeenCalledTimes(1);
-		expect(mockXHR.open).toHaveBeenCalledWith("GET", API.homeTimelineEndpoint);
+		expect(mockXHR.open).toHaveBeenCalledWith("GET", Api.homeTimelineEndpoint);
 		mockXHR.open.mockClear();
 		expect(mockXHR.send).toHaveBeenCalledTimes(1);
 		mockXHR.send.mockClear();
@@ -27,7 +27,7 @@ describe("twitter-api", () => {
 		
 		mockXHR.responseText = "Invalid JSON"; // Return invalid JSON
 
-		API.fetchHomeTimeline(response => {
+		Api.fetchHomeTimeline(response => {
 			expect(response).toBeNull();
 			done();
 		});
@@ -35,14 +35,14 @@ describe("twitter-api", () => {
 		mockXHR.onreadystatechange();
 	});
 
-	test("should fetch from API, parse tweets from JSON, and call callback with tweets", done => {
+	test("should fetch from Api, parse tweets from JSON, and call callback with tweets", done => {
 		const tweets = [{
 			message: "some message"
 		}];
 
 		mockXHR.responseText = JSON.stringify(tweets); // Set response to valid tweets
 
-		API.fetchHomeTimeline(response => {
+		Api.fetchHomeTimeline(response => {
 			expect(response).toEqual(tweets);
 			done();
 		});

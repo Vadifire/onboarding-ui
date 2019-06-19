@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import TimelineUI from "../../../main/js/components/TimelineUI";
 import { expectOne } from "../test-util";
-import * as API from "../../../main/js/twitter-api";
+import * as Api from "../../../main/js/twitter-api";
 
 describe("TimelineUI", () => {
 
@@ -22,7 +22,7 @@ describe("TimelineUI", () => {
 		const timelineDiv = getTimelineDiv(timelineUI);
 		const errorDiv = expectOne(getTimelineDiv(timelineUI), "div.error-div");
 		expect(errorDiv.text()).toEqual(message);
-		expect(API.fetchHomeTimeline).toHaveBeenCalledTimes(1);
+		expect(Api.fetchHomeTimeline).toHaveBeenCalledTimes(1);
 	}
 
 	// Used in valid response test cases
@@ -33,7 +33,7 @@ describe("TimelineUI", () => {
 			const tweetBlock = expectOne(row, "TweetBlock");
 			expect(tweetBlock.prop("tweet")).toEqual(TimelineUI.formatTweet(tweets[index]));
 		});
-		expect(API.fetchHomeTimeline).toHaveBeenCalledTimes(1);
+		expect(Api.fetchHomeTimeline).toHaveBeenCalledTimes(1);
 	}
 
 	beforeAll(() => {
@@ -61,10 +61,10 @@ describe("TimelineUI", () => {
 		timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
 	});
 
-	// Test API Error Case
+	// Test Api Error Case
 	test("should render error message: '" + TimelineUI.apiErrorMessage + "'", done => {
 
-		API.fetchHomeTimeline = jest.fn(cb => {
+		Api.fetchHomeTimeline = jest.fn(cb => {
 			cb(null);
 			expectErrorMessage(TimelineUI.apiErrorMessage);
 			done();
@@ -76,7 +76,7 @@ describe("TimelineUI", () => {
 	// Test Empty Tweets Case
 	test("should render error message: '" + TimelineUI.emptyTimelineMessage+"'", done => {
 
-		API.fetchHomeTimeline = jest.fn(cb => {
+		Api.fetchHomeTimeline = jest.fn(cb => {
 			cb([]);
 			expectErrorMessage(TimelineUI.emptyTimelineMessage);
 			done();
@@ -88,7 +88,7 @@ describe("TimelineUI", () => {
 	// Test Non-Empty Tweets Case
 	test("should render tweets", done => {
 
-		API.fetchHomeTimeline = jest.fn(cb => {
+		Api.fetchHomeTimeline = jest.fn(cb => {
 			cb(dummyTweets);
 			expectTweets(dummyTweets);
 			done();
