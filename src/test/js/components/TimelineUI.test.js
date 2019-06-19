@@ -6,7 +6,7 @@ import * as API from "../../../main/js/twitter-api";
 
 describe("TimelineUI", () => {
 
-	let dummyTweets;
+	let dummyTweets, timelineUI;
 
 	function getTimelineDiv(timelineUI) {
 		return expectOne(timelineUI, "div.timeline-div");
@@ -22,7 +22,6 @@ describe("TimelineUI", () => {
 		const errorDiv = expectOne(getTimelineDiv(timelineUI), "div.error-div");
 		expect(errorDiv.text()).toEqual(message);
 		expect(API.fetchHomeTimeline).toHaveBeenCalledTimes(1);
-		API.fetchHomeTimeline.mockReset();
 	}
 
 	// Used in valid response test cases
@@ -35,7 +34,6 @@ describe("TimelineUI", () => {
 			expect(tweetBlock.prop("tweet")).toEqual(tweets[index]);
 		});
 		expect(API.fetchHomeTimeline).toHaveBeenCalledTimes(1);
-		API.fetchHomeTimeline.mockReset();
 	}
 
 	beforeAll(() => {
@@ -58,12 +56,15 @@ describe("TimelineUI", () => {
 		];
 	});
 
+	beforeEach(() => {
+		// Create new UI for each test case to prevent one test from affecting another
+		timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
+	});
+
 	// Test API Error Case
 	test("should render error message: '" + TimelineUI.API_ERROR_MESSAGE + "'", (done) => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.reject());
-		const timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
-
 		timelineUI.instance().updateTimeline().then(() => {
 			expectErrorMessage(timelineUI, TimelineUI.API_ERROR_MESSAGE);
 			done();
@@ -74,8 +75,6 @@ describe("TimelineUI", () => {
 	test("should render error message: '" + TimelineUI.EMPTY_TIMELINE_MESSAGE + "'", (done) => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.resolve([]));
-		const timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
-
 		timelineUI.instance().updateTimeline().then(() => {
 			expectErrorMessage(timelineUI, TimelineUI.EMPTY_TIMELINE_MESSAGE);
 			done();
@@ -86,8 +85,6 @@ describe("TimelineUI", () => {
 	test("should render fetched tweets", (done) => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.resolve(dummyTweets));
-		const timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
-
 		timelineUI.instance().updateTimeline().then(() => {
 			expectTweets(timelineUI, dummyTweets);
 			done();
@@ -96,7 +93,6 @@ describe("TimelineUI", () => {
 
 	// Test rendering of button
 	test("should render button", () => {
-		const timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
 		expectButton(timelineUI);
 	});
 });
