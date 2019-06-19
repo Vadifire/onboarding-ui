@@ -15,10 +15,6 @@ export default class TimelineUI extends React.Component {
 		this.updateTimeline = this.updateTimeline.bind(this);
 	}
 
-	static get defaultName() {
-		return "Unknown User";
-	}
-
 	static get apiErrorMessage() {
 		return "Failed to fetch tweets from home timeline. Please try again later.";
 	}
