@@ -5,12 +5,11 @@ describe("twitter-api", () => {
 	let someNum, mockXHR;
 
 	beforeAll(() => {
-		someNum = 4; // Just need readyState and DONE to be same
 		mockXHR = {
 			open: jest.fn(),
 			send: jest.fn(),
-			readyState: someNum,
-			DONE: someNum,
+			readyState: XMLHttpRequest.DONE,
+			DONE: XMLHttpRequest.DONE
 		};
 		window.XMLHttpRequest = jest.fn(() => mockXHR);
 	});
@@ -23,7 +22,7 @@ describe("twitter-api", () => {
 		mockXHR.send.mockClear();
 	});
 
-	test("should attempt to fetch tweets and on reject return null", done => {
+	test("should attempt to fetch tweets and on reject execute callback with null", done => {
 		
 		mockXHR.responseText = "Invalid JSON"; // Return invalid JSON
 
@@ -35,7 +34,7 @@ describe("twitter-api", () => {
 		mockXHR.onreadystatechange();
 	});
 
-	test("should fetch from Api, parse tweets from JSON, and call callback with tweets", done => {
+	test("should fetch from Api, parse tweets from JSON, and execute callback with tweets", done => {
 		const tweets = [{
 			message: "some message"
 		}];

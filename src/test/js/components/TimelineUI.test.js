@@ -64,8 +64,8 @@ describe("TimelineUI", () => {
 	// Test Api Error Case
 	test("should render error message: '" + TimelineUI.apiErrorMessage + "'", done => {
 
-		Api.fetchHomeTimeline = jest.fn(cb => {
-			cb(null);
+		Api.fetchHomeTimeline = jest.fn(callback => {
+			callback(null);
 			expectErrorMessage(TimelineUI.apiErrorMessage);
 			done();
 		});
@@ -76,8 +76,8 @@ describe("TimelineUI", () => {
 	// Test Empty Tweets Case
 	test("should render error message: '" + TimelineUI.emptyTimelineMessage+"'", done => {
 
-		Api.fetchHomeTimeline = jest.fn(cb => {
-			cb([]);
+		Api.fetchHomeTimeline = jest.fn(callback => {
+			callback([]);
 			expectErrorMessage(TimelineUI.emptyTimelineMessage);
 			done();
 		});
@@ -88,8 +88,8 @@ describe("TimelineUI", () => {
 	// Test Non-Empty Tweets Case
 	test("should render tweets", done => {
 
-		Api.fetchHomeTimeline = jest.fn(cb => {
-			cb(dummyTweets);
+		Api.fetchHomeTimeline = jest.fn(callback => {
+			callback(dummyTweets);
 			expectTweets(dummyTweets);
 			done();
 		});

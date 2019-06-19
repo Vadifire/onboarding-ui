@@ -1,7 +1,7 @@
 /*
  * Fetches tweets from home timeline
  *
- * Returns a Promise wrapping tweets or a rejected Promise
+ * Once tweets are fetched, callback is executed with tweets (or null in case of fail)
  */
 
 export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline";

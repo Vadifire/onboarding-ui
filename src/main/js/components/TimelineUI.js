@@ -70,8 +70,8 @@ export default class TimelineUI extends React.Component {
 					this.setState({tweets : null, message: TimelineUI.emptyTimelineMessage});
 				}
             } else {
-                this.setState({tweets: null, message: TimelineUI.apiErrorMessage});
-            }
+				this.setState({tweets: null, message: TimelineUI.apiErrorMessage});
+			}
 		});
 	}
 }
