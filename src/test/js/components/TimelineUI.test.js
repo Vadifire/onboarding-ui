@@ -67,7 +67,7 @@ describe("TimelineUI", () => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.reject());
 		timelineUI.instance().updateTimeline().then(() => {
-			expectErrorMessage(timelineUI.API_ERROR_MESSAGE);
+			expectErrorMessage(TimelineUI.API_ERROR_MESSAGE);
 			done();
 		});
 	});
