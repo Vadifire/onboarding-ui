@@ -9,7 +9,5 @@ export const HOME_TIMELINE_ENDPOINT = "http://localhost:8080/api/1.0/twitter/tim
 export function fetchHomeTimeline() {
 	return fetch(HOME_TIMELINE_ENDPOINT).then(response => { // Attempt to fetch tweets
 		return response.json();
-	}).then(tweets => { // Got JSON
-		return tweets;
 	});
 }
