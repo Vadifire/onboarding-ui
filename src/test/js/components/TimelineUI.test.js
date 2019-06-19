@@ -83,7 +83,7 @@ describe("TimelineUI", () => {
 	});
 
 	// Test Non-Empty Tweets Case
-	test("should render tweets", (done) => {
+	test("should render fetched tweets", (done) => {
 
 		API.fetchHomeTimeline = jest.fn(() => Promise.resolve(dummyTweets));
 		const timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
@@ -94,6 +94,7 @@ describe("TimelineUI", () => {
 		});
 	});
 
+	// Test rendering of button
 	test("should render button", () => {
 		const timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
 		expectButton(timelineUI);
