@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import TweetBlock from "./TweetBlock";
 import "../../css/components/TimelineUI.scss";
 import { fetchHomeTimeline } from "../twitter-api";
-const _ = require('lodash');
 
 // Presentational Component for Timeline
 export default class TimelineUI extends React.Component {
@@ -16,28 +15,17 @@ export default class TimelineUI extends React.Component {
 		this.updateTimeline = this.updateTimeline.bind(this);
 	}
 
-	static get DEFAULT_NAME() {
-		return "Unknown User";
-	}
-
-	static get API_ERROR_MESSAGE() {
+	static get apiErrorMessage() {
 		return "Failed to fetch tweets from home timeline. Please try again later.";
 	}
 
-	static get EMPTY_TIMELINE_MESSAGE() {
+	static get emptyTimelineMessage() {
 		return "Home timeline is empty.";
 	}
 
-	static extractTweets(response) {
-		return response.map(tweet => {
-			const trimmedTweet = _.pick(tweet, "message", "url", "createdAt", "user");
-			trimmedTweet.createdAt = new Date(trimmedTweet.createdAt)
-					.toLocaleString("en-us", {month: "short", day: "numeric"});
-			if (!trimmedTweet.user) {
-				trimmedTweet.user = {name: TimelineUI.DEFAULT_NAME};
-			}
-			return trimmedTweet;
-		});
+	static formatTweet(tweet) {
+		tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
+		return tweet;
 	}
 
 	componentDidMount() {
@@ -51,11 +39,13 @@ export default class TimelineUI extends React.Component {
 		}
 		if (this.state.tweets) {
 			// Map tweets to React Components
-			const tweets = this.state.tweets.map(tweet =>
-				<div key={tweet.url} className="row">
-					<TweetBlock tweet={tweet}/>
-				</div>
-			);
+			const tweets = this.state.tweets.map(tweet => {
+				return (
+					<div key={tweet.url} className="row">
+						<TweetBlock tweet={TimelineUI.formatTweet(tweet)}/>
+					</div>
+				);
+			});
 			displayedElem = <div className="tweets">{tweets}</div>;
 		} 
 		return (
@@ -70,12 +60,12 @@ export default class TimelineUI extends React.Component {
 		fetchHomeTimeline(tweets => {
 			if (tweets) {
 				if (tweets.length) {
-					this.setState({tweets: TimelineUI.extractTweets(tweets), message: null});
+					this.setState({tweets: tweets, message: null});
 				} else {
-					this.setState({tweets : null, message: TimelineUI.EMPTY_TIMELINE_MESSAGE});
+					this.setState({tweets : null, message: TimelineUI.emptyTimelineMessage});
 				}
 			} else {
-				this.setState({tweets: null, message: TimelineUI.API_ERROR_MESSAGE});
+				this.setState({tweets: null, message: TimelineUI.apiErrorMessage});
 			}
 		});
 	}

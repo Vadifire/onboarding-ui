@@ -26,13 +26,12 @@ describe("TimelineUI", () => {
 	}
 
 	// Used in valid response test cases
-	function expectTweets(response) {
+	function expectTweets(tweets) {
 		const tweetsDiv = expectOne(getTimelineDiv(timelineUI), "div.tweets");
 		const rows = tweetsDiv.find("div.row");
-		const tweets = TimelineUI.extractTweets(response);
 		rows.forEach((row, index) => {
 			const tweetBlock = expectOne(row, "TweetBlock");
-			expect(tweetBlock.prop("tweet")).toEqual(tweets[index]);
+			expect(tweetBlock.prop("tweet")).toEqual(TimelineUI.formatTweet(tweets[index]));
 		});
 		expect(API.fetchHomeTimeline).toHaveBeenCalledTimes(1);
 	}
@@ -63,44 +62,45 @@ describe("TimelineUI", () => {
 	});
 
 	// Test API Error Case
-	test("should render button and error message: " + TimelineUI.API_ERROR_MESSAGE, () => {
+	test("should render error message: '" + TimelineUI.apiErrorMessage + "'", done => {
 
-		mockedAPI.__setResponse(null); // TODO: make this make more sense...
-		const wrapper = shallow(<TimelineUI />);
-
-		expectErrorMessage(wrapper, TimelineUI.API_ERROR_MESSAGE);		
+		API.fetchHomeTimeline = jest.fn(cb => {
+			cb(null);
+			expectErrorMessage(TimelineUI.apiErrorMessage);
+			done();
+		});
+		timelineUI.instance().updateTimeline();
+		
 	});
 
 	// Test Empty Tweets Case
-	test("should render button and error message: " + TimelineUI.EMPTY_TIMELINE_MESSAGE, () => {
+	test("should render error message: '" + TimelineUI.emptyTimelineMessage+"'", done => {
 
-		mockedAPI.__setResponse([]);
-		const wrapper = shallow(<TimelineUI />);
-
-		expectErrorMessage(wrapper, TimelineUI.EMPTY_TIMELINE_MESSAGE);
+		API.fetchHomeTimeline = jest.fn(cb => {
+			cb([]);
+			expectErrorMessage(TimelineUI.emptyTimelineMessage);
+			done();
+		});
+		timelineUI.instance().updateTimeline();
 	});
+
 
 	// Test Non-Empty Tweets Case
-	test("should render button and tweets", () => {
+	test("should render tweets", done => {
 
-		mockedAPI.__setResponse(dummyTweets);
-		const wrapper = shallow(<TimelineUI />);
-
-		expectTweets(wrapper, dummyTweets);
+		API.fetchHomeTimeline = jest.fn(cb => {
+			cb(dummyTweets);
+			expectTweets(dummyTweets);
+			done();
+		});
+		timelineUI.instance().updateTimeline();
 	});
 
-	// Simulate button click
-	test("should render updated tweets on button click" , () => {
-		mockedAPI.__setResponse([]); // Start with blank tweets
-		const wrapper = shallow(<TimelineUI />);
-
-		expectErrorMessage(wrapper, TimelineUI.EMPTY_TIMELINE_MESSAGE);
-
-		mockedAPI.__setResponse(dummyTweets); // Define updated tweets retrieved on button click
-		const button = expectOne(wrapper, "div.timeline-div button.update-timeline");
-		button.simulate("click");
-
-		expectTweets(wrapper, dummyTweets);
+	// Test rendering of button
+	test("should render button", () => {
+		expectButton(timelineUI);
 	});
+
+
 
 });

@@ -17,7 +17,7 @@ export default class TweetBlock extends React.Component {
 				</div>
 				<div className="content-div">
 					<div className="date">
-							{this.props.tweet.createdAt}
+						{this.props.tweet.createdAt}
 					</div>
 					<div className="message">
 						<a className="tweet-link" href={this.props.tweet.url}>

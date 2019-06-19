@@ -1,10 +1,8 @@
 import * as API from "../../main/js/twitter-api";
 
-window.XMLHttpRequest = jest.fn(() => mockXHR);
-
 describe("twitter-api", () => {
 
-	let sumNum, mockXHR;
+	let someNum, mockXHR;
 
 	beforeAll(() => {
 		someNum = 4; // Just need readyState and DONE to be same
@@ -14,6 +12,7 @@ describe("twitter-api", () => {
 			readyState: someNum,
 			DONE: someNum,
 		};
+		window.XMLHttpRequest = jest.fn(() => mockXHR);
 	});
 
 	afterEach(() => { // Ensure XHR retrieves from correct endpoint
@@ -24,7 +23,7 @@ describe("twitter-api", () => {
 		mockXHR.send.mockClear();
 	});
 
-	test("should attempt to fetch tweets and on reject let error propogate", done => {
+	test("should attempt to fetch tweets and on reject return null", done => {
 		
 		mockXHR.responseText = "Invalid JSON"; // Return invalid JSON
 
