@@ -4,8 +4,8 @@ import TimelineUI from "../../../main/js/components/TimelineUI";
 import { expectOne } from "../test-util";
 import * as API from "../../../main/js/twitter-api";
 
-const dummyTweets = 
-	[{
+const dummyTweets = [
+	{
 		message: "some message",
 		user: {
 			name: "george",
@@ -19,7 +19,8 @@ const dummyTweets =
 		message: "another message",
 		createdAt: 1560440901000,
 		url: "twitter.com/a_url"
-	}];
+	}
+];
 
 // Used in error message test cases
 function expectErrorMessage(wrapper, message) {
