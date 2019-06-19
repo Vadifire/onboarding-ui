@@ -5,7 +5,7 @@ export default class HelloMessage extends React.Component {
 
 	render() {
 		return (
-			<div className={"hello-message"}>
+			<div className="hello-message">
 				{this.props.message}
 			</div>
 		);

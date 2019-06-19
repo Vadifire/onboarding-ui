@@ -4,15 +4,20 @@ import HelloMessage from "../../../main/js/components/HelloMessage";
 import { expectOne } from "../test-util";
 
 describe("HelloMessage", () => {
-	const dummyMessage = "2 + 2 = 5";
-	const wrapper = shallow(<HelloMessage message={dummyMessage}/>);
+
+	let dummyMessage, helloMessage;
+
+	beforeAll(() => {
+		dummyMessage = "2 + 2 = 5";
+		helloMessage = shallow(<HelloMessage message={dummyMessage}/>);
+	});
 
 	test("should render passed in message", () => {
-		expect(wrapper.text()).toEqual(dummyMessage);
+		expect(helloMessage.text()).toEqual(dummyMessage);
 	});
 	
 	test("should contain a single hello message div", () => {
-		expectOne(wrapper, "div.hello-message");
+		expectOne(helloMessage, "div.hello-message");
 	});
 
 });
