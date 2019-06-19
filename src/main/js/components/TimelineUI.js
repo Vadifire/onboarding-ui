@@ -54,7 +54,7 @@ export default class TimelineUI extends React.Component {
 			displayedElem = <div className="tweets">{tweets}</div>;
 		} 
 		return (
-		    <div className="timeline-div">
+			<div className="timeline-div">
 				<button className="update-timeline" onClick={this.updateTimeline}>Update Home Timeline</button>
 				{displayedElem}
 			</div>
@@ -63,12 +63,12 @@ export default class TimelineUI extends React.Component {
 
 	updateTimeline() {
 		return fetchHomeTimeline().then(tweets => {
-			if (tweets.length) { //Fulfillment
+			if (tweets.length) {
 				this.setState({tweets: tweets, message: null});
 			} else {
 				this.setState({tweets : null, message: TimelineUI.emptyTimelineMessage});
 			}
-		}, () => { //Rejection
+		}).catch(() => {
 			this.setState({tweets: null, message: TimelineUI.apiErrorMessage});
 		});
 	}
