@@ -1,5 +1,8 @@
 .timeline-div {
-	margin: 0px 40px 20px;
+
+	display:inline-block; //Makes it obey text-aligning.
+	margin: 0px 20px 20px;
+	text-align: left;
 
 	.update-timeline {
 		margin-bottom: 4px;

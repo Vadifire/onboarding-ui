@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import HelloMessage from "./HelloMessage";
-import TimelineUI from "./TimelineUI";
+import HomeTimelineUI from "./HomeTimelineUI";
+import UserTimelineUI from "./UserTimelineUI";
 import "../../css/components/Application.scss";
 
 export default class Application extends React.Component {
@@ -8,9 +9,15 @@ export default class Application extends React.Component {
 		return (
 			<div>
 				<div className="title">Lab for Cedric</div>
-				<HelloMessage message="hello react!" />
-				<TimelineUI />
+				<div className="outer">
+					<div className="inner">
+						<HomeTimelineUI />
+						<UserTimelineUI />
+					</div>
+				</div>
 			</div>
 		);
 	}
 }
+
+//<HelloMessage message="hello react!" />

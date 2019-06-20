@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TweetBlock from "./TweetBlock";
 import "../../css/components/TimelineUI.scss";
-import { fetchHomeTimeline } from "../twitter-api";
 
 // Presentational Component for Timeline
 export default class TimelineUI extends React.Component {
@@ -55,14 +54,14 @@ export default class TimelineUI extends React.Component {
 		} 
 		return (
 			<div className="timeline-div">
-				<button className="update-timeline" onClick={this.updateTimeline}>Update Home Timeline</button>
+				<button className="update-timeline" onClick={this.updateTimeline}>{this.props.buttonName}</button>
 				{displayedElem}
 			</div>
 		);
 	}
 
 	updateTimeline() {
-		fetchHomeTimeline((err, tweets) => {
+		this.props.apiCall((err, tweets) => {
 			if (err) {
 				this.setState({tweets: null, message: TimelineUI.apiErrorMessage});
 			} else {
