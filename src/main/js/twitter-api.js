@@ -16,17 +16,17 @@ export function fetchHomeTimeline(callback) {
 
 	const xhttp = new XMLHttpRequest();
 
-	xhttp.onreadystatechange = () => {
-		if (xhttp.readyState === XMLHttpRequest.DONE) {
-			if (xhttp.status === HttpStatuses.OK) {
+	xhttp.onreadystatechange = function() {
+		if (this.readyState === XMLHttpRequest.DONE) {
+			if (this.status === HttpStatuses.OK) {
 				try {
-					const tweets = JSON.parse(xhttp.responseText);
+					const tweets = JSON.parse(this.responseText);
 					callback(null, tweets);
 				} catch (err) {
 					callback(err);
 				}
 			} else {
-				callback(statusError(xhttp.status));
+				callback(statusError(this.status));
 			}
 		} 
 	};
