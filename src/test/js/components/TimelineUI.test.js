@@ -53,18 +53,23 @@ describe("TimelineUI", () => {
 				url: "twitter.com/a_url"
 			}
 		];
+		mockedApiCall = jest.fn();
+		timelineUI = shallow(<TimelineUI apiCall={mockedApiCall}/>, {disableLifecycleMethods: true});
+	});
+
+	afterEach(() => {
+		mockedApiCall.mockClear();
 	});
 
 	// Test Api Error Case
 	test("should render error message: '" + TimelineUI.apiErrorMessage + "'", done => {
 
-		mockedApiCall = jest.fn(callback => {
+		mockedApiCall.mockImplementation(callback => {
 			callback(Error());
 			expectErrorMessage(TimelineUI.apiErrorMessage);
 			done();
 		});
 		// TODO: avoid duplicate shallows
-		timelineUI = shallow(<TimelineUI apiCall={mockedApiCall}/>, {disableLifecycleMethods: true});
 		timelineUI.instance().updateTimeline();
 		
 	});
@@ -72,34 +77,29 @@ describe("TimelineUI", () => {
 	// Test Empty Tweets Case
 	test("should render error message: '" + TimelineUI.emptyTimelineMessage + "'", done => {
 
-		mockedApiCall = jest.fn(callback => {
+		mockedApiCall.mockImplementation(callback => {
 			callback(null, []);
 			expectErrorMessage(TimelineUI.emptyTimelineMessage);
 			done();
 		});
-		timelineUI = shallow(<TimelineUI apiCall={mockedApiCall}/>, {disableLifecycleMethods: true});
 		timelineUI.instance().updateTimeline();
 	});
 
 
 	// Test Non-Empty Tweets Case
-	test.only("should render tweets", done => {
+	test("should render tweets", done => {
 
-		mockedApiCall = jest.fn(callback => {
+		mockedApiCall.mockImplementation(callback => {
 			callback(null, dummyTweets);
 			expectTweets(dummyTweets);
 			done();
 		});
-		timelineUI = shallow(<TimelineUI apiCall={mockedApiCall}/>, {disableLifecycleMethods: true});
 		timelineUI.instance().updateTimeline();
 	});
 
 	// Test rendering of button
 	test("should render button", () => {
-		timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
 		expectButton(timelineUI);
 	});
-
-
 
 });
