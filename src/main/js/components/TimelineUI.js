@@ -19,7 +19,7 @@ export default class TimelineUI extends React.Component {
 	}
 
 	static get emptyTimelineMessage() {
-		return "Home timeline is empty.";
+		return "No tweets are available, post a tweet!";
 	}
 
 	static formatTweet(tweet) {
