@@ -4,7 +4,7 @@ import Application from "../../../main/js/components/Application";
 import { expectOne } from "../test-util";
 
 
-describe("TimelineUI", () => {
+describe("Application", () => {
 
 	let application;
 
@@ -15,12 +15,13 @@ describe("TimelineUI", () => {
 	test("should contain a single title div", () => {
 		expectOne(application, "div.title");
 	});
-
-	test("should contain a single HelloMessage component", () => {
-		expectOne(application, "HelloMessage");
-	});
 	
-	test("should contain a single TimelineUI component", () => {
-		expectOne(application, "TimelineUI");
+	// TODO: figure out structure
+	test("should contain a single UserTimelineUI component", () => {
+		expectOne(application, "UserTimelineUI");
+	});
+	// TODO: figure out structure
+	test("should contain a single HomeTimelineUI component", () => {
+		expectOne(application, "HomeTimelineUI");
 	});
 });
