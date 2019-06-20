@@ -1,5 +1,6 @@
 import * as Api from "../../main/js/twitter-api";
-import HttpMethodsEnum from 'http-methods-enum';
+import HttpMethods from "http-methods-enum";
+import HttpStatuses from "http-status-codes";
 
 describe("twitter-api", () => {
 
@@ -17,15 +18,30 @@ describe("twitter-api", () => {
 
 	afterEach(() => { // Ensure XHR retrieves from correct endpoint
 		expect(mockedRequest.open).toHaveBeenCalledTimes(1);
-		expect(mockedRequest.open).toHaveBeenCalledWith(HttpMethodsEnum.GET, Api.homeTimelineEndpoint);
+		expect(mockedRequest.open).toHaveBeenCalledWith(HttpMethods.GET, Api.homeTimelineEndpoint);
 		mockedRequest.open.mockClear();
 		expect(mockedRequest.send).toHaveBeenCalledTimes(1);
 		mockedRequest.send.mockClear();
 	});
 
-	test("should attempt to fetch tweets and on reject execute callback with error", done => {
+	test("should attempt to fetch tweets and on non-OK status execute callback with error", done => {
+		
+		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
+		Api.fetchHomeTimeline((err, tweets) => {
+			if (err) {
+				expect(err).toEqual(Api.badStatusError(mockedRequest.status));
+				done();
+			} else {
+				done.fail();
+			}
+		});
+		mockedRequest.onreadystatechange();
+	});
+
+	test("should attempt to fetch tweets and on invalid json execute callback with error", done => {
 		
 		mockedRequest.responseText = "Invalid JSON"; // Return invalid JSON
+		mockedRequest.status = HttpStatuses.OK;
 		Api.fetchHomeTimeline((err, tweets) => {
 			if (err) {
 				done();
@@ -42,6 +58,7 @@ describe("twitter-api", () => {
 		}];
 
 		mockedRequest.responseText = JSON.stringify(dummyTweets); // Set response to valid tweets
+		mockedRequest.status = HttpStatuses.OK;
 		Api.fetchHomeTimeline((err, tweets) => {
 			if (err) {
 				done.fail();

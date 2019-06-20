@@ -1,5 +1,11 @@
+import HttpMethods from "http-methods-enum";
+import HttpStatuses from "http-status-codes";
+
 export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline";
-import HttpMethodsEnum from 'http-methods-enum';
+
+export function badStatusError(status) {
+	return new Error("Received bad status code in response: " + status);
+}
 
 /*
  * Fetches tweets from home timeline
@@ -12,14 +18,18 @@ export function fetchHomeTimeline(callback) {
 
 	xhttp.onreadystatechange = () => {
 		if (xhttp.readyState === XMLHttpRequest.DONE) {
-			try {
-				const tweets = JSON.parse(xhttp.responseText);
-				callback(null, tweets);
-			} catch (err) {
-				callback(err);
+			if (xhttp.status === HttpStatuses.OK) {
+				try {
+					const tweets = JSON.parse(xhttp.responseText);
+					callback(null, tweets);
+				} catch (err) {
+					callback(err);
+				}
+			} else {
+				callback(badStatusError(xhttp.status));
 			}
 		} 
 	};
-	xhttp.open(HttpMethodsEnum.GET, homeTimelineEndpoint);
+	xhttp.open(HttpMethods.GET, homeTimelineEndpoint);
 	xhttp.send();
 }
