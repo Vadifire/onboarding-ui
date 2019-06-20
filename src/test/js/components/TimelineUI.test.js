@@ -74,7 +74,7 @@ describe("TimelineUI", () => {
 	});
 
 	// Test Empty Tweets Case
-	test("should render error message: '" + TimelineUI.emptyTimelineMessage+"'", done => {
+	test("should render error message: '" + TimelineUI.emptyTimelineMessage + "'", done => {
 
 		Api.fetchHomeTimeline = jest.fn(callback => {
 			callback(null, []);

@@ -11,7 +11,7 @@ export function fetchHomeTimeline(callback) {
 	const xhttp = new XMLHttpRequest();
 
 	xhttp.open(HttpMethodsEnum.GET, homeTimelineEndpoint);
-	xhttp.onreadystatechange = function() {
+	xhttp.onreadystatechange = () => {
 		if (xhttp.readyState === XMLHttpRequest.DONE) {
 			try {
 				const tweets = JSON.parse(xhttp.responseText);
