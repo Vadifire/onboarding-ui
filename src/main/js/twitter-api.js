@@ -10,7 +10,6 @@ export function fetchHomeTimeline(callback) {
 
 	const xhttp = new XMLHttpRequest();
 
-	xhttp.open(HttpMethodsEnum.GET, homeTimelineEndpoint);
 	xhttp.onreadystatechange = () => {
 		if (xhttp.readyState === XMLHttpRequest.DONE) {
 			try {
@@ -21,5 +20,6 @@ export function fetchHomeTimeline(callback) {
 			}
 		} 
 	};
+	xhttp.open(HttpMethodsEnum.GET, homeTimelineEndpoint);
 	xhttp.send();
 }
