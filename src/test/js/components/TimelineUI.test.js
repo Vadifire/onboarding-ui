@@ -61,38 +61,46 @@ describe("TimelineUI", () => {
 		timelineUI = shallow(<TimelineUI />, {disableLifecycleMethods: true});
 	});
 
-	// Test API Error Case
-	test("should render error message: '" + TimelineUI.apiErrorMessage + "'", (done) => {
+	// Test Api Error Case
+	test("should render error message: '" + TimelineUI.apiErrorMessage + "'", done => {
 
-		Api.fetchHomeTimeline = jest.fn(() => Promise.reject());
-		timelineUI.instance().updateTimeline().then(() => {
+		Api.fetchHomeTimeline = jest.fn(callback => {
+			callback(Error());
 			expectErrorMessage(TimelineUI.apiErrorMessage);
 			done();
 		});
+		timelineUI.instance().updateTimeline();
+		
 	});
 
 	// Test Empty Tweets Case
-	test("should render error message: '" + TimelineUI.emptyTimelineMessage + "'", (done) => {
+	test("should render error message: '" + TimelineUI.emptyTimelineMessage + "'", done => {
 
-		Api.fetchHomeTimeline = jest.fn(() => Promise.resolve([]));
-		timelineUI.instance().updateTimeline().then(() => {
+		Api.fetchHomeTimeline = jest.fn(callback => {
+			callback(null, []);
 			expectErrorMessage(TimelineUI.emptyTimelineMessage);
 			done();
 		});
+		timelineUI.instance().updateTimeline();
 	});
 
-	// Test Non-Empty Tweets Case
-	test("should render fetched tweets", (done) => {
 
-		Api.fetchHomeTimeline = jest.fn(() => Promise.resolve(dummyTweets));
-		timelineUI.instance().updateTimeline().then(() => {
+	// Test Non-Empty Tweets Case
+	test("should render tweets", done => {
+
+		Api.fetchHomeTimeline = jest.fn(callback => {
+			callback(null, dummyTweets);
 			expectTweets(dummyTweets);
 			done();
 		});
+		timelineUI.instance().updateTimeline();
 	});
 
 	// Test rendering of button
 	test("should render button", () => {
 		expectButton(timelineUI);
 	});
+
+
+
 });

@@ -62,14 +62,16 @@ export default class TimelineUI extends React.Component {
 	}
 
 	updateTimeline() {
-		return fetchHomeTimeline().then(tweets => {
-			if (tweets.length) {
-				this.setState({tweets: tweets, message: null});
+		fetchHomeTimeline((err, tweets) => {
+			if (err) {
+				this.setState({tweets: null, message: TimelineUI.apiErrorMessage});
 			} else {
-				this.setState({tweets : null, message: TimelineUI.emptyTimelineMessage});
+				if (tweets.length) {
+					this.setState({tweets: tweets, message: null});
+				} else {
+					this.setState({tweets : null, message: TimelineUI.emptyTimelineMessage});
+				}
 			}
-		}).catch(() => {
-			this.setState({tweets: null, message: TimelineUI.apiErrorMessage});
 		});
 	}
 }

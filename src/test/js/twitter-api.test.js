@@ -1,36 +1,72 @@
 import * as Api from "../../main/js/twitter-api";
+import HttpMethods from "http-methods-enum";
+import HttpStatuses from "http-status-codes";
 
 describe("twitter-api", () => {
 
-	afterEach(() => {
-		expect(global.fetch).toHaveBeenCalledTimes(1);
-		expect(global.fetch).toHaveBeenCalledWith(Api.homeTimelineEndpoint);
-		global.fetch.mockReset();
+	let mockedRequest;
+
+	beforeAll(() => {
+		mockedRequest = {
+			open: jest.fn(),
+			send: jest.fn(),
+			readyState: XMLHttpRequest.DONE,
+		};
+		window.XMLHttpRequest = jest.fn(() => mockedRequest);
+		window.XMLHttpRequest.DONE = mockedRequest.readyState;
 	});
 
-	test("should attempt to fetch tweets and on reject let error propogate", done => {
-		const error = new Error("an error");
-		global.fetch = jest.fn(() => Promise.reject(error));
+	afterEach(() => { // Ensure XHR retrieves from correct endpoint
+		expect(mockedRequest.open).toHaveBeenCalledTimes(1);
+		expect(mockedRequest.open).toHaveBeenCalledWith(HttpMethods.GET, Api.homeTimelineEndpoint);
+		mockedRequest.open.mockClear();
+		expect(mockedRequest.send).toHaveBeenCalledTimes(1);
+		mockedRequest.send.mockClear();
+	});
 
-		Api.fetchHomeTimeline().catch(err => {
-			expect(err).toEqual(error);
-			done();
+	test("should attempt to fetch tweets and on non-OK status execute callback with error", done => {
+		
+		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
+		Api.fetchHomeTimeline((err, tweets) => {
+			if (err) {
+				expect(err).toEqual(Api.statusError(mockedRequest.status));
+				done();
+			} else {
+				done.fail();
+			}
 		});
+		mockedRequest.onreadystatechange();
 	});
 
-	test("should fetch tweets from API, parse from JSON, and return tweets", done => {
-		const tweets = [{
-			user: {},
+	test("should attempt to fetch tweets and on invalid json execute callback with error", done => {
+		
+		mockedRequest.responseText = "Invalid JSON"; // Return invalid JSON
+		mockedRequest.status = HttpStatuses.OK;
+		Api.fetchHomeTimeline((err, tweets) => {
+			if (err) {
+				done();
+			} else {
+				done.fail();
+			}
+		});
+		mockedRequest.onreadystatechange();
+	});
+
+	test("should fetch from Api, parse tweets from JSON, and execute callback with tweets", done => {
+		const dummyTweets = [{
 			message: "some message"
 		}];
-		global.fetch = jest.fn(() => {
-			return Promise.resolve({json: () => tweets});
-		});
 
-		Api.fetchHomeTimeline().then(response => {
-			expect(response).toEqual(tweets);
+		mockedRequest.responseText = JSON.stringify(dummyTweets); // Set response to valid tweets
+		mockedRequest.status = HttpStatuses.OK;
+		Api.fetchHomeTimeline((err, tweets) => {
+			if (err) {
+				done.fail();
+			}
+			expect(tweets).toEqual(dummyTweets);
 			done();
 		});
+		mockedRequest.onreadystatechange();
 	});
 
 });
