@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TweetBlock from "./TweetBlock";
-import "../../css/components/TimelineUI.scss";
+import "../../../css/components/timeline/TimelineUI.scss";
 
 // Presentational Component for Timeline
 export default class TimelineUI extends React.Component {
