@@ -1,7 +1,6 @@
 export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline";
-export const httpMethods = {
-	get: "GET"
-}
+import HttpMethodsEnum from 'http-methods-enum';
+
 /*
  * Fetches tweets from home timeline
  *
@@ -11,9 +10,9 @@ export function fetchHomeTimeline(callback) {
 
 	const xhttp = new XMLHttpRequest();
 
-	xhttp.open(httpMethods.get, homeTimelineEndpoint);
+	xhttp.open(HttpMethodsEnum.GET, homeTimelineEndpoint);
 	xhttp.onreadystatechange = function() {
-		if (xhttp.readyState === xhttp.DONE) {
+		if (xhttp.readyState === XMLHttpRequest.DONE) {
 			try {
 				const tweets = JSON.parse(xhttp.responseText);
 				callback(null, tweets);

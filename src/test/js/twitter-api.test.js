@@ -1,4 +1,5 @@
 import * as Api from "../../main/js/twitter-api";
+import HttpMethodsEnum from 'http-methods-enum';
 
 describe("twitter-api", () => {
 
@@ -9,14 +10,14 @@ describe("twitter-api", () => {
 			open: jest.fn(),
 			send: jest.fn(),
 			readyState: XMLHttpRequest.DONE,
-			DONE: XMLHttpRequest.DONE
 		};
 		window.XMLHttpRequest = jest.fn(() => mockedRequest);
+		window.XMLHttpRequest.DONE = mockedRequest.readyState;
 	});
 
 	afterEach(() => { // Ensure XHR retrieves from correct endpoint
 		expect(mockedRequest.open).toHaveBeenCalledTimes(1);
-		expect(mockedRequest.open).toHaveBeenCalledWith(Api.httpMethods.get, Api.homeTimelineEndpoint);
+		expect(mockedRequest.open).toHaveBeenCalledWith(HttpMethodsEnum.GET, Api.homeTimelineEndpoint);
 		mockedRequest.open.mockClear();
 		expect(mockedRequest.send).toHaveBeenCalledTimes(1);
 		mockedRequest.send.mockClear();
