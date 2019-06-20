@@ -29,7 +29,7 @@ describe("twitter-api", () => {
 		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
 		Api.fetchHomeTimeline((err, tweets) => {
 			if (err) {
-				expect(err).toEqual(Api.badStatusError(mockedRequest.status));
+				expect(err).toEqual(Api.statusError(mockedRequest.status));
 				done();
 			} else {
 				done.fail();

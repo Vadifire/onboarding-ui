@@ -3,7 +3,7 @@ import HttpStatuses from "http-status-codes";
 
 export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline";
 
-export function badStatusError(status) {
+export function statusError(status) {
 	return new Error("Received bad status code in response: " + status);
 }
 
@@ -26,7 +26,7 @@ export function fetchHomeTimeline(callback) {
 					callback(err);
 				}
 			} else {
-				callback(badStatusError(xhttp.status));
+				callback(statusError(xhttp.status));
 			}
 		} 
 	};
