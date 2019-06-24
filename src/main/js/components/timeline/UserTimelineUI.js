@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TimelineUI from "./TimelineUI";
 import { fetchUserTimeline } from "../../twitter-api";
+import "../../../css/components/timeline/UserTimeline.scss";
 
 export default class UserTimelineUI extends React.Component {
 
@@ -10,10 +11,10 @@ export default class UserTimelineUI extends React.Component {
 
 	render() {
 		return (
-			<React.Fragment>
+			<div className="user-timeline">
 				<TimelineUI apiCall={fetchUserTimeline} buttonName={UserTimelineUI.buttonName} title="User Timeline"
 						showHandle={false}/>
-			</React.Fragment>
+			</div>
 		);
 	}
 }

@@ -1,4 +1,6 @@
 $font-family: "Times New Roman";
+$inner-gap: 20px;
+$outer-margin: 25px;
 
 body {
 	font: $font-family;
@@ -17,5 +19,17 @@ body {
 	    vertical-align:middle;
 	    width:100%;
 	    text-align: center;
+/*
+	    &:nth-child(1) {
+			margin-left: $outer-margin;
+			margin-right: $inner-gap;
+			width: calc(55% - 2 * #{$inner-gap});
+	    }
+
+		&:nth-child(2) {
+			margin-right: $outer-margin;
+			width: calc(45% - 2 * #{$inner-gap});
+		}
+		*/
 	}
 }

@@ -23,7 +23,6 @@ export default class TimelineUI extends React.Component {
 	}
 
 	formatTweet(tweet) {
-		console.log(tweet);
 		tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
 		if (!tweet.user) {
 			tweet.user = {

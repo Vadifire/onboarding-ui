@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TimelineUI from "./TimelineUI";
 import { fetchHomeTimeline } from "../../twitter-api";
+import "../../../css/components/timeline/HomeTimeline.scss";
 
 export default class HomeTimelineUI extends React.Component {
 
@@ -10,10 +11,10 @@ export default class HomeTimelineUI extends React.Component {
 
 	render() {
 		return (
-			<React.Fragment>
+			<div className="home-timeline">
 				<TimelineUI apiCall={fetchHomeTimeline} buttonName={HomeTimelineUI.buttonName} title="Home Timeline" 
 						showHandle={true}/>
-			</React.Fragment>
+			</div>
 		);
 	}
 }
