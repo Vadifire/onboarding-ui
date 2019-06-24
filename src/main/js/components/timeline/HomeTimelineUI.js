@@ -1,24 +1,79 @@
 import React, { Component } from "react";
-import TimelineUI from "./TimelineUI";
+import TweetBlock from "./TweetBlock";
+import "../../../css/components/timeline/HomeTimelineUI.scss";
 import { fetchHomeTimeline } from "../../twitter-api";
-import "../../../css/components/timeline/HomeTimeline.scss";
 
 export default class HomeTimelineUI extends React.Component {
 
-	static get buttonName() {
-		return "Update Home Timeline";
+	constructor() {
+		super();
+		this.state = {
+			tweets: null,
+			message: null
+		}
+		this.updateTimeline = this.updateTimeline.bind(this);
 	}
 
-	static get title() {
-		return "Home Timeline";
+	static get apiErrorMessage() {
+		return "Failed to fetch tweets from home timeline. Please try again later.";
+	}
+
+	static get emptyTimelineMessage() {
+		return "No tweets are available, post a tweet!";
+	}
+
+	static formatTweet(tweet) {
+		tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
+		if (!tweet.user) {
+			tweet.user = {
+				name: "Unknown User"
+			};
+		}
+		return tweet;
+	}
+
+	componentDidMount() {
+		this.updateTimeline();
 	}
 
 	render() {
+		let displayedElem; // Either display message or tweets
+		if (this.state.message) {
+			displayedElem = <div className="error-div">{this.state.message}</div>
+		}
+		if (this.state.tweets) {
+			// Map tweets to React Components
+			const tweets = this.state.tweets.map(tweet => {
+				return (
+					<div key={tweet.url} className="row">
+						<TweetBlock tweet={HomeTimelineUI.formatTweet(tweet)}/>
+					</div>
+				);
+			});
+			displayedElem = <div className="tweets">{tweets}</div>;
+		} 
 		return (
 			<div className="home-timeline timeline-comp">
-				<TimelineUI  apiCall={fetchHomeTimeline} buttonName={HomeTimelineUI.buttonName} 
-						title={HomeTimelineUI.title}/>
+				<h3 className="title">Home Timeline</h3>
+				<div className="button-div">
+					<button className="update-timeline" onClick={this.updateTimeline}>Update Home Timeline</button>
+				</div>
+				{displayedElem}
 			</div>
 		);
+	}
+
+	updateTimeline() {
+		fetchHomeTimeline((err, tweets) => {
+			if (err) {
+				this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
+			} else {
+				if (tweets.length) {
+					this.setState({tweets: tweets, message: null});
+				} else {
+					this.setState({tweets : null, message: HomeTimelineUI.emptyTimelineMessage});
+				}
+			}
+		});
 	}
 }
