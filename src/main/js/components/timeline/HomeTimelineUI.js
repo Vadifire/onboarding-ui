@@ -11,7 +11,8 @@ export default class HomeTimelineUI extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<TimelineUI apiCall={fetchHomeTimeline} buttonName={HomeTimelineUI.buttonName} title="Home Timeline" />
+				<TimelineUI apiCall={fetchHomeTimeline} buttonName={HomeTimelineUI.buttonName} title="Home Timeline" 
+						showHandle={true}/>
 			</React.Fragment>
 		);
 	}

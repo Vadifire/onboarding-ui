@@ -22,12 +22,15 @@ export default class TimelineUI extends React.Component {
 		return "No tweets are available, post a tweet!";
 	}
 
-	static formatTweet(tweet) {
+	formatTweet(tweet) {
+		console.log(tweet);
 		tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
 		if (!tweet.user) {
 			tweet.user = {
 				name: "Unknown User"
 			};
+		} else {
+			tweet.user.twitterHandle = this.props.showHandle ? tweet.user.twitterHandle : "";
 		}
 		return tweet;
 	}
@@ -46,7 +49,7 @@ export default class TimelineUI extends React.Component {
 			const tweets = this.state.tweets.map(tweet => {
 				return (
 					<div key={tweet.url} className="row">
-						<TweetBlock tweet={TimelineUI.formatTweet(tweet)}/>
+						<TweetBlock tweet={this.formatTweet(tweet)}/>
 					</div>
 				);
 			});
