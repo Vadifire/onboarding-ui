@@ -10,3 +10,14 @@ body {
 	font: bold 40px $font-family;
 	text-align: center;
 }
+
+.timeline-comp:nth-child(1) {
+	margin-left: $outer-margin;
+	margin-right: $inner-gap;
+	width: calc(55% - 2 * #{$inner-gap});
+}
+
+.timeline-comp:nth-child(2) {
+	margin-right: $outer-margin;
+	width: calc(45% - 2 * #{$inner-gap});
+}

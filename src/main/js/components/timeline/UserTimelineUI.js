@@ -15,9 +15,9 @@ export default class UserTimelineUI extends React.Component {
 
 	render() {
 		return (
-			<div className="user-timeline">
-				<TimelineUI apiCall={fetchUserTimeline} buttonName={UserTimelineUI.buttonName} title={UserTimelineUI.title}
-						hideHandle={true}/>
+			<div className="user-timeline timeline-comp">
+				<TimelineUI apiCall={fetchUserTimeline} buttonName={UserTimelineUI.buttonName} 
+						title={UserTimelineUI.title} hideHandle={true}/>
 			</div>
 		);
 	}

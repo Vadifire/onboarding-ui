@@ -9,8 +9,8 @@ export default class Application extends React.Component {
 			<div>
 				<div className="title">Lab for Cedric</div>
 				<div className="timelines">
-					<HomeTimelineUI />
-					<UserTimelineUI />
+					<HomeTimelineUI/>
+					<UserTimelineUI/>
 				</div>
 			</div>
 		);

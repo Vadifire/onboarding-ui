@@ -15,6 +15,7 @@ describe("UserTimelineUI", () => {
 		expect(timelineUI.prop("buttonName")).toEqual(UserTimelineUI.buttonName);
 		expect(timelineUI.prop("hideHandle")).toBeTruthy();
 		expect(timelineUI.prop("title")).toEqual(UserTimelineUI.title);
+		expect(userTimelineUI.hasClass("timeline-comp")).toBe(true);
 	});
 
 });
