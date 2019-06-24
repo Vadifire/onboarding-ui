@@ -10,7 +10,7 @@ export default class UserTimelineUI extends React.Component {
 	}
 
 	static get title() {
-		return "Use Timeline";
+		return "User Timeline";
 	}
 
 	render() {
