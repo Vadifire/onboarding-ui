@@ -1,0 +1,64 @@
+import { expectOne } from "../../test-util";
+
+export default class TimelineTestUtil {
+
+	constructor(timelineUI, rootSelector) {
+		this.timelineUI = timelineUI;
+		this.rootSelector = rootSelector;
+	}
+
+	static get dummyTweets() {
+		return [
+			{
+				message: "some message",
+				user: {
+					name: "george",
+					profileImageUrl: "www.twitter.com/george.png",
+					twitterHandle: "the_real_george"
+				},
+				createdAt: 1560440907000,
+				url: "twitter.com/filler"
+			},
+			{
+				message: "another message",
+				createdAt: 1560440901000,
+				url: "twitter.com/a_url"
+			}
+		];
+	}
+
+	getTimelineDiv() {
+		return expectOne(this.timelineUI, this.rootSelector);
+	}
+
+	expectHeader(text) {
+		const header = expectOne(this.getTimelineDiv(), "h3.title");
+		expect(header.text()).toEqual(text);
+	}
+
+	expectButton(text) {
+		const button = expectOne(this.getTimelineDiv(), "button.update-timeline");
+		expect(button.prop("onClick")).toEqual(this.timelineUI.instance().updateTimeline);
+		expect(button.text()).toEqual(text);
+	}
+
+	// Used in error message test cases
+	expectErrorMessage(message, mockedFunc) {
+		const timelineDiv = this.getTimelineDiv();
+		const errorDiv = expectOne(this.getTimelineDiv(), "div.error-div");
+		expect(errorDiv.text()).toEqual(message);
+		expect(mockedFunc).toHaveBeenCalledTimes(1);
+	}
+
+	// Used in valid response test cases
+	expectTweets(tweets, mockedFunc, formatFunc) {
+		const tweetsDiv = expectOne(this.getTimelineDiv(), "div.tweets");
+		const rows = tweetsDiv.find("div.row");
+		rows.forEach((row, index) => {
+			const tweetBlock = expectOne(row, "TweetBlock");
+			expect(tweetBlock.prop("tweet")).toEqual(formatFunc(tweets[index]));
+		});
+		expect(mockedFunc).toHaveBeenCalledTimes(1);
+	}
+
+}

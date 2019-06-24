@@ -1,0 +1,45 @@
+.user-timeline {
+	display:inline-block;
+	vertical-align: top;
+	text-align: left;
+
+	.title {
+		font-size: 30px;
+		text-align: center;
+	}
+
+	.button-div {
+		.update-timeline {
+			margin-bottom: 4px;
+			text-align: left;
+		}
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.error-div {
+		font-size: 12px;
+		margin-top: 5px;
+	}
+
+	.tweets {
+		border: 2px solid;
+		margin-top: 10px;
+
+		.row {
+			border-bottom: 1px solid #bbbbbb;
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			&:nth-child(odd) {
+				background-color:#f5f8fa;
+			}
+
+			&:nth-child(even) {
+				background-color:#1da1f2;
+			}
+		}
+	}
+}
