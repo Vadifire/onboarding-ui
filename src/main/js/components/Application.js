@@ -8,11 +8,9 @@ export default class Application extends React.Component {
 		return (
 			<div>
 				<div className="title">Lab for Cedric</div>
-				<div className="outer-wrapper">
-					<div className="inner-wrapper">
-						<HomeTimelineUI />
-						<UserTimelineUI />
-					</div>
+				<div className="timelines">
+					<HomeTimelineUI />
+					<UserTimelineUI />
 				</div>
 			</div>
 		);

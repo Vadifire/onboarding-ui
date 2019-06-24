@@ -10,12 +10,3 @@ body {
 	font: bold 40px $font-family;
 	text-align: center;
 }
-
-.outer {
-	display:table;
-	.inner {
-	    display:table-cell;
-	    vertical-align:middle;
-	    text-align: center;
-	}
-}

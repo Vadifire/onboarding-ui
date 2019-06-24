@@ -16,12 +16,9 @@ describe("Application", () => {
 		expectOne(application, "div.title");
 	});
 	
-	// TODO: figure out structure
-	test("should contain a single UserTimelineUI component", () => {
-		expectOne(application, "UserTimelineUI");
-	});
-	// TODO: figure out structure
-	test("should contain a single HomeTimelineUI component", () => {
-		expectOne(application, "HomeTimelineUI");
+	test("should contain div with UserTimelineUI and HomeTimelineUI components", () => {
+		const timelines = expectOne(application, "div.timelines");
+		expectOne(timelines, "UserTimelineUI");
+		expectOne(timelines, "HomeTimelineUI");
 	});
 });
