@@ -29,7 +29,7 @@ export default class TimelineUI extends React.Component {
 				name: "Unknown User"
 			};
 		} else {
-			tweet.user.twitterHandle = this.props.showHandle ? tweet.user.twitterHandle : "";
+			tweet.user.twitterHandle = this.props.hideHandle ? "" : tweet.user.twitterHandle;
 		}
 		return tweet;
 	}

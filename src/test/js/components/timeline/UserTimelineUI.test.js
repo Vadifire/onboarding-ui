@@ -13,6 +13,7 @@ describe("UserTimelineUI", () => {
 		// TODO: consider constants
 		expect(timelineUI.prop("apiCall")).toEqual(Api.fetchUserTimeline);
 		expect(timelineUI.prop("buttonName")).toEqual(UserTimelineUI.buttonName);
+		expect(timelineUI.prop("hideHandle")).toBeTruthy();
 	});
 
 });

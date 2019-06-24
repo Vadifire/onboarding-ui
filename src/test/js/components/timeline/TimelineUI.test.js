@@ -30,7 +30,7 @@ describe("TimelineUI", () => {
 		const rows = tweetsDiv.find("div.row");
 		rows.forEach((row, index) => {
 			const tweetBlock = expectOne(row, "TweetBlock");
-			expect(tweetBlock.prop("tweet")).toEqual(TimelineUI.formatTweet(tweets[index]));
+			expect(tweetBlock.prop("tweet")).toEqual(timelineUI.instance().formatTweet(tweets[index]));
 		});
 		expect(mockedApiCall).toHaveBeenCalledTimes(1);
 	}

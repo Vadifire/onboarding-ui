@@ -13,11 +13,9 @@ body {
 
 .outer {
 	display:table;
-	width:100%; //Or however wide you want the container to be
 	.inner {
-	    display:table-cell; //This allows the use of vertical-align
+	    display:table-cell;
 	    vertical-align:middle;
-	    width:100%;
 	    text-align: center;
 	}
 }
