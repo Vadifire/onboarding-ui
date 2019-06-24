@@ -12,9 +12,15 @@ describe("UserTimelineUI", () => {
 		return expectOne(timelineUI, "div.user-timeline");
 	}
 
-	function expectButton() { // These elements never change
+	function expectHeader() {
+		const header = expectOne(getTimelineDiv(timelineUI), "h3.title");
+		expect(header.text()).toEqual(UserTimelineUI.timelineName);
+	}
+
+	function expectButton() {
 		const button = expectOne(getTimelineDiv(timelineUI), "button.update-timeline");
 		expect(button.prop("onClick")).toEqual(timelineUI.instance().updateTimeline);
+		expect(button.text()).toEqual(UserTimelineUI.buttonText);
 	}
 
 	// Used in error message test cases
@@ -99,7 +105,12 @@ describe("UserTimelineUI", () => {
 
 	// Test rendering of button
 	test("should render button", () => {
-		expectButton(timelineUI);
+		expectButton();
+	});
+
+	// Test rendering of header
+	test("should render header", () => {
+		expectHeader();
 	});
 
 });

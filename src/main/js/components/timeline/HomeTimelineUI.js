@@ -22,6 +22,14 @@ export default class HomeTimelineUI extends React.Component {
 		return "No tweets are available, post a tweet!";
 	}
 
+	static get buttonText() {
+		return "Update " + HomeTimelineUI.timelineName;
+	}
+
+	static get timelineName() {
+		return "Home Timeline";
+	}
+
 	static formatTweet(tweet) {
 		tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
 		if (!tweet.user) {
@@ -54,9 +62,9 @@ export default class HomeTimelineUI extends React.Component {
 		} 
 		return (
 			<div className="home-timeline timeline-comp">
-				<h3 className="title">Home Timeline</h3>
+				<h3 className="title">{HomeTimelineUI.timelineName}</h3>
 				<div className="button-div">
-					<button className="update-timeline" onClick={this.updateTimeline}>Update Home Timeline</button>
+					<button className="update-timeline" onClick={this.updateTimeline}>{HomeTimelineUI.buttonText}</button>
 				</div>
 				{displayedElem}
 			</div>
