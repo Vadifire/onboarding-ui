@@ -6,7 +6,7 @@ import * as Api from "../../../../main/js/twitter-api";
 
 describe("UserTimelineUI", () => {
 
-	test("should contain TimelineUI with correct props", () => { //TODO: correct ?
+	test("should contain TimelineUI with expected props", () => {
 		const userTimelineUI = shallow(<UserTimelineUI/>);
 		const timelineUI = expectOne(userTimelineUI, "TimelineUI");
 
