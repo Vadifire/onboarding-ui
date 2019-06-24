@@ -14,5 +14,6 @@ describe("HomeTimelineUI", () => {
 		expect(timelineUI.prop("apiCall")).toEqual(Api.fetchHomeTimeline);
 		expect(timelineUI.prop("buttonName")).toEqual(HomeTimelineUI.buttonName);
 		expect(timelineUI.prop("hideHandle")).toBeFalsy();
+		expect(timelineUI.prop("title")).toEqual(HomeTimelineUI.title);
 	});
 });

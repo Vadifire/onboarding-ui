@@ -9,10 +9,14 @@ export default class HomeTimelineUI extends React.Component {
 		return "Update Home Timeline";
 	}
 
+	static get title() {
+		return "Home Timeline";
+	}
+
 	render() {
 		return (
 			<div className="home-timeline">
-				<TimelineUI apiCall={fetchHomeTimeline} buttonName={HomeTimelineUI.buttonName} title="Home Timeline"/>
+				<TimelineUI apiCall={fetchHomeTimeline} buttonName={HomeTimelineUI.buttonName} title={HomeTimelineUI.title}/>
 			</div>
 		);
 	}
