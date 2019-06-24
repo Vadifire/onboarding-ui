@@ -1,7 +1,19 @@
+
 .timeline-div {
+	&:nth-child(1) {
+		margin-left: 40px;
+		margin-right: 40px;
+		width: calc(55% - 80px);
+	}
+
+	&:nth-child(2) {
+		margin-right: 40px;
+		width: calc(45% - 80px);
+	}
 
 	display:inline-block; //Makes it obey text-aligning.
-	margin: 0px 10px 20px;
+	//margin: 0px 40px 20px; (previous margins for single timeline)
+	vertical-align: top;
 	text-align: left;
 
 	.update-timeline {
