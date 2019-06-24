@@ -11,7 +11,7 @@ export default class UserTimelineUI extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<TimelineUI apiCall={fetchUserTimeline} buttonName={UserTimelineUI.buttonName}/>
+				<TimelineUI apiCall={fetchUserTimeline} buttonName={UserTimelineUI.buttonName} title="User Timeline" />
 			</React.Fragment>
 		);
 	}

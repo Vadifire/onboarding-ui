@@ -54,7 +54,10 @@ export default class TimelineUI extends React.Component {
 		} 
 		return (
 			<div className="timeline-div">
-				<button className="update-timeline" onClick={this.updateTimeline}>{this.props.buttonName}</button>
+				<h2>{this.props.title}</h2>
+				<div className="button-div">
+					<button className="update-timeline" onClick={this.updateTimeline}>{this.props.buttonName}</button>
+				</div>
 				{displayedElem}
 			</div>
 		);
