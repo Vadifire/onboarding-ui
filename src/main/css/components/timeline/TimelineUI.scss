@@ -1,6 +1,4 @@
-@import "TimelineUI";
-
-.home-timeline {
+.timeline-comp {
 	display:inline-block;
 	vertical-align: top;
 	text-align: left;
@@ -17,11 +15,6 @@
 		}
 	}
 
-	.error-div {
-		font-size: 12px;
-		margin-top: 5px;
-	}
-
 	.tweets {
 		border: 2px solid;
 		margin-top: 10px;
@@ -31,14 +24,6 @@
 
 			&:last-child {
 				border-bottom: none;
-			}
-
-			&:nth-child(odd) {
-				background-color:#e8f5fd;
-			}
-
-			&:nth-child(even) {
-				background-color:#e9e9e9;
 			}
 		}
 	}
