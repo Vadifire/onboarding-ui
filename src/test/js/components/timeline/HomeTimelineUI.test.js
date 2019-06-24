@@ -1,67 +1,17 @@
 import React from "react";
 import { shallow } from "enzyme";
 import HomeTimelineUI from "../../../../main/js/components/timeline/HomeTimelineUI";
-import { expectOne } from "../../test-util";
 import * as Api from "../../../../main/js/twitter-api";
+import TimelineTestUtil from "./TimelineTestUtil";
 
 describe("HomeTimelineUI", () => {
 
-	let dummyTweets, timelineUI;
-
-	function getTimelineDiv() {
-		return expectOne(timelineUI, "div.home-timeline");
-	}
-
-	function expectHeader() {
-		const header = expectOne(getTimelineDiv(timelineUI), "h3.title");
-		expect(header.text()).toEqual(HomeTimelineUI.timelineName);
-	}
-
-	function expectButton() {
-		const button = expectOne(getTimelineDiv(timelineUI), "button.update-timeline");
-		expect(button.prop("onClick")).toEqual(timelineUI.instance().updateTimeline);
-		expect(button.text()).toEqual(HomeTimelineUI.buttonText);
-	}
-
-	// Used in error message test cases
-	function expectErrorMessage(message) {
-		const timelineDiv = getTimelineDiv(timelineUI);
-		const errorDiv = expectOne(getTimelineDiv(timelineUI), "div.error-div");
-		expect(errorDiv.text()).toEqual(message);
-		expect(Api.fetchHomeTimeline).toHaveBeenCalledTimes(1);
-	}
-
-	// Used in valid response test cases
-	function expectTweets(tweets) {
-		const tweetsDiv = expectOne(getTimelineDiv(timelineUI), "div.tweets");
-		const rows = tweetsDiv.find("div.row");
-		rows.forEach((row, index) => {
-			const tweetBlock = expectOne(row, "TweetBlock");
-			expect(tweetBlock.prop("tweet")).toEqual(HomeTimelineUI.formatTweet(tweets[index]));
-		});
-		expect(Api.fetchHomeTimeline).toHaveBeenCalledTimes(1);
-	}
+	let timelineUI, util;
 
 	beforeAll(() => {
-		dummyTweets = [
-			{
-				message: "some message",
-				user: {
-					name: "george",
-					profileImageUrl: "www.twitter.com/george.png",
-					twitterHandle: "the_real_george"
-				},
-				createdAt: 1560440907000,
-				url: "twitter.com/filler"
-			},
-			{
-				message: "another message",
-				createdAt: 1560440901000,
-				url: "twitter.com/a_url"
-			}
-		];
 		Api.fetchHomeTimeline = jest.fn();
 		timelineUI = shallow(<HomeTimelineUI />, {disableLifecycleMethods: true});
+		util = new TimelineTestUtil(timelineUI, "div.home-timeline");
 	});
 
 	afterEach(() => {
@@ -73,7 +23,7 @@ describe("HomeTimelineUI", () => {
 
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(Error());
-			expectErrorMessage(HomeTimelineUI.apiErrorMessage);
+			util.expectErrorMessage(HomeTimelineUI.apiErrorMessage, Api.fetchHomeTimeline);
 			done();
 		});
 		timelineUI.instance().updateTimeline();
@@ -85,7 +35,7 @@ describe("HomeTimelineUI", () => {
 
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(null, []);
-			expectErrorMessage(HomeTimelineUI.emptyTimelineMessage);
+			util.expectErrorMessage(HomeTimelineUI.emptyTimelineMessage, Api.fetchHomeTimeline);
 			done();
 		});
 		timelineUI.instance().updateTimeline();
@@ -96,8 +46,8 @@ describe("HomeTimelineUI", () => {
 	test("should render tweets", done => {
 
 		Api.fetchHomeTimeline.mockImplementation(callback => {
-			callback(null, dummyTweets);
-			expectTweets(dummyTweets);
+			callback(null, TimelineTestUtil.dummyTweets);
+			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchHomeTimeline, HomeTimelineUI.formatTweet);
 			done();
 		});
 		timelineUI.instance().updateTimeline();
@@ -105,12 +55,12 @@ describe("HomeTimelineUI", () => {
 
 	// Test rendering of button
 	test("should render button", () => {
-		expectButton();
+		util.expectButton(HomeTimelineUI.buttonText);
 	});
 
 	// Test rendering of header
 	test("should render header", () => {
-		expectHeader();
+		util.expectHeader(HomeTimelineUI.timelineName);
 	});
 
 });
