@@ -1,5 +1,4 @@
 $user-div-width: 160px;
-$content-div-width: 400px;
 $names-width: 140px;
 $names-padding: ($user-div-width - $names-width) / 2;
 
@@ -43,7 +42,6 @@ $names-padding: ($user-div-width - $names-width) / 2;
 
 	.content-div {
 		grid-area: content-grid;
-		min-width: 0px;
 		overflow: hidden;
 
 		.date {

@@ -1,5 +1,6 @@
-
 .timeline-div {
+
+	//margin: 0px 40px 20px; (previous margins for single timeline)
 	&:nth-child(1) {
 		margin-left: 40px;
 		margin-right: 40px;
@@ -12,7 +13,6 @@
 	}
 
 	display:inline-block; //Makes it obey text-aligning.
-	//margin: 0px 40px 20px; (previous margins for single timeline)
 	vertical-align: top;
 	text-align: left;
 
