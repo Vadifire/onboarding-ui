@@ -1,5 +1,6 @@
 import { expectOne } from "../../test-util";
 
+// Provides functions shared by timeline tests
 export default class TimelineTestUtil {
 
 	constructor(timelineUI, rootSelector) {
