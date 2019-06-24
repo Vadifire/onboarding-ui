@@ -1,0 +1,19 @@
+.home-timeline {
+	display:inline-block;
+	vertical-align: top;
+	text-align: left;
+
+	.timeline-div {
+		.tweets {
+			.row {
+				&:nth-child(odd) {
+					background-color:#e8f5fd;
+				}
+
+				&:nth-child(even) {
+					background-color:#e9e9e9;
+				}
+			}
+		}
+	}
+}

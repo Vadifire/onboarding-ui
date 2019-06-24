@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../../../css/components/timeline/TweetBlock.scss";
 
 export default class TweetBlock extends React.Component {
-	
+
 	render() {
 		return (
 			<div className="tweet">
