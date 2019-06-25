@@ -45,19 +45,17 @@ export default class TimelineTestUtil {
 
 	// Used in error message test cases
 	expectErrorMessage(message, mockedFunc) {
-		const timelineDiv = this.getTimelineDiv();
-		const errorDiv = expectOne(this.getTimelineDiv(), "div.error-div");
-		expect(errorDiv.text()).toEqual(message);
+		const timelineElem = expectOne(this.getTimelineDiv(), "MainTimelineElement");
+		expect(timelineElem.prop("message")).toEqual(message);
+		expect(timelineElem.prop("tweets")).toBeFalsy();
 		expect(mockedFunc).toHaveBeenCalledTimes(1);
 	}
 
 	// Used in valid response test cases
 	expectTweets(tweets, mockedFunc) {
-		const tweetsDiv = expectOne(this.getTimelineDiv(), "div.tweets");
-		const tweetBlocks = tweetsDiv.find("TweetBlock");
-		tweetBlocks.forEach((tweetBlock, index) => {
-			expect(tweetBlock.prop("tweet")).toEqual(tweets[index]);
-		});
+		const timelineElem = expectOne(this.getTimelineDiv(), "MainTimelineElement");
+		expect(timelineElem.prop("tweets")).toEqual(tweets);
+		expect(timelineElem.prop("message")).toBeFalsy();
 		expect(mockedFunc).toHaveBeenCalledTimes(1);
 	}
 

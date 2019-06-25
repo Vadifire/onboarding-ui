@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TweetBlock from "./TweetBlock";
+import MainTimelineElement from "./MainTimelineElement";
 import "../../../css/components/timeline/HomeTimelineUI.scss";
 import { fetchHomeTimeline } from "../../twitter-api";
 
@@ -35,26 +35,13 @@ export default class HomeTimelineUI extends React.Component {
 	}
 
 	render() {
-		let displayedElem; // Either display message or tweets
-		if (this.state.message) {
-			displayedElem = <div className="error-div">{this.state.message}</div>
-		}
-		if (this.state.tweets) {
-			// Map tweets to React Components
-			const tweets = this.state.tweets.map(tweet => {
-				return (
-					<TweetBlock key={tweet.url} tweet={tweet}/>
-				);
-			});
-			displayedElem = <div className="tweets">{tweets}</div>;
-		} 
 		return (
 			<div className="home-timeline timeline-comp">
 				<h3 className="title">{HomeTimelineUI.timelineName}</h3>
 				<div className="button-div">
 					<button className="update-timeline" onClick={this.updateTimeline}>{HomeTimelineUI.buttonText}</button>
 				</div>
-				{displayedElem}
+				<MainTimelineElement tweets={this.state.tweets} message={this.state.message}/>
 			</div>
 		);
 	}
