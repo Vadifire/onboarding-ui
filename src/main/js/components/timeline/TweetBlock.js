@@ -4,13 +4,16 @@ import "../../../css/components/timeline/TweetBlock.scss";
 export default class TweetBlock extends React.Component {
 
 	static formatTweet(tweet) {
-		tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
-		if (!tweet.user) {
-			tweet.user = {
+		const formattedTweet = {};
+		Object.assign(formattedTweet, tweet);
+		formattedTweet.createdAt = new Date(formattedTweet.createdAt)
+				.toLocaleString("en-us", {month: "short", day: "numeric"});
+		if (!formattedTweet.user) {
+			formattedTweet.user = {
 				name: "Unknown User"
 			};
 		}
-		return tweet;
+		return formattedTweet;
 	}
 
 	render() {

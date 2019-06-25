@@ -1,5 +1,7 @@
 .timeline-component {
-	display:inline-block;
+
+	box-sizing: border-box;
+	display: inline-block;
 	vertical-align: top;
 	text-align: left;
 

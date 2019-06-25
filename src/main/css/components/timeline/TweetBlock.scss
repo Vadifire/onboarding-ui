@@ -1,7 +1,6 @@
 $user-div-width: 160px;
 $names-width: 140px;
 $names-padding: ($user-div-width - $names-width) / 2;
-$right-padding: 10px;
 
 @mixin names() {
 	max-width: $names-width;
@@ -9,12 +8,13 @@ $right-padding: 10px;
 }
 
 .tweet {
+	box-sizing: border-box;
 	justify-content: left;
 	align-items: center;
 	display: inline-grid;
 	grid-template-areas: "user-grid content-grid";
-	padding: 20px $right-padding 20px 0px;
-	width: calc(100% - #{$right-padding});
+	padding: 20px 10px 20px 0px;
+	width: 100%;
 	border-bottom: 1px solid #bbbbbb;
 
 	.user-div {

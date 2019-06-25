@@ -55,5 +55,5 @@ describe("TweetBlock", () => {
 		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} hideHandle={true}/>);
 		expect(tweetBlock.find("twitter-handle").length).toEqual(0);
 	});
-
+	
 });

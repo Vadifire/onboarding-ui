@@ -18,11 +18,23 @@ describe("MainTimelineElem", () => {
 		});
 	});
 
-
-	test("should display ErrorDiv", () => {
+	test("should display error div with message from prop", () => {
 		const dummyMessage = "error message";
 		const timelineElem = shallow(<MainTimelineElement message={dummyMessage}/>);
 		const errorDiv = expectOne(timelineElem, "div.error-div");
 		expect(errorDiv.text()).toEqual(dummyMessage);
 	});
+
+	test("should display error div if no props defined", () => {
+		const timelineElem = shallow(<MainTimelineElement/>);
+		const errorDiv = expectOne(timelineElem, "div.error-div");
+		expect(errorDiv.text()).toEqual(MainTimelineElement.errorMessage);
+	});
+
+	test("should display error div if error with tweets prop", () => {
+		const timelineElem = shallow(<MainTimelineElement tweets={"not a list of tweets"}/>);
+		const errorDiv = expectOne(timelineElem, "div.error-div");
+		expect(errorDiv.text()).toEqual(MainTimelineElement.errorMessage);
+	});
+
 });

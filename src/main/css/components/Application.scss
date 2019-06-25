@@ -1,23 +1,22 @@
-$font-family: "Times New Roman";
-$inner-gap: 20px;
-$outer-margin: 25px;
-
 body {
-	font: $font-family;
+	font: "Times New Roman";
 }
 
 .title {
-	font: bold 40px $font-family;
+	font: bold 40px "Times New Roman";
 	text-align: center;
 }
 
-.timeline-component:nth-child(1) {
-	margin-left: $outer-margin;
-	margin-right: $inner-gap;
-	width: calc(55% - 2 * #{$inner-gap});
-}
+.timelines {
 
-.timeline-component:nth-child(2) {
-	margin-right: $outer-margin;
-	width: calc(45% - 2 * #{$inner-gap});
+	.timeline-component:nth-child(1) {
+		padding-left: 25px;
+		padding-right: 20px;
+		width: 55%;
+	}
+
+	.timeline-component:nth-child(2) {
+		padding-right: 25px;
+		width: 45%;
+	}
 }
