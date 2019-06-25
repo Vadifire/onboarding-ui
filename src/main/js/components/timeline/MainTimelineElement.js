@@ -8,7 +8,7 @@ export default class MainTimelineElement extends React.Component {
 		if (this.props.tweets) {
 			const tweets = this.props.tweets.map(tweet => {
 				return (
-					<TweetBlock key={tweet.url} tweet={tweet}/>
+					<TweetBlock key={tweet.url} tweet={tweet} hideHandle={this.props.hideHandle}/>
 				);
 			});
 

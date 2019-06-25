@@ -1,6 +1,4 @@
-$border-size: 1px;
-
-.timeline-comp {
+.timeline-component {
 	display:inline-block;
 	vertical-align: top;
 	text-align: left;
@@ -23,7 +21,7 @@ $border-size: 1px;
 	}
 
 	.tweets {
-		border: $border-size solid;
+		border: 1px solid;
 		margin-top: 10px;
 
 		.tweet {

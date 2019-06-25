@@ -36,12 +36,12 @@ export default class HomeTimelineUI extends React.Component {
 
 	render() {
 		return (
-			<div className="home-timeline timeline-comp">
+			<div className="home-timeline timeline-component">
 				<h3 className="title">{HomeTimelineUI.timelineName}</h3>
 				<div className="button-div">
 					<button className="update-timeline" onClick={this.updateTimeline}>{HomeTimelineUI.buttonText}</button>
 				</div>
-				<MainTimelineElement tweets={this.state.tweets} message={this.state.message}/>
+				<MainTimelineElement tweets={this.state.tweets} message={this.state.message} hideHandle={false}/>
 			</div>
 		);
 	}

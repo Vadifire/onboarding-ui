@@ -22,9 +22,13 @@ export default class TweetBlock extends React.Component {
 					<div className="display-name">
 						{tweet.user.name}
 					</div>
-					<div className="twitter-handle">
-						{tweet.user.twitterHandle}
-					</div>
+					{this.props.hideHandle ? (
+						null
+					) : (
+						<div className="twitter-handle">
+							{tweet.user.twitterHandle}
+						</div>
+					)}
 				</div>
 				<div className="content-div">
 					<div className="date">
