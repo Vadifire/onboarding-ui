@@ -5,9 +5,10 @@ import { expectOne } from "../../test-util";
 
 describe("TweetBlock", () => {
 
-	test("should correctly lay out and render data from tweet prop", () => {
+	let dummyTweet;
 
-		const dummyTweet = {
+	beforeAll(() => {
+		dummyTweet = {
 			message: "message",
 			user: {
 				profileImageUrl: "profile url",
@@ -17,6 +18,10 @@ describe("TweetBlock", () => {
 			createdAt: "123",
 			url: "tweet url"
 		};
+	});
+
+	test("should correctly lay out and render data from tweet prop", () => {
+
 		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet}/>);
 
 		const formattedTweet = TweetBlock.formatTweet(dummyTweet);
@@ -44,6 +49,11 @@ describe("TweetBlock", () => {
 
 		const tweetLink = expectOne(message, "a.tweet-link");
 		expect(tweetLink.prop("href")).toEqual(formattedTweet.url);
+	});
+
+	test ("should hide twitterHandle", () => {
+		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} hideHandle={true}/>);
+		expect(tweetBlock.find("twitter-handle").length).toEqual(0);
 	});
 
 });

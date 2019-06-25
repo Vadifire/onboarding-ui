@@ -47,7 +47,7 @@ describe("HomeTimelineUI", () => {
 
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(null, TimelineTestUtil.dummyTweets);
-			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchHomeTimeline);
+			util.expectTweets(TimelineTestUtil.dummyTweets, false, Api.fetchHomeTimeline);
 			done();
 		});
 		timelineUI.instance().updateTimeline();

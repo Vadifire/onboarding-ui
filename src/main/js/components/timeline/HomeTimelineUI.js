@@ -41,7 +41,7 @@ export default class HomeTimelineUI extends React.Component {
 				<div className="button-div">
 					<button className="update-timeline" onClick={this.updateTimeline}>{HomeTimelineUI.buttonText}</button>
 				</div>
-				<MainTimelineElement tweets={this.state.tweets} message={this.state.message} hideHandle={false}/>
+				<MainTimelineElement tweets={this.state.tweets} message={this.state.message}/>
 			</div>
 		);
 	}

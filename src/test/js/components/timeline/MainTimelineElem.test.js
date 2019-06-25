@@ -7,11 +7,14 @@ import TimelineTestUtil from "./TimelineTestUtil";
 
 describe("MainTimelineElem", () => {
 
-	test("should display TweetBlock", () => {
-		const timelineElem = shallow(<MainTimelineElement tweets={TimelineTestUtil.dummyTweets}/>);
+	test("should display TweetBlocks", () => {
+		const dummyHideHandle = true;
+		const timelineElem = shallow(<MainTimelineElement tweets={TimelineTestUtil.dummyTweets}
+				hideHandle={dummyHideHandle}/>);
 		const tweetBlocks = timelineElem.find("TweetBlock");
 		tweetBlocks.forEach((tweetBlock, index) => {
 			expect(tweetBlock.prop("tweet")).toEqual(TimelineTestUtil.dummyTweets[index]);
+			expect(tweetBlock.prop("hideHandle")).toEqual(dummyHideHandle);
 		});
 	});
 

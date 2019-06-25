@@ -52,10 +52,13 @@ export default class TimelineTestUtil {
 	}
 
 	// Used in valid response test cases
-	expectTweets(tweets, mockedFunc) {
+	expectTweets(tweets, hideHandle, mockedFunc) {
 		const timelineElem = expectOne(this.getTimelineDiv(), "MainTimelineElement");
 		expect(timelineElem.prop("tweets")).toEqual(tweets);
 		expect(timelineElem.prop("message")).toBeFalsy();
+		if (hideHandle) {
+			expect(timelineElem.prop("hideHandle")).toEqual(true);
+		}
 		expect(mockedFunc).toHaveBeenCalledTimes(1);
 	}
 
