@@ -1,3 +1,5 @@
+$border-size: 1px;
+
 .timeline-comp {
 	display:inline-block;
 	vertical-align: top;
@@ -21,12 +23,10 @@
 	}
 
 	.tweets {
-		border: 2px solid;
+		border: $border-size solid;
 		margin-top: 10px;
 
-		.row {
-			border-bottom: 1px solid #bbbbbb;
-
+		.tweet {
 			&:last-child {
 				border-bottom: none;
 			}

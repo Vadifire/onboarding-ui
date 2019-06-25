@@ -55,9 +55,7 @@ export default class UserTimelineUI extends React.Component {
 			// Map tweets to React Components
 			const tweets = this.state.tweets.map(tweet => {
 				return (
-					<div key={tweet.url} className="row">
-						<TweetBlock tweet={UserTimelineUI.formatTweet(tweet)}/>
-					</div>
+					<TweetBlock key={tweet.url} tweet={UserTimelineUI.formatTweet(tweet)}/>
 				);
 			});
 			displayedElem = <div className="tweets">{tweets}</div>;

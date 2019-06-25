@@ -53,9 +53,7 @@ export default class HomeTimelineUI extends React.Component {
 			// Map tweets to React Components
 			const tweets = this.state.tweets.map(tweet => {
 				return (
-					<div key={tweet.url} className="row">
-						<TweetBlock tweet={HomeTimelineUI.formatTweet(tweet)}/>
-					</div>
+					<TweetBlock key={tweet.url} tweet={HomeTimelineUI.formatTweet(tweet)}/>
 				);
 			});
 			displayedElem = <div className="tweets">{tweets}</div>;

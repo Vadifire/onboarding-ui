@@ -54,9 +54,8 @@ export default class TimelineTestUtil {
 	// Used in valid response test cases
 	expectTweets(tweets, mockedFunc, formatFunc) {
 		const tweetsDiv = expectOne(this.getTimelineDiv(), "div.tweets");
-		const rows = tweetsDiv.find("div.row");
-		rows.forEach((row, index) => {
-			const tweetBlock = expectOne(row, "TweetBlock");
+		const tweetBlocks = tweetsDiv.find("TweetBlock");
+		tweetBlocks.forEach((tweetBlock, index) => {
 			expect(tweetBlock.prop("tweet")).toEqual(formatFunc(tweets[index]));
 		});
 		expect(mockedFunc).toHaveBeenCalledTimes(1);
