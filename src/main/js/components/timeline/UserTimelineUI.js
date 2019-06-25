@@ -30,18 +30,6 @@ export default class UserTimelineUI extends React.Component {
 		return "User Timeline";
 	}
 
-	static formatTweet(tweet) {
-		tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
-		if (!tweet.user) {
-			tweet.user = {
-				name: "Unknown User"
-			};
-		} else {
-			tweet.twitterHandle = "";
-		}
-		return tweet;
-	}
-
 	componentDidMount() {
 		this.updateTimeline();
 	}
@@ -55,7 +43,7 @@ export default class UserTimelineUI extends React.Component {
 			// Map tweets to React Components
 			const tweets = this.state.tweets.map(tweet => {
 				return (
-					<TweetBlock key={tweet.url} tweet={UserTimelineUI.formatTweet(tweet)}/>
+					<TweetBlock key={tweet.url} tweet={tweet}/>
 				);
 			});
 			displayedElem = <div className="tweets">{tweets}</div>;

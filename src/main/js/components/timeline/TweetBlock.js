@@ -3,25 +3,36 @@ import "../../../css/components/timeline/TweetBlock.scss";
 
 export default class TweetBlock extends React.Component {
 
+	static formatTweet(tweet) {
+		tweet.createdAt = new Date(tweet.createdAt).toLocaleString("en-us", {month: "short", day: "numeric"});
+		if (!tweet.user) {
+			tweet.user = {
+				name: "Unknown User"
+			};
+		}
+		return tweet;
+	}
+
 	render() {
+		const tweet = TweetBlock.formatTweet(this.props.tweet);
 		return (
 			<div className="tweet">
 				<div className="user-div">
-					<img className="profile-image" src={this.props.tweet.user.profileImageUrl}></img>
+					<img className="profile-image" src={tweet.user.profileImageUrl}></img>
 					<div className="display-name">
-						{this.props.tweet.user.name}
+						{tweet.user.name}
 					</div>
 					<div className="twitter-handle">
-						{this.props.tweet.user.twitterHandle}
+						{tweet.user.twitterHandle}
 					</div>
 				</div>
 				<div className="content-div">
 					<div className="date">
-						{this.props.tweet.createdAt}
+						{tweet.createdAt}
 					</div>
 					<div className="message">
-						<a className="tweet-link" href={this.props.tweet.url}>
-							{this.props.tweet.message}
+						<a className="tweet-link" href={tweet.url}>
+							{tweet.message}
 						</a>
 					</div>
 				</div>

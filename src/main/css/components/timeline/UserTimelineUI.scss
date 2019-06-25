@@ -9,6 +9,13 @@
 
 	.tweets {
 		.tweet {
+
+			.user-div {
+				.twitter-handle {
+					display: none;
+				}
+			}
+
 			&:nth-child(odd) {
 				background-color:#f5f8fa;
 			}

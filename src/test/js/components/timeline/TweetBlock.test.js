@@ -19,6 +19,8 @@ describe("TweetBlock", () => {
 		};
 		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet}/>);
 
+		const formattedTweet = TweetBlock.formatTweet(dummyTweet);
+
 		const tweetDiv = expectOne(tweetBlock, "div.tweet");
 
 		const userDiv = expectOne(tweetDiv, "div.user-div");
@@ -26,22 +28,22 @@ describe("TweetBlock", () => {
 		const contentDiv = expectOne(tweetDiv, "div.content-div");
 
 		const profileImage = expectOne(userDiv, "img.profile-image");
-		expect(profileImage.prop("src")).toEqual(dummyTweet.user.profileImageUrl);
+		expect(profileImage.prop("src")).toEqual(formattedTweet.user.profileImageUrl);
 
 		const displayName = expectOne(userDiv, "div.display-name");
-		expect(displayName.text()).toEqual(dummyTweet.user.name);
+		expect(displayName.text()).toEqual(formattedTweet.user.name);
 
 		const twitterHandle = expectOne(userDiv, "div.twitter-handle");
-		expect(twitterHandle.text()).toEqual(dummyTweet.user.twitterHandle);
+		expect(twitterHandle.text()).toEqual(formattedTweet.user.twitterHandle);
 
 		const date = expectOne(contentDiv, "div.date");
-		expect(date.text()).toEqual(dummyTweet.createdAt);
+		expect(date.text()).toEqual(formattedTweet.createdAt);
 
 		const message = expectOne(contentDiv, "div.message");
-		expect(message.text()).toEqual(dummyTweet.message);
+		expect(message.text()).toEqual(formattedTweet.message);
 
 		const tweetLink = expectOne(message, "a.tweet-link");
-		expect(tweetLink.prop("href")).toEqual(dummyTweet.url);
+		expect(tweetLink.prop("href")).toEqual(formattedTweet.url);
 	});
 
 });
