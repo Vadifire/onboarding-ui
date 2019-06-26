@@ -3,6 +3,7 @@ import { shallow } from "enzyme";
 import HomeTimelineUI from "../../../../main/js/components/timeline/HomeTimelineUI";
 import * as Api from "../../../../main/js/twitter-api";
 import TimelineTestUtil from "./TimelineTestUtil";
+import { expectOne } from "../../test-util";
 
 describe("HomeTimelineUI", () => {
 
@@ -10,12 +11,14 @@ describe("HomeTimelineUI", () => {
 
 	beforeAll(() => {
 		Api.fetchHomeTimeline = jest.fn();
+		Api.fetchFilteredHomeTimeline = jest.fn();
 		timelineUI = shallow(<HomeTimelineUI />, {disableLifecycleMethods: true});
 		util = new TimelineTestUtil(timelineUI, "div.home-timeline");
 	});
 
 	afterEach(() => {
 		Api.fetchHomeTimeline.mockClear();
+		Api.fetchFilteredHomeTimeline.mockClear();
 	});
 
 	// Test Api Error Case
@@ -47,20 +50,41 @@ describe("HomeTimelineUI", () => {
 
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(null, TimelineTestUtil.dummyTweets);
-			util.expectTweets(TimelineTestUtil.dummyTweets, false, Api.fetchHomeTimeline);
+			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchHomeTimeline);
 			done();
 		});
 		timelineUI.instance().updateTimeline();
 	});
 
 	// Test rendering of button
-	test("should render button", () => {
-		util.expectButton(HomeTimelineUI.buttonText);
+	test("should render update button", () => {
+		util.expectUpdateButton(HomeTimelineUI.updateButtonText);
 	});
 
 	// Test rendering of header
 	test("should render header", () => {
 		util.expectHeader(HomeTimelineUI.timelineName);
+	});
+
+	test("should render filter button", () => {
+		const button = expectOne(timelineUI, "button.filter-timeline");
+		expect(button.text()).toEqual(HomeTimelineUI.filterButtonText);
+		expect(button.prop("onClick")).toEqual(timelineUI.instance().filterTimeline);
+		expect(button.prop("disabled")).toEqual(true);
+	});
+
+	test("should render input field for filtering", () => {
+		const filterInput = expectOne(timelineUI, "input.filter-input");
+		expect(filterInput.prop("onChange")).toEqual(timelineUI.instance().updateFilter);
+	});
+
+	test("should render filtered tweets", done => {
+		Api.fetchFilteredHomeTimeline.mockImplementation(callback => {
+			callback(null, TimelineTestUtil.dummyTweets);
+			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchFilteredHomeTimeline);
+			done();
+		});
+		timelineUI.instance().filterTimeline();
 	});
 
 });

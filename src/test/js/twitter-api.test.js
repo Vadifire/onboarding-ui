@@ -4,7 +4,7 @@ import HttpStatuses from "http-status-codes";
 
 describe("twitter-api", () => {
 
-	let mockedRequest;
+	let mockedRequest, dummyKeyword;
 
 	beforeAll(() => {
 		mockedRequest = {
@@ -12,61 +12,102 @@ describe("twitter-api", () => {
 			send: jest.fn(),
 			readyState: XMLHttpRequest.DONE,
 		};
+		dummyKeyword = "some keyword";
 		window.XMLHttpRequest = jest.fn(() => mockedRequest);
 		window.XMLHttpRequest.DONE = mockedRequest.readyState;
 	});
 
-	afterEach(() => { // Ensure XHR retrieves from correct endpoint
+	function assertEndpointCalled(endpoint) { // Ensure XHR retrieves from correct endpoint
 		expect(mockedRequest.open).toHaveBeenCalledTimes(1);
-		expect(mockedRequest.open).toHaveBeenCalledWith(HttpMethods.GET, Api.homeTimelineEndpoint);
+		expect(mockedRequest.open).toHaveBeenCalledWith(HttpMethods.GET, endpoint);
 		mockedRequest.open.mockClear();
 		expect(mockedRequest.send).toHaveBeenCalledTimes(1);
 		mockedRequest.send.mockClear();
-	});
+	}
 
-	test("should attempt to fetch tweets and on non-OK status execute callback with error", done => {
-		
+	/* Utility functions for code shared across fetch tests */
+	function testFetchStatusError(done, fetchFunc, endpoint, ...params) {
 		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
-		Api.fetchHomeTimeline((err, tweets) => {
+		fetchFunc((err, tweets) => {
 			if (err) {
 				expect(err).toEqual(Api.statusError(mockedRequest.status));
+				assertEndpointCalled(endpoint);
 				done();
 			} else {
 				done.fail();
 			}
-		});
+		}, ...params);
 		mockedRequest.onreadystatechange();
-	});
+	}
 
-	test("should attempt to fetch tweets and on invalid json execute callback with error", done => {
-		
+	function testFetchParseError(done, fetchFunc, endpoint, ...params) {
 		mockedRequest.responseText = "Invalid JSON"; // Return invalid JSON
 		mockedRequest.status = HttpStatuses.OK;
-		Api.fetchHomeTimeline((err, tweets) => {
+		fetchFunc((err, tweets) => {
 			if (err) {
+				assertEndpointCalled(endpoint);
 				done();
 			} else {
 				done.fail();
 			}
-		});
+		}, ...params);
 		mockedRequest.onreadystatechange();
-	});
+	}
 
-	test("should fetch from Api, parse tweets from JSON, and execute callback with tweets", done => {
+	function testFetchSuccess(done, fetchFunc, endpoint, ...params) {
 		const dummyTweets = [{
 			message: "some message"
 		}];
 
 		mockedRequest.responseText = JSON.stringify(dummyTweets); // Set response to valid tweets
 		mockedRequest.status = HttpStatuses.OK;
-		Api.fetchHomeTimeline((err, tweets) => {
+		fetchFunc((err, tweets) => {
 			if (err) {
 				done.fail();
 			}
 			expect(tweets).toEqual(dummyTweets);
+			assertEndpointCalled(endpoint);
 			done();
-		});
+		}, ...params);
 		mockedRequest.onreadystatechange();
+	}
+	/* End of utility functions */
+
+
+	/* Home Timeline Cases */
+	test("should fetch from home timeline, then execute callback with error for non-OK status code", done => {
+		testFetchStatusError(done, Api.fetchHomeTimeline, Api.homeTimelineEndpoint);
+	});
+	test("should fetch from home timeline, then execute callback with error when JSON parsing fails", done => {
+		testFetchParseError(done, Api.fetchHomeTimeline, Api.homeTimelineEndpoint);
+	});
+	test("should successfully parse tweets from home timeline", done => {
+		testFetchSuccess(done, Api.fetchHomeTimeline, Api.homeTimelineEndpoint);
+	});
+
+	/* User Timeline Cases */
+	test("should fetch from user timeline, then execute callback with error for non-OK status code", done => {
+		testFetchStatusError(done, Api.fetchUserTimeline, Api.userTimelineEndpoint);
+	});
+	test("should fetch from user timeline, with error when JSON parsing fails", done => {
+		testFetchParseError(done, Api.fetchUserTimeline, Api.userTimelineEndpoint);
+	});
+	test("should successfully parse tweets from user timeline", done => {
+		testFetchSuccess(done, Api.fetchUserTimeline, Api.userTimelineEndpoint);
+	});
+
+	/* Filtered Home Timeline Cases */
+	test("should fetch from filtered timeline, then execute callback with error for non-OK status code", done => {
+		testFetchStatusError(done, Api.fetchFilteredHomeTimeline, Api.filteredHomeTimelineEndpoint(dummyKeyword), 
+			dummyKeyword);
+	});
+	test("should fetch from filtered timeline, then execute callback with error when JSON parsing fails", done => {
+		testFetchStatusError(done, Api.fetchFilteredHomeTimeline, Api.filteredHomeTimelineEndpoint(dummyKeyword), 
+			dummyKeyword);
+	});
+	test("should successfully parse tweets from filtered home timeline", done => {
+		testFetchStatusError(done, Api.fetchFilteredHomeTimeline, Api.filteredHomeTimelineEndpoint(dummyKeyword), 
+			dummyKeyword);
 	});
 
 });

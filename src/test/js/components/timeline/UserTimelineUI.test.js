@@ -47,7 +47,7 @@ describe("UserTimelineUI", () => {
 
 		Api.fetchUserTimeline.mockImplementation(callback => {
 			callback(null, TimelineTestUtil.dummyTweets);
-			util.expectTweets(TimelineTestUtil.dummyTweets, true, Api.fetchUserTimeline);
+			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchUserTimeline, true);
 			done();
 		});
 		timelineUI.instance().updateTimeline();
@@ -55,7 +55,7 @@ describe("UserTimelineUI", () => {
 
 	// Test rendering of button
 	test("should render button", () => {
-		util.expectButton(UserTimelineUI.buttonText);
+		util.expectUpdateButton(UserTimelineUI.updateButtonText);
 	});
 
 	// Test rendering of header

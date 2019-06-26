@@ -22,7 +22,7 @@ export default class UserTimelineUI extends React.Component {
 		return "No tweets are available, post a tweet!";
 	}
 
-	static get buttonText() {
+	static get updateButtonText() {
 		return "Update " + UserTimelineUI.timelineName;
 	}
 
@@ -39,7 +39,9 @@ export default class UserTimelineUI extends React.Component {
 			<div className="user-timeline timeline-component">
 				<h3 className="title">{UserTimelineUI.timelineName}</h3>
 				<div className="button-div">
-					<button className="update-timeline" onClick={this.updateTimeline}>{UserTimelineUI.buttonText}</button>
+					<button className="update-timeline" onClick={this.updateTimeline}>
+						{UserTimelineUI.updateButtonText}
+					</button>
 				</div>
 				<MainTimelineElement tweets={this.state.tweets} message={this.state.message} hideHandle={true}/>
 			</div>

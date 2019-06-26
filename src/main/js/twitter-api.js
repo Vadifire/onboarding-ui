@@ -3,6 +3,9 @@ import HttpStatuses from "http-status-codes";
 
 export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline";
 export const userTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline/user";
+export function filteredHomeTimelineEndpoint(keyword) {
+	return "http://localhost:8080/api/1.0/twitter/timeline/filter?keyword=" + keyword;
+}
 
 export function statusError(status) {
 	return new Error("Received bad status code in response: " + status);
@@ -39,6 +42,24 @@ function fetchJson(callback, endpoint) {
  */
 export function fetchHomeTimeline(callback) {
 	fetchJson(callback, homeTimelineEndpoint);
+}
+
+/*
+ * Fetches tweets from home timeline
+ *
+ * Once done, executes callback with (err, tweets).
+ */
+export function fetchFilteredHomeTimeline(callback, keyword) {
+	fetchJson(callback, filteredHomeTimelineEndpoint(keyword));
+}
+
+/*
+ * Fetches tweets from home timeline
+ *
+ * Once done, executes callback with (err, tweets).
+ */
+export function test(callback, keyword, lots, of, extra, params) {
+	fetchJson(callback, filteredHomeTimelineEndpoint(keyword));
 }
 
 /*

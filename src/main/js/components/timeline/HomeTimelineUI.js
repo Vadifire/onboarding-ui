@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MainTimelineElement from "./MainTimelineElement";
 import "../../../css/components/timeline/HomeTimelineUI.scss";
-import { fetchHomeTimeline } from "../../twitter-api";
+import { fetchHomeTimeline, fetchFilteredHomeTimeline } from "../../twitter-api";
 
 export default class HomeTimelineUI extends React.Component {
 
@@ -9,9 +9,13 @@ export default class HomeTimelineUI extends React.Component {
 		super();
 		this.state = {
 			tweets: null,
-			message: null
+			message: null,
+			keyword: ""
 		}
 		this.updateTimeline = this.updateTimeline.bind(this);
+		this.updateFilter = this.updateFilter.bind(this);
+		this.filterTimeline = this.filterTimeline.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
 
 	static get apiErrorMessage() {
@@ -22,8 +26,12 @@ export default class HomeTimelineUI extends React.Component {
 		return "No tweets are available, post a tweet!";
 	}
 
-	static get buttonText() {
+	static get updateButtonText() {
 		return "Update " + HomeTimelineUI.timelineName;
+	}
+
+	static get filterButtonText() {
+		return "Filter " + HomeTimelineUI.timelineName;
 	}
 
 	static get timelineName() {
@@ -39,7 +47,15 @@ export default class HomeTimelineUI extends React.Component {
 			<div className="home-timeline timeline-component">
 				<h3 className="title">{HomeTimelineUI.timelineName}</h3>
 				<div className="button-div">
-					<button className="update-timeline" onClick={this.updateTimeline}>{HomeTimelineUI.buttonText}</button>
+					<button className="update-timeline" onClick={this.updateTimeline}>
+						{HomeTimelineUI.updateButtonText}
+					</button>
+					<input type="text" className="filter-input" onChange={this.updateFilter} 
+							onKeyPress={this.handleKeyPress}></input>
+					<button className="filter-timeline" onClick={this.filterTimeline} 
+							disabled={!this.state.keyword.length}>
+						{HomeTimelineUI.filterButtonText}
+					</button>
 				</div>
 				<MainTimelineElement tweets={this.state.tweets} message={this.state.message}/>
 			</div>
@@ -59,4 +75,29 @@ export default class HomeTimelineUI extends React.Component {
 			}
 		});
 	}
+
+	handleKeyPress(event) {
+		if (event.key === 'Enter' && this.state.keyword.length) {
+			this.filterTimeline();
+		}
+	}
+
+	updateFilter(event) {
+		this.setState({keyword: event.target.value});
+	}
+
+	filterTimeline() {
+		fetchFilteredHomeTimeline((err, tweets) => {
+			if (err) {
+				this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
+			} else {
+				if (tweets.length) {
+					this.setState({tweets: tweets, message: null});
+				} else {
+					this.setState({tweets : null, message: HomeTimelineUI.emptyTimelineMessage});
+				}
+			}
+		}, this.state.keyword);
+	}
+
 }
