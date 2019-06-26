@@ -58,15 +58,6 @@ export function fetchFilteredHomeTimeline(callback, keyword) {
  *
  * Once done, executes callback with (err, tweets).
  */
-export function test(callback, keyword, lots, of, extra, params) {
-	fetchJson(callback, filteredHomeTimelineEndpoint(keyword));
-}
-
-/*
- * Fetches tweets from home timeline
- *
- * Once done, executes callback with (err, tweets).
- */
 export function fetchUserTimeline(callback) {
 	fetchJson(callback, userTimelineEndpoint);
 }
