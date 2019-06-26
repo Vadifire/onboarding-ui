@@ -3,6 +3,10 @@ import "../../../css/components/timeline/TweetBlock.scss";
 
 export default class TweetBlock extends React.Component {
 
+	static get defaultDisplayName() {
+		return "Unknown User";
+	}
+
 	static formatDate(date) {
 		return new Date(date).toLocaleString("en-us", {month: "short", day: "numeric"});
 	}
@@ -27,7 +31,7 @@ export default class TweetBlock extends React.Component {
 								)}
 							</React.Fragment>
 						) : (
-							<div className="display-name">Unknown User</div>
+							<div className="display-name">{TweetBlock.defaultDisplayName}</div>
 						)}
 					</div>
 					<div className="content-div">

@@ -54,9 +54,15 @@ describe("TweetBlock", () => {
 		expect(tweetBlock.find("twitter-handle").length).toEqual(0);
 	});
 
-	test ("render should return null in case of missing data", () => {
+	test ("should render null in case of missing tweet prop", () => {
 		const tweetBlock = shallow(<TweetBlock/>);
 		expect(tweetBlock.type()).toEqual(null);
+	});
+
+	test ("should render default display name if tweet.user prop missing", () => {
+		const tweetBlock = shallow(<TweetBlock tweet={{}}/>);
+		const displayName = expectOne(tweetBlock, "div.display-name");
+		expect(displayName.text()).toEqual(TweetBlock.defaultDisplayName);
 	});
 	
 });
