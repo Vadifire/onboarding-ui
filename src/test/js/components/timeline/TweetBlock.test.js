@@ -1,13 +1,14 @@
 import React from "react";
 import { shallow } from "enzyme";
-import TweetBlock from "../../../main/js/components/TweetBlock";
-import { expectOne } from "../test-util";
+import TweetBlock from "../../../../main/js/components/timeline/TweetBlock";
+import { expectOne } from "../../test-util";
 
 describe("TweetBlock", () => {
 
-	test("should correctly lay out and render data from tweet prop", () => {
+	let dummyTweet;
 
-		const dummyTweet = {
+	beforeAll(() => {
+		dummyTweet = {
 			message: "message",
 			user: {
 				profileImageUrl: "profile url",
@@ -17,6 +18,10 @@ describe("TweetBlock", () => {
 			createdAt: "123",
 			url: "tweet url"
 		};
+	});
+
+	test("should correctly lay out and render data from tweet prop", () => {
+
 		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet}/>);
 
 		const tweetDiv = expectOne(tweetBlock, "div.tweet");
@@ -35,7 +40,7 @@ describe("TweetBlock", () => {
 		expect(twitterHandle.text()).toEqual(dummyTweet.user.twitterHandle);
 
 		const date = expectOne(contentDiv, "div.date");
-		expect(date.text()).toEqual(dummyTweet.createdAt);
+		expect(date.text()).toEqual(TweetBlock.formatDate(dummyTweet.createdAt));
 
 		const message = expectOne(contentDiv, "div.message");
 		expect(message.text()).toEqual(dummyTweet.message);
@@ -44,4 +49,20 @@ describe("TweetBlock", () => {
 		expect(tweetLink.prop("href")).toEqual(dummyTweet.url);
 	});
 
+	test ("should hide twitterHandle", () => {
+		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} hideHandle={true}/>);
+		expect(tweetBlock.find("twitter-handle").length).toEqual(0);
+	});
+
+	test ("should render null in case of missing tweet prop", () => {
+		const tweetBlock = shallow(<TweetBlock/>);
+		expect(tweetBlock.type()).toEqual(null);
+	});
+
+	test ("should render default display name if tweet.user prop missing", () => {
+		const tweetBlock = shallow(<TweetBlock tweet={{}}/>);
+		const displayName = expectOne(tweetBlock, "div.display-name");
+		expect(displayName.text()).toEqual(TweetBlock.defaultDisplayName);
+	});
+	
 });

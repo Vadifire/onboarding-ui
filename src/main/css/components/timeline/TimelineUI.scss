@@ -1,0 +1,35 @@
+.timeline-component {
+
+	box-sizing: border-box;
+	display: inline-block;
+	vertical-align: top;
+	text-align: left;
+
+	.button-div {
+		.update-timeline {
+			margin-bottom: 4px;
+			text-align: left;
+		}
+	}
+
+	.error-div {
+		font-size: 12px;
+		margin-top: 5px;
+	}
+
+	.title {
+		font-size: 30px;
+		text-align: center;
+	}
+
+	.tweets {
+		border: 1px solid;
+		margin-top: 10px;
+
+		.tweet {
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+	}
+}

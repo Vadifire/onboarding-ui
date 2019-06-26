@@ -1,16 +1,18 @@
 import React, { Component } from "react";
-import HelloMessage from "./HelloMessage";
-import TimelineUI from "./TimelineUI";
+import HomeTimelineUI from "./timeline/HomeTimelineUI";
+import UserTimelineUI from "./timeline/UserTimelineUI";
 import "../../css/components/Application.scss";
 
 export default class Application extends React.Component {
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<div className="title">Lab for Cedric</div>
-				<HelloMessage message="hello react!" />
-				<TimelineUI />
-			</div>
+				<div className="timelines">
+					<HomeTimelineUI/>
+					<UserTimelineUI/>
+				</div>
+			</React.Fragment>
 		);
 	}
 }

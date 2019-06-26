@@ -8,10 +8,14 @@ $names-padding: ($user-div-width - $names-width) / 2;
 }
 
 .tweet {
+	box-sizing: border-box;
+	justify-content: left;
 	align-items: center;
 	display: inline-grid;
 	grid-template-areas: "user-grid content-grid";
 	padding: 20px 10px 20px 0px;
+	width: 100%;
+	border-bottom: 1px solid #bbbbbb;
 
 	.user-div {
 		grid-area: user-grid;
@@ -40,7 +44,6 @@ $names-padding: ($user-div-width - $names-width) / 2;
 
 	.content-div {
 		grid-area: content-grid;
-		min-width: 0px;
 		overflow: hidden;
 
 		.date {

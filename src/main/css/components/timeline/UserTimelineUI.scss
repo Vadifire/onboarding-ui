@@ -1,0 +1,21 @@
+@import "TimelineUI";
+
+.user-timeline {
+
+	.button-div {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.tweets {
+		.tweet {
+			&:nth-child(odd) {
+				background-color:#f5f8fa;
+			}
+
+			&:nth-child(even) {
+				background-color:#1da1f2;
+			}
+		}
+	}
+}
