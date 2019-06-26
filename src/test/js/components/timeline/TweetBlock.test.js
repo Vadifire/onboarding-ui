@@ -40,8 +40,7 @@ describe("TweetBlock", () => {
 		expect(twitterHandle.text()).toEqual(dummyTweet.user.twitterHandle);
 
 		const date = expectOne(contentDiv, "div.date");
-		expect(date.text()).toEqual(new Date(dummyTweet.createdAt)
-				.toLocaleString("en-us", {month: "short", day: "numeric"}));
+		expect(date.text()).toEqual(TweetBlock.formatDate(dummyTweet.createdAt));
 
 		const message = expectOne(contentDiv, "div.message");
 		expect(message.text()).toEqual(dummyTweet.message);

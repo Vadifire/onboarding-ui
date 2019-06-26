@@ -3,27 +3,36 @@ import "../../../css/components/timeline/TweetBlock.scss";
 
 export default class TweetBlock extends React.Component {
 
+	static formatDate(date) {
+		return new Date(date).toLocaleString("en-us", {month: "short", day: "numeric"});
+	}
+
 	render() {
 		try {
 			return (
 				<div className="tweet">
 					<div className="user-div">
-						<img className="profile-image" src={this.props.tweet.user.profileImageUrl}></img>
-						<div className="display-name">
-							{this.props.tweet.user.name}
-						</div>
-						{this.props.hideHandle ? (
-							null
+						{this.props.tweet.user ? (
+							<React.Fragment>
+								<img className="profile-image" src={this.props.tweet.user.profileImageUrl}></img>
+								<div className="display-name">
+									{this.props.tweet.user.name}
+								</div>
+								{this.props.hideHandle ? (
+									null
+								) : (
+									<div className="twitter-handle">
+										{this.props.tweet.user.twitterHandle}
+									</div>
+								)}
+							</React.Fragment>
 						) : (
-							<div className="twitter-handle">
-								{this.props.tweet.user.twitterHandle}
-							</div>
+							<div className="display-name">Unknown User</div>
 						)}
 					</div>
 					<div className="content-div">
 						<div className="date">
-							{new Date(this.props.tweet.createdAt)
-									.toLocaleString("en-us", {month: "short", day: "numeric"})}
+							{TweetBlock.formatDate(this.props.tweet.createdAt)}
 						</div>
 						<div className="message">
 							<a className="tweet-link" href={this.props.tweet.url}>
@@ -34,7 +43,7 @@ export default class TweetBlock extends React.Component {
 				</div>
 			);
 		} catch (err) {
-			// tweet and tweet.user props should always be defined. If not, don't render this block.
+			// tweet prop should always be defined. If not, don't render this block.
 			return null;
 		}
 	}
