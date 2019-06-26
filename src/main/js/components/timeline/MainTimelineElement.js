@@ -3,9 +3,7 @@ import React, { Component } from "react";
 
 // Display List of Tweets or error message
 export default class MainTimelineElement extends React.Component {
-
-
-
+	
 	static get errorMessage() {
 		return "Failed to fetch tweets.";
 	}
