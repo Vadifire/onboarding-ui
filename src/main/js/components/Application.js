@@ -6,13 +6,13 @@ import "../../css/components/Application.scss";
 export default class Application extends React.Component {
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<div className="title">Lab for Cedric</div>
 				<div className="timelines">
 					<HomeTimelineUI/>
 					<UserTimelineUI/>
 				</div>
-			</div>
+			</React.Fragment>
 		);
 	}
 }
