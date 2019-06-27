@@ -9,7 +9,7 @@ export default class MainTimelineElement extends React.Component {
 	}
 
 	static get loadingMessage() {
-		return "Loading timeline..."
+		return "Loading timeline...";
 	}
 
 	render() {
