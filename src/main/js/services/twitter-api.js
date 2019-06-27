@@ -45,7 +45,7 @@ export function fetchHomeTimeline(callback) {
 }
 
 /*
- * Fetches tweets from home timeline
+ * Fetches filtered tweets from home timeline
  *
  * Once done, executes callback with (err, tweets).
  */
