@@ -1,4 +1,4 @@
-import * as Api from "../../main/js/twitter-api";
+import * as Api from "../../../main/js/services/twitter-api";
 import HttpMethods from "http-methods-enum";
 import HttpStatuses from "http-status-codes";
 

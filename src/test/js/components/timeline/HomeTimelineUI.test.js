@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import HomeTimelineUI from "../../../../main/js/components/timeline/HomeTimelineUI";
-import * as Api from "../../../../main/js/twitter-api";
+import * as Api from "../../../../main/js/services/twitter-api";
 import TimelineTestUtil from "./TimelineTestUtil";
 import { expectOne } from "../../test-util";
 import KeyCode from "keycode-js";
@@ -9,16 +9,12 @@ import KeyCode from "keycode-js";
 describe("HomeTimelineUI", () => {
 
 	let timelineUI, util;
-	let noApiTimeline, noApiUtil; // Used to test cases where API prop is undefined
 
 	beforeAll(() => {
 		Api.fetchHomeTimeline = jest.fn();
 		Api.fetchFilteredHomeTimeline = jest.fn();
-		timelineUI = shallow(<HomeTimelineUI api={Api}/>, {disableLifecycleMethods: true});
+		timelineUI = shallow(<HomeTimelineUI />, {disableLifecycleMethods: true});
 		util = new TimelineTestUtil(timelineUI, "div.home-timeline");
-
-		noApiTimeline = shallow(<HomeTimelineUI/>, {disableLifecycleMethods: true});
-		noApiUtil = new TimelineTestUtil(noApiTimeline, "div.home-timeline");
 	});
 
 	afterEach(() => {
@@ -47,11 +43,6 @@ describe("HomeTimelineUI", () => {
 			done();
 		});
 		util.getUpdateButton().simulate("click");
-	});
-
-	test("should render message in no API case: '" + HomeTimelineUI.apiErrorMessage + "'", () => {
-		noApiUtil.getUpdateButton().simulate("click");
-		noApiUtil.expectErrorMessage(HomeTimelineUI.apiErrorMessage);
 	});
 
 	test("should render tweets", done => {
@@ -109,11 +100,6 @@ describe("HomeTimelineUI", () => {
 			done();
 		});
 		getFilterButton().simulate("click");
-	});
-
-	test("should render error message in no API case: '" + HomeTimelineUI.apiErrorMessage + "'", () => {
-		expectOne(noApiTimeline, "button.filter-timeline").simulate("click");
-		noApiUtil.expectErrorMessage(HomeTimelineUI.apiErrorMessage);
 	});
 
 });

@@ -29,7 +29,7 @@ function fetchJson(callback, endpoint) {
 			} else {
 				callback(statusError(this.status));
 			}
-		} 
+		}
 	};
 	xhttp.open(HttpMethods.GET, endpoint);
 	xhttp.send();

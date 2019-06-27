@@ -22,12 +22,12 @@ export default class MainTimelineElement extends React.Component {
 				});
 				return <div className="tweets">{tweets}</div>;
 			} else if (this.props.message) {
-				return <div className="timeline-message">{this.props.message}</div>
+				return <div className="timeline-message">{this.props.message}</div>;
 			} else { // Nothing passed to this component yet
-				return <div className="timeline-message">{MainTimelineElement.loadingMessage}</div>
+				return <div className="timeline-message">{MainTimelineElement.loadingMessage}</div>;
 			}
 		} catch { // In case map function cannot be applied to tweets
-			return <div className="timeline-message">{MainTimelineElement.errorMessage}</div>
+			return <div className="timeline-message">{MainTimelineElement.errorMessage}</div>;
 		}
 	}
 }

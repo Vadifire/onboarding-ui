@@ -9,8 +9,8 @@ export default class Application extends React.Component {
 			<React.Fragment>
 				<div className="title">Lab for Cedric</div>
 				<div className="timelines">
-					<HomeTimelineUI api={this.props.api}/>
-					<UserTimelineUI api={this.props.api}/>
+					<HomeTimelineUI/>
+					<UserTimelineUI/>
 				</div>
 			</React.Fragment>
 		);

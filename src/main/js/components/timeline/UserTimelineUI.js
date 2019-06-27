@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MainTimelineElement from "./MainTimelineElement";
 import "../../../css/components/timeline/UserTimelineUI.scss";
+import * as Api from "../../services/twitter-api";
 
 export default class UserTimelineUI extends React.Component {
 
@@ -9,7 +10,7 @@ export default class UserTimelineUI extends React.Component {
 		this.state = {
 			tweets: null,
 			message: null
-		}
+		};
 		this.updateTimeline = this.updateTimeline.bind(this);
 	}
 
@@ -48,20 +49,17 @@ export default class UserTimelineUI extends React.Component {
 	}
 
 	updateTimeline() {
-		try {
-			this.props.api.fetchUserTimeline((err, tweets) => {
-				if (err) {
-					this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage});
+		Api.fetchUserTimeline((err, tweets) => {
+			if (err) {
+				this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage});
+			} else {
+				if (tweets.length) {
+					this.setState({tweets: tweets, message: null});
 				} else {
-					if (tweets.length) {
-						this.setState({tweets: tweets, message: null});
-					} else {
-						this.setState({tweets : null, message: UserTimelineUI.emptyTimelineMessage});
-					}
+					this.setState({tweets : null, message: UserTimelineUI.emptyTimelineMessage});
 				}
-			});
-		} catch (err) {
-			this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage}); // Problem with calling API
-		}
+			}
+		});
+		this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage}); // Problem with calling API
 	}
 }

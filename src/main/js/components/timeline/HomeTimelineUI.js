@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MainTimelineElement from "./MainTimelineElement";
 import "../../../css/components/timeline/HomeTimelineUI.scss";
 import KeyCode from "keycode-js";
+import { fetchHomeTimeline, fetchFilteredHomeTimeline } from "../../services/twitter-api";
 
 export default class HomeTimelineUI extends React.Component {
 
@@ -11,7 +12,7 @@ export default class HomeTimelineUI extends React.Component {
 			tweets: null,
 			message: null,
 			keyword: ""
-		}
+		};
 		this.updateTimeline = this.updateTimeline.bind(this);
 		this.updateFilter = this.updateFilter.bind(this);
 		this.filterTimeline = this.filterTimeline.bind(this);
@@ -67,21 +68,17 @@ export default class HomeTimelineUI extends React.Component {
 	}
 
 	updateTimeline() {
-		try {
-			this.props.api.fetchHomeTimeline((err, tweets) => {
-				if (err) {
-					this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
+		fetchHomeTimeline((err, tweets) => {
+			if (err) {
+				this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
+			} else {
+				if (tweets.length) {
+					this.setState({tweets: tweets, message: null});
 				} else {
-					if (tweets.length) {
-						this.setState({tweets: tweets, message: null});
-					} else {
-						this.setState({tweets : null, message: HomeTimelineUI.emptyTimelineMessage});
-					}
+					this.setState({tweets : null, message: HomeTimelineUI.emptyTimelineMessage});
 				}
-			});
-		} catch (err) {
-			this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage}); // Problem with calling API
-		}
+			}
+		});
 	}
 
 	handleKeyPress(event) {
@@ -96,21 +93,16 @@ export default class HomeTimelineUI extends React.Component {
 	}
 
 	filterTimeline() {
-		try {
-			this.props.api.fetchFilteredHomeTimeline((err, tweets) => {
-				if (err) {
-					this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
+		fetchFilteredHomeTimeline((err, tweets) => {
+			if (err) {
+				this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
+			} else {
+				if (tweets.length) {
+					this.setState({tweets: tweets, message: null});
 				} else {
-					if (tweets.length) {
-						this.setState({tweets: tweets, message: null});
-					} else {
-						this.setState({tweets : null, message: HomeTimelineUI.noResultsForFilterMessage});
-					}
+					this.setState({tweets : null, message: HomeTimelineUI.noResultsForFilterMessage});
 				}
-			}, this.state.keyword);
-		} catch (err) {
-			this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage}); // Problem with calling API
-		}
+			}
+		}, this.state.keyword);
 	}
-
 }

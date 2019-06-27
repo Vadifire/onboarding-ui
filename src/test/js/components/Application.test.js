@@ -6,22 +6,19 @@ import { expectOne } from "../test-util";
 
 describe("Application", () => {
 
-	let application, dummyApi;
+	let application;
 
 	beforeAll(() => {
-		dummyApi = "Pretend I'm an API."
-		application = shallow(<Application api={dummyApi}/>);
+		application = shallow(<Application/>);
 	});
 
 	test("should contain a single title div", () => {
 		expectOne(application, "div.title");
 	});
 	
-	test("should contain div with UserTimelineUI and HomeTimelineUI components, passing API prop", () => {
+	test("should contain div with UserTimelineUI and HomeTimelineUI components", () => {
 		const timelines = expectOne(application, "div.timelines");
 		const userTimeline = expectOne(timelines, "UserTimelineUI");
-		expect(userTimeline.prop("api")).toEqual(dummyApi);
 		const homeTimeline = expectOne(timelines, "HomeTimelineUI");
-		expect(homeTimeline.prop("api")).toEqual(dummyApi);
 	});
 });

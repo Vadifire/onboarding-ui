@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import UserTimelineUI from "../../../../main/js/components/timeline/UserTimelineUI";
-import * as Api from "../../../../main/js/twitter-api";
+import * as Api from "../../../../main/js/services/twitter-api";
 import TimelineTestUtil from "./TimelineTestUtil";
 
 describe("UserTimelineUI", () => {
@@ -10,7 +10,7 @@ describe("UserTimelineUI", () => {
 
 	beforeAll(() => {
 		Api.fetchUserTimeline = jest.fn();
-		timelineUI = shallow(<UserTimelineUI api={Api}/>, {disableLifecycleMethods: true});
+		timelineUI = shallow(<UserTimelineUI />, {disableLifecycleMethods: true});
 		util = new TimelineTestUtil(timelineUI, "div.user-timeline");
 	});
 
@@ -52,13 +52,6 @@ describe("UserTimelineUI", () => {
 			done();
 		});
 		util.getUpdateButton().simulate("click");
-	});
-
-	test("should render error message in no API case: '" + UserTimelineUI.apiErrorMessage + "'", () => {
-		const noApiTimeline = shallow(<UserTimelineUI/>, {disableLifecycleMethods: true});
-		const noApiUtil = new TimelineTestUtil(noApiTimeline, "div.user-timeline");
-		noApiUtil.getUpdateButton().simulate("click");
-		noApiUtil.expectErrorMessage(UserTimelineUI.apiErrorMessage);
 	});
 
 });
