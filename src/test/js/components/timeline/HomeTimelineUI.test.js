@@ -93,15 +93,6 @@ describe("HomeTimelineUI", () => {
 		filterInput.simulate("keyPress", {charCode: KeyCode.KEY_RETURN});
 	});
 
-	test("should render message: '" + HomeTimelineUI.apiErrorMessage + "'", done => {
-		Api.fetchFilteredHomeTimeline.mockImplementation(callback => {
-			callback(Error());
-			util.expectErrorMessage(HomeTimelineUI.apiErrorMessage, Api.fetchFilteredHomeTimeline);
-			done();
-		});
-		getFilterButton().simulate("click");
-	});
-
 	test("should render message: '" + HomeTimelineUI.noResultsForFilterMessage + "'", done => {
 		Api.fetchFilteredHomeTimeline.mockImplementation(callback => {
 			callback(null, []);
@@ -111,7 +102,16 @@ describe("HomeTimelineUI", () => {
 		getFilterButton().simulate("click");
 	});
 
-	test("should render message in no API case: '" + HomeTimelineUI.apiErrorMessage + "'", () => {
+	test("should render error message: '" + HomeTimelineUI.apiErrorMessage + "'", done => {
+		Api.fetchFilteredHomeTimeline.mockImplementation(callback => {
+			callback(Error());
+			util.expectErrorMessage(HomeTimelineUI.apiErrorMessage, Api.fetchFilteredHomeTimeline);
+			done();
+		});
+		getFilterButton().simulate("click");
+	});
+
+	test("should render error message in no API case: '" + HomeTimelineUI.apiErrorMessage + "'", () => {
 		expectOne(noApiTimeline, "button.filter-timeline").simulate("click");
 		noApiUtil.expectErrorMessage(HomeTimelineUI.apiErrorMessage);
 	});

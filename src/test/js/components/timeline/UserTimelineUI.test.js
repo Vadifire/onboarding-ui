@@ -27,20 +27,13 @@ describe("UserTimelineUI", () => {
 		expect(button.text()).toEqual(UserTimelineUI.updateButtonText);
 	});
 
-	test("should render message: '" + UserTimelineUI.apiErrorMessage + "'", done => {
+	test("should render tweets", done => {
 		Api.fetchUserTimeline.mockImplementation(callback => {
-			callback(Error());
-			util.expectErrorMessage(UserTimelineUI.apiErrorMessage, Api.fetchUserTimeline);
+			callback(null, TimelineTestUtil.dummyTweets);
+			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchUserTimeline, true);
 			done();
 		});
 		util.getUpdateButton().simulate("click");
-	});
-
-	test("should render message in no API case: '" + UserTimelineUI.apiErrorMessage + "'", () => {
-		const noApiTimeline = shallow(<UserTimelineUI/>, {disableLifecycleMethods: true});
-		const noApiUtil = new TimelineTestUtil(noApiTimeline, "div.user-timeline");
-		noApiUtil.getUpdateButton().simulate("click");
-		noApiUtil.expectErrorMessage(UserTimelineUI.apiErrorMessage);
 	});
 
 	test("should render message: '" + UserTimelineUI.emptyTimelineMessage + "'", done => {
@@ -52,13 +45,20 @@ describe("UserTimelineUI", () => {
 		util.getUpdateButton().simulate("click");
 	});
 
-	test("should render tweets", done => {
+	test("should render error message: '" + UserTimelineUI.apiErrorMessage + "'", done => {
 		Api.fetchUserTimeline.mockImplementation(callback => {
-			callback(null, TimelineTestUtil.dummyTweets);
-			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchUserTimeline, true);
+			callback(Error());
+			util.expectErrorMessage(UserTimelineUI.apiErrorMessage, Api.fetchUserTimeline);
 			done();
 		});
 		util.getUpdateButton().simulate("click");
+	});
+
+	test("should render error message in no API case: '" + UserTimelineUI.apiErrorMessage + "'", () => {
+		const noApiTimeline = shallow(<UserTimelineUI/>, {disableLifecycleMethods: true});
+		const noApiUtil = new TimelineTestUtil(noApiTimeline, "div.user-timeline");
+		noApiUtil.getUpdateButton().simulate("click");
+		noApiUtil.expectErrorMessage(UserTimelineUI.apiErrorMessage);
 	});
 
 });
