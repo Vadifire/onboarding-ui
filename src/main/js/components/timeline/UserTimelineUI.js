@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MainTimelineElement from "./MainTimelineElement";
 import "../../../css/components/timeline/UserTimelineUI.scss";
-import * as Api from "../../services/twitter-api";
+import { fetchUserTimeline } from "../../services/twitter-api";
 
 export default class UserTimelineUI extends React.Component {
 
@@ -49,7 +49,7 @@ export default class UserTimelineUI extends React.Component {
 	}
 
 	updateTimeline() {
-		Api.fetchUserTimeline((err, tweets) => {
+		fetchUserTimeline((err, tweets) => {
 			if (err) {
 				this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage});
 			} else {
