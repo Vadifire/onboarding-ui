@@ -13,5 +13,6 @@ parserOptions:
 plugins:
   - react
 rules: {
-  semi: [2, "always"]
+  semi: [2, "always"],
+  react/prop-types: 0
 }
