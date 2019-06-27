@@ -32,15 +32,13 @@ export default class TimelineTestUtil {
 		return expectOne(this.timelineUI, this.rootSelector);
 	}
 
+	getUpdateButton() {
+		return expectOne(this.getTimelineDiv(), "button.update-timeline");
+	}
+
 	expectHeader(text) {
 		const header = expectOne(this.getTimelineDiv(), "h3.title");
 		expect(header.text()).toEqual(text);
-	}
-
-	expectUpdateButton(text) {
-		const button = expectOne(this.getTimelineDiv(), "button.update-timeline");
-		expect(button.prop("onClick")).toEqual(this.timelineUI.instance().updateTimeline);
-		expect(button.text()).toEqual(text);
 	}
 
 	// Used in error message test cases

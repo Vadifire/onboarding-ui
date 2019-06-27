@@ -18,49 +18,45 @@ describe("UserTimelineUI", () => {
 		Api.fetchUserTimeline.mockClear();
 	});
 
+	// Test rendering of header
+	test("should render header", () => {
+		util.expectHeader(UserTimelineUI.timelineName);
+	});
+
+	// Test rendering of button
+	test("should render button with expected text", () => {
+		const button = util.getUpdateButton();
+		expect(button.text()).toEqual(UserTimelineUI.updateButtonText);
+	});
+
 	// Test Api Error Case
 	test("should render error message: '" + UserTimelineUI.apiErrorMessage + "'", done => {
-
 		Api.fetchUserTimeline.mockImplementation(callback => {
 			callback(Error());
 			util.expectErrorMessage(UserTimelineUI.apiErrorMessage, Api.fetchUserTimeline);
 			done();
 		});
-		timelineUI.instance().updateTimeline();
-		
+		util.getUpdateButton().simulate("click");
 	});
 
 	// Test Empty Tweets Case
 	test("should render error message: '" + UserTimelineUI.emptyTimelineMessage + "'", done => {
-
 		Api.fetchUserTimeline.mockImplementation(callback => {
 			callback(null, []);
 			util.expectErrorMessage(UserTimelineUI.emptyTimelineMessage, Api.fetchUserTimeline);
 			done();
 		});
-		timelineUI.instance().updateTimeline();
+		util.getUpdateButton().simulate("click");
 	});
-
 
 	// Test Non-Empty Tweets Case
 	test("should render tweets", done => {
-
 		Api.fetchUserTimeline.mockImplementation(callback => {
 			callback(null, TimelineTestUtil.dummyTweets);
 			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchUserTimeline, true);
 			done();
 		});
-		timelineUI.instance().updateTimeline();
-	});
-
-	// Test rendering of button
-	test("should render button", () => {
-		util.expectUpdateButton(UserTimelineUI.updateButtonText);
-	});
-
-	// Test rendering of header
-	test("should render header", () => {
-		util.expectHeader(UserTimelineUI.timelineName);
+		util.getUpdateButton().simulate("click");
 	});
 
 });

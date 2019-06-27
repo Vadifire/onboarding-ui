@@ -8,7 +8,7 @@ export function filteredHomeTimelineEndpoint(keyword) {
 }
 
 export function statusError(status) {
-	return new Error("Received bad status code in response: " + status);
+	return new Error("Received response with non-OK status code: " + status);
 }
 
 /*

@@ -26,6 +26,10 @@ export default class HomeTimelineUI extends React.Component {
 		return "No tweets are available, post a tweet!";
 	}
 
+	static get noResultsForFilterMessage() {
+		return "No tweets match the filter.";
+	}
+
 	static get updateButtonText() {
 		return "Update " + HomeTimelineUI.timelineName;
 	}
@@ -77,7 +81,7 @@ export default class HomeTimelineUI extends React.Component {
 	}
 
 	handleKeyPress(event) {
-		if (event.key === 'Enter' && this.state.keyword.length) {
+		if (event.key === 'Enter') {
 			this.filterTimeline();
 		}
 	}
@@ -94,7 +98,7 @@ export default class HomeTimelineUI extends React.Component {
 				if (tweets.length) {
 					this.setState({tweets: tweets, message: null});
 				} else {
-					this.setState({tweets : null, message: HomeTimelineUI.emptyTimelineMessage});
+					this.setState({tweets : null, message: HomeTimelineUI.noResultsForFilterMessage});
 				}
 			}
 		}, this.state.keyword);

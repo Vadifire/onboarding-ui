@@ -17,6 +17,8 @@ describe("twitter-api", () => {
 		window.XMLHttpRequest.DONE = mockedRequest.readyState;
 	});
 
+	/* Utility functions for code shared across fetch tests */
+
 	function assertEndpointCalled(endpoint) { // Ensure XHR retrieves from correct endpoint
 		expect(mockedRequest.open).toHaveBeenCalledTimes(1);
 		expect(mockedRequest.open).toHaveBeenCalledWith(HttpMethods.GET, endpoint);
@@ -25,7 +27,6 @@ describe("twitter-api", () => {
 		mockedRequest.send.mockClear();
 	}
 
-	/* Utility functions for code shared across fetch tests */
 	function testFetchStatusError(done, fetchFunc, endpoint, ...params) {
 		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
 		fetchFunc((err, tweets) => {

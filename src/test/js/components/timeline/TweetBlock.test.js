@@ -21,7 +21,6 @@ describe("TweetBlock", () => {
 	});
 
 	test("should correctly lay out and render data from tweet prop", () => {
-
 		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet}/>);
 
 		const tweetDiv = expectOne(tweetBlock, "div.tweet");
@@ -49,17 +48,17 @@ describe("TweetBlock", () => {
 		expect(tweetLink.prop("href")).toEqual(dummyTweet.url);
 	});
 
-	test ("should hide twitterHandle", () => {
+	test("should hide twitterHandle", () => {
 		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} hideHandle={true}/>);
 		expect(tweetBlock.find("twitter-handle").length).toEqual(0);
 	});
 
-	test ("should render null in case of missing tweet prop", () => {
+	test("should render null in case of missing tweet prop", () => {
 		const tweetBlock = shallow(<TweetBlock/>);
 		expect(tweetBlock.type()).toEqual(null);
 	});
 
-	test ("should render default display name if tweet.user prop missing", () => {
+	test("should render default display name if tweet.user prop missing", () => {
 		const tweetBlock = shallow(<TweetBlock tweet={{}}/>);
 		const displayName = expectOne(tweetBlock, "div.display-name");
 		expect(displayName.text()).toEqual(TweetBlock.defaultDisplayName);

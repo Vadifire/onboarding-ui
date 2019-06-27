@@ -21,44 +21,44 @@ describe("HomeTimelineUI", () => {
 		Api.fetchFilteredHomeTimeline.mockClear();
 	});
 
+	function getFilterButton() {
+		return expectOne(timelineUI, "button.filter-timeline");
+	}
+
 	// Test Api Error Case
 	test("should render error message: '" + HomeTimelineUI.apiErrorMessage + "'", done => {
-
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(Error());
 			util.expectErrorMessage(HomeTimelineUI.apiErrorMessage, Api.fetchHomeTimeline);
 			done();
 		});
-		timelineUI.instance().updateTimeline();
-		
+		util.getUpdateButton().simulate("click");
 	});
 
 	// Test Empty Tweets Case
 	test("should render error message: '" + HomeTimelineUI.emptyTimelineMessage + "'", done => {
-
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(null, []);
 			util.expectErrorMessage(HomeTimelineUI.emptyTimelineMessage, Api.fetchHomeTimeline);
 			done();
 		});
-		timelineUI.instance().updateTimeline();
+		util.getUpdateButton().simulate("click");
 	});
-
 
 	// Test Non-Empty Tweets Case
 	test("should render tweets", done => {
-
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(null, TimelineTestUtil.dummyTweets);
 			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchHomeTimeline);
 			done();
 		});
-		timelineUI.instance().updateTimeline();
+		util.getUpdateButton().simulate("click");
 	});
 
 	// Test rendering of button
-	test("should render update button", () => {
-		util.expectUpdateButton(HomeTimelineUI.updateButtonText);
+	test("should render button with expected text", () => {
+		const button = util.getUpdateButton();
+		expect(button.text()).toEqual(HomeTimelineUI.updateButtonText);
 	});
 
 	// Test rendering of header
@@ -66,25 +66,43 @@ describe("HomeTimelineUI", () => {
 		util.expectHeader(HomeTimelineUI.timelineName);
 	});
 
-	test("should render filter button", () => {
+
+	/* Filtered Home Timeline Tests */
+	test("should render filter button with expected text, disabled by default", () => {
 		const button = expectOne(timelineUI, "button.filter-timeline");
 		expect(button.text()).toEqual(HomeTimelineUI.filterButtonText);
-		expect(button.prop("onClick")).toEqual(timelineUI.instance().filterTimeline);
 		expect(button.prop("disabled")).toEqual(true);
-	});
-
-	test("should render input field for filtering", () => {
-		const filterInput = expectOne(timelineUI, "input.filter-input");
-		expect(filterInput.prop("onChange")).toEqual(timelineUI.instance().updateFilter);
 	});
 
 	test("should render filtered tweets", done => {
 		Api.fetchFilteredHomeTimeline.mockImplementation(callback => {
 			callback(null, TimelineTestUtil.dummyTweets);
 			util.expectTweets(TimelineTestUtil.dummyTweets, Api.fetchFilteredHomeTimeline);
+			expect(Api.fetchFilteredHomeTimeline).toHaveBeenCalledWith(callback, dummyFilter);
+			done();
+		}, dummyFilter);
+		const dummyFilter = "some filter";
+		const filterInput = expectOne(timelineUI, "input.filter-input");
+		filterInput.simulate("change", {target: {value: dummyFilter}});
+		getFilterButton().simulate("click");
+	});
+
+	test("should render error message: '" + HomeTimelineUI.apiErrorMessage + "'", done => {
+		Api.fetchFilteredHomeTimeline.mockImplementation(callback => {
+			callback(Error());
+			util.expectErrorMessage(HomeTimelineUI.apiErrorMessage, Api.fetchFilteredHomeTimeline);
 			done();
 		});
-		timelineUI.instance().filterTimeline();
+		getFilterButton().simulate("click");
+	});
+
+	test("should render error message: '" + HomeTimelineUI.noResultsForFilterMessage + "'", done => {
+		Api.fetchFilteredHomeTimeline.mockImplementation(callback => {
+			callback(null, []);
+			util.expectErrorMessage(HomeTimelineUI.noResultsForFilterMessage, Api.fetchFilteredHomeTimeline);
+			done();
+		});
+		getFilterButton().simulate("click");
 	});
 
 });
