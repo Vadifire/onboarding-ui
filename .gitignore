@@ -11,6 +11,3 @@
 onboarding-ui.sln
 .vs
 onboarding-ui.mdproj
-
-# Config file for ESLint
-.eslintrc.yml

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "../../../css/components/timeline/TweetBlock.scss";
 
 export default class TweetBlock extends React.Component {
