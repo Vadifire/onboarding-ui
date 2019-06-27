@@ -56,7 +56,8 @@ export default class HomeTimelineUI extends React.Component {
 						{HomeTimelineUI.updateButtonText}
 					</button>
 					<input type="text" className="filter-input" onChange={this.updateFilter} 
-							onKeyPress={this.handleKeyPress}></input>
+							onKeyPress={this.handleKeyPress}>
+					</input>
 					<button className="filter-timeline" onClick={this.filterTimeline} 
 							disabled={!this.state.keyword.length}>
 						{HomeTimelineUI.filterButtonText}
