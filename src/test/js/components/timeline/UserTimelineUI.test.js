@@ -10,7 +10,7 @@ describe("UserTimelineUI", () => {
 
 	beforeAll(() => {
 		Api.fetchUserTimeline = jest.fn();
-		timelineUI = shallow(<UserTimelineUI />, {disableLifecycleMethods: true});
+		timelineUI = shallow(<UserTimelineUI api={Api}/>, {disableLifecycleMethods: true});
 		util = new TimelineTestUtil(timelineUI, "div.user-timeline");
 	});
 
@@ -18,19 +18,16 @@ describe("UserTimelineUI", () => {
 		Api.fetchUserTimeline.mockClear();
 	});
 
-	// Test rendering of header
 	test("should render header", () => {
 		util.expectHeader(UserTimelineUI.timelineName);
 	});
 
-	// Test rendering of button
 	test("should render button with expected text", () => {
 		const button = util.getUpdateButton();
 		expect(button.text()).toEqual(UserTimelineUI.updateButtonText);
 	});
 
-	// Test Api Error Case
-	test("should render error message: '" + UserTimelineUI.apiErrorMessage + "'", done => {
+	test("should render message: '" + UserTimelineUI.apiErrorMessage + "'", done => {
 		Api.fetchUserTimeline.mockImplementation(callback => {
 			callback(Error());
 			util.expectErrorMessage(UserTimelineUI.apiErrorMessage, Api.fetchUserTimeline);
@@ -39,8 +36,14 @@ describe("UserTimelineUI", () => {
 		util.getUpdateButton().simulate("click");
 	});
 
-	// Test Empty Tweets Case
-	test("should render error message: '" + UserTimelineUI.emptyTimelineMessage + "'", done => {
+	test("should render message in no API case: '" + UserTimelineUI.apiErrorMessage + "'", () => {
+		const noApiTimeline = shallow(<UserTimelineUI/>, {disableLifecycleMethods: true});
+		const noApiUtil = new TimelineTestUtil(noApiTimeline, "div.user-timeline");
+		noApiUtil.getUpdateButton().simulate("click");
+		noApiUtil.expectErrorMessage(UserTimelineUI.apiErrorMessage);
+	});
+
+	test("should render message: '" + UserTimelineUI.emptyTimelineMessage + "'", done => {
 		Api.fetchUserTimeline.mockImplementation(callback => {
 			callback(null, []);
 			util.expectErrorMessage(UserTimelineUI.emptyTimelineMessage, Api.fetchUserTimeline);
@@ -49,7 +52,6 @@ describe("UserTimelineUI", () => {
 		util.getUpdateButton().simulate("click");
 	});
 
-	// Test Non-Empty Tweets Case
 	test("should render tweets", done => {
 		Api.fetchUserTimeline.mockImplementation(callback => {
 			callback(null, TimelineTestUtil.dummyTweets);

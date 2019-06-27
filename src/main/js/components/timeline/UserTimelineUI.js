@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import MainTimelineElement from "./MainTimelineElement";
 import "../../../css/components/timeline/UserTimelineUI.scss";
-import { fetchUserTimeline } from "../../twitter-api";
 
 export default class UserTimelineUI extends React.Component {
 
@@ -49,16 +48,20 @@ export default class UserTimelineUI extends React.Component {
 	}
 
 	updateTimeline() {
-		fetchUserTimeline((err, tweets) => {
-			if (err) {
-				this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage});
-			} else {
-				if (tweets.length) {
-					this.setState({tweets: tweets, message: null});
+		try {
+			this.props.api.fetchUserTimeline((err, tweets) => {
+				if (err) {
+					this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage});
 				} else {
-					this.setState({tweets : null, message: UserTimelineUI.emptyTimelineMessage});
+					if (tweets.length) {
+						this.setState({tweets: tweets, message: null});
+					} else {
+						this.setState({tweets : null, message: UserTimelineUI.emptyTimelineMessage});
+					}
 				}
-			}
-		});
+			});
+		} catch (err) {
+			this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage}); // Problem with calling API
+		}
 	}
 }

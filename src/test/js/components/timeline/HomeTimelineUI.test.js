@@ -4,16 +4,21 @@ import HomeTimelineUI from "../../../../main/js/components/timeline/HomeTimeline
 import * as Api from "../../../../main/js/twitter-api";
 import TimelineTestUtil from "./TimelineTestUtil";
 import { expectOne } from "../../test-util";
+import KeyCode from "keycode-js";
 
 describe("HomeTimelineUI", () => {
 
 	let timelineUI, util;
+	let noApiTimeline, noApiUtil; // Used to test cases where API prop is undefined
 
 	beforeAll(() => {
 		Api.fetchHomeTimeline = jest.fn();
 		Api.fetchFilteredHomeTimeline = jest.fn();
-		timelineUI = shallow(<HomeTimelineUI />, {disableLifecycleMethods: true});
+		timelineUI = shallow(<HomeTimelineUI api={Api}/>, {disableLifecycleMethods: true});
 		util = new TimelineTestUtil(timelineUI, "div.home-timeline");
+
+		noApiTimeline = shallow(<HomeTimelineUI/>, {disableLifecycleMethods: true});
+		noApiUtil = new TimelineTestUtil(noApiTimeline, "div.home-timeline");
 	});
 
 	afterEach(() => {
@@ -25,8 +30,8 @@ describe("HomeTimelineUI", () => {
 		return expectOne(timelineUI, "button.filter-timeline");
 	}
 
-	// Test Api Error Case
-	test("should render error message: '" + HomeTimelineUI.apiErrorMessage + "'", done => {
+
+	test("should render message: '" + HomeTimelineUI.apiErrorMessage + "'", done => {
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(Error());
 			util.expectErrorMessage(HomeTimelineUI.apiErrorMessage, Api.fetchHomeTimeline);
@@ -35,8 +40,7 @@ describe("HomeTimelineUI", () => {
 		util.getUpdateButton().simulate("click");
 	});
 
-	// Test Empty Tweets Case
-	test("should render error message: '" + HomeTimelineUI.emptyTimelineMessage + "'", done => {
+	test("should render message: '" + HomeTimelineUI.emptyTimelineMessage + "'", done => {
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(null, []);
 			util.expectErrorMessage(HomeTimelineUI.emptyTimelineMessage, Api.fetchHomeTimeline);
@@ -45,7 +49,11 @@ describe("HomeTimelineUI", () => {
 		util.getUpdateButton().simulate("click");
 	});
 
-	// Test Non-Empty Tweets Case
+	test("should render message in no API case: '" + HomeTimelineUI.apiErrorMessage + "'", () => {
+		noApiUtil.getUpdateButton().simulate("click");
+		noApiUtil.expectErrorMessage(HomeTimelineUI.apiErrorMessage);
+	});
+
 	test("should render tweets", done => {
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(null, TimelineTestUtil.dummyTweets);
@@ -55,13 +63,11 @@ describe("HomeTimelineUI", () => {
 		util.getUpdateButton().simulate("click");
 	});
 
-	// Test rendering of button
 	test("should render button with expected text", () => {
 		const button = util.getUpdateButton();
 		expect(button.text()).toEqual(HomeTimelineUI.updateButtonText);
 	});
 
-	// Test rendering of header
 	test("should render header", () => {
 		util.expectHeader(HomeTimelineUI.timelineName);
 	});
@@ -84,10 +90,10 @@ describe("HomeTimelineUI", () => {
 		const dummyFilter = "some filter";
 		const filterInput = expectOne(timelineUI, "input.filter-input");
 		filterInput.simulate("change", {target: {value: dummyFilter}});
-		getFilterButton().simulate("click");
+		filterInput.simulate("keyPress", {charCode: KeyCode.KEY_RETURN});
 	});
 
-	test("should render error message: '" + HomeTimelineUI.apiErrorMessage + "'", done => {
+	test("should render message: '" + HomeTimelineUI.apiErrorMessage + "'", done => {
 		Api.fetchFilteredHomeTimeline.mockImplementation(callback => {
 			callback(Error());
 			util.expectErrorMessage(HomeTimelineUI.apiErrorMessage, Api.fetchFilteredHomeTimeline);
@@ -96,13 +102,18 @@ describe("HomeTimelineUI", () => {
 		getFilterButton().simulate("click");
 	});
 
-	test("should render error message: '" + HomeTimelineUI.noResultsForFilterMessage + "'", done => {
+	test("should render message: '" + HomeTimelineUI.noResultsForFilterMessage + "'", done => {
 		Api.fetchFilteredHomeTimeline.mockImplementation(callback => {
 			callback(null, []);
 			util.expectErrorMessage(HomeTimelineUI.noResultsForFilterMessage, Api.fetchFilteredHomeTimeline);
 			done();
 		});
 		getFilterButton().simulate("click");
+	});
+
+	test("should render message in no API case: '" + HomeTimelineUI.apiErrorMessage + "'", () => {
+		expectOne(noApiTimeline, "button.filter-timeline").simulate("click");
+		noApiUtil.expectErrorMessage(HomeTimelineUI.apiErrorMessage);
 	});
 
 });

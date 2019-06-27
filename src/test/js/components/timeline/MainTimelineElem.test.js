@@ -18,22 +18,22 @@ describe("MainTimelineElem", () => {
 		});
 	});
 
-	test("should display error div with message from prop", () => {
+	test("should display message from prop", () => {
 		const dummyMessage = "error message";
 		const timelineElem = shallow(<MainTimelineElement message={dummyMessage}/>);
-		const errorDiv = expectOne(timelineElem, "div.error-div");
+		const errorDiv = expectOne(timelineElem, "div.timeline-message");
 		expect(errorDiv.text()).toEqual(dummyMessage);
 	});
 
-	test("should display error div if no props defined", () => {
+	test("should display loading message if no props defined", () => {
 		const timelineElem = shallow(<MainTimelineElement/>);
-		const errorDiv = expectOne(timelineElem, "div.error-div");
-		expect(errorDiv.text()).toEqual(MainTimelineElement.errorMessage);
+		const errorDiv = expectOne(timelineElem, "div.timeline-message");
+		expect(errorDiv.text()).toEqual(MainTimelineElement.loadingMessage);
 	});
 
-	test("should display error div if error with tweets prop", () => {
+	test("should display error message if issue with tweets prop", () => {
 		const timelineElem = shallow(<MainTimelineElement tweets={"not a list of tweets"}/>);
-		const errorDiv = expectOne(timelineElem, "div.error-div");
+		const errorDiv = expectOne(timelineElem, "div.timeline-message");
 		expect(errorDiv.text()).toEqual(MainTimelineElement.errorMessage);
 	});
 

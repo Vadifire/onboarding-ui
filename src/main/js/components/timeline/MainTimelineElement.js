@@ -8,6 +8,10 @@ export default class MainTimelineElement extends React.Component {
 		return "Failed to fetch tweets.";
 	}
 
+	static get loadingMessage() {
+		return "Loading timeline..."
+	}
+
 	render() {
 		try {
 			if (this.props.tweets) {
@@ -18,12 +22,12 @@ export default class MainTimelineElement extends React.Component {
 				});
 				return <div className="tweets">{tweets}</div>;
 			} else if (this.props.message) {
-				return <div className="error-div">{this.props.message}</div>
-			} else {
-				return <div className="error-div">{MainTimelineElement.errorMessage}</div>
+				return <div className="timeline-message">{this.props.message}</div>
+			} else { // Nothing passed to this component yet
+				return <div className="timeline-message">{MainTimelineElement.loadingMessage}</div>
 			}
 		} catch { // In case map function cannot be applied to tweets
-			return <div className="error-div">{MainTimelineElement.errorMessage}</div>
+			return <div className="timeline-message">{MainTimelineElement.errorMessage}</div>
 		}
 	}
 }
