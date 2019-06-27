@@ -5,6 +5,7 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack-dev-server",
+    "lint": "eslint src/ --ext .js",
     "hello": "echo \"Hello World!\""
   },
   "repository": {
