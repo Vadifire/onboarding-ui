@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import HomeTimelineUI from "./timeline/HomeTimelineUI";
 import UserTimelineUI from "./timeline/UserTimelineUI";
 import "../../css/components/Application.scss";

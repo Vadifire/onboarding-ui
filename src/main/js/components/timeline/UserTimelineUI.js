@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import MainTimelineElement from "./MainTimelineElement";
 import "../../../css/components/timeline/UserTimelineUI.scss";
 import { fetchUserTimeline } from "../../services/twitter-api";

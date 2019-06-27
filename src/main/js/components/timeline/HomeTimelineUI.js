@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import MainTimelineElement from "./MainTimelineElement";
 import "../../../css/components/timeline/HomeTimelineUI.scss";
 import KeyCode from "keycode-js";
@@ -68,7 +68,7 @@ export default class HomeTimelineUI extends React.Component {
 		);
 	}
 
-	updateTimeline() {
+    updateTimeline() {
 		fetchHomeTimeline((err, tweets) => {
 			if (err) {
 				this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
