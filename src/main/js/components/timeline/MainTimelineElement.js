@@ -26,7 +26,7 @@ export default class MainTimelineElement extends React.Component {
 			} else { // Nothing passed to this component yet
 				return <div className="timeline-message">{MainTimelineElement.loadingMessage}</div>;
 			}
-		} catch { // In case map function cannot be applied to tweets
+		} catch (err) { // In case map function cannot be applied to tweets
 			return <div className="timeline-message">{MainTimelineElement.errorMessage}</div>;
 		}
 	}

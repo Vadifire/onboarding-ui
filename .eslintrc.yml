@@ -12,4 +12,6 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules: {}
+rules: {
+  semi: [2, "always"]
+}
