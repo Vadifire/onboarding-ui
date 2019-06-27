@@ -1,7 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
 import MainTimelineElement from "../../../../main/js/components/timeline/MainTimelineElement";
-import TweetBlock from "../../../../main/js/components/timeline/TweetBlock";
 import { expectOne } from "../../test-util";
 import TimelineTestUtil from "./TimelineTestUtil";
 

@@ -29,7 +29,7 @@ describe("twitter-api", () => {
 
 	function testFetchStatusError(done, fetchFunc, endpoint, ...params) {
 		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
-		fetchFunc((err, tweets) => {
+		fetchFunc((err) => {
 			if (err) {
 				expect(err).toEqual(Api.statusError(mockedRequest.status));
 				assertEndpointCalled(endpoint);
@@ -44,7 +44,7 @@ describe("twitter-api", () => {
 	function testFetchParseError(done, fetchFunc, endpoint, ...params) {
 		mockedRequest.responseText = "Invalid JSON"; // Return invalid JSON
 		mockedRequest.status = HttpStatuses.OK;
-		fetchFunc((err, tweets) => {
+		fetchFunc((err) => {
 			if (err) {
 				assertEndpointCalled(endpoint);
 				done();
