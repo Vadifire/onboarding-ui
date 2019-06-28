@@ -36,7 +36,7 @@ export default class HomeTimelineUI extends React.Component {
 	}
 
 	static get filterButtonText() {
-		return "Filter " + HomeTimelineUI.timelineName;
+		return "Filter";
 	}
 
 	static get timelineName() {
