@@ -3,9 +3,12 @@ import HttpStatuses from "http-status-codes";
 
 export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline";
 export const userTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline/user";
+export function filteredHomeTimelineEndpoint(keyword) {
+	return "http://localhost:8080/api/1.0/twitter/timeline/filter?keyword=" + keyword;
+}
 
 export function statusError(status) {
-	return new Error("Received bad status code in response: " + status);
+	return new Error("Received response with non-OK status code: " + status);
 }
 
 /*
@@ -26,7 +29,7 @@ function fetchJson(callback, endpoint) {
 			} else {
 				callback(statusError(this.status));
 			}
-		} 
+		}
 	};
 	xhttp.open(HttpMethods.GET, endpoint);
 	xhttp.send();
@@ -39,6 +42,15 @@ function fetchJson(callback, endpoint) {
  */
 export function fetchHomeTimeline(callback) {
 	fetchJson(callback, homeTimelineEndpoint);
+}
+
+/*
+ * Fetches filtered tweets from home timeline
+ *
+ * Once done, executes callback with (err, tweets).
+ */
+export function fetchFilteredHomeTimeline(callback, keyword) {
+	fetchJson(callback, filteredHomeTimelineEndpoint(keyword));
 }
 
 /*

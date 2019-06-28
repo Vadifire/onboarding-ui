@@ -32,15 +32,13 @@ export default class TimelineTestUtil {
 		return expectOne(this.timelineUI, this.rootSelector);
 	}
 
+	getUpdateButton() {
+		return expectOne(this.getTimelineDiv(), "button.update-timeline");
+	}
+
 	expectHeader(text) {
 		const header = expectOne(this.getTimelineDiv(), "h3.title");
 		expect(header.text()).toEqual(text);
-	}
-
-	expectButton(text) {
-		const button = expectOne(this.getTimelineDiv(), "button.update-timeline");
-		expect(button.prop("onClick")).toEqual(this.timelineUI.instance().updateTimeline);
-		expect(button.text()).toEqual(text);
 	}
 
 	// Used in error message test cases
@@ -48,11 +46,13 @@ export default class TimelineTestUtil {
 		const timelineElem = expectOne(this.getTimelineDiv(), "MainTimelineElement");
 		expect(timelineElem.prop("message")).toEqual(message);
 		expect(timelineElem.prop("tweets")).toBeFalsy();
-		expect(mockedFunc).toHaveBeenCalledTimes(1);
+		if (mockedFunc) {
+			expect(mockedFunc).toHaveBeenCalledTimes(1);
+		}
 	}
 
 	// Used in valid response test cases
-	expectTweets(tweets, hideHandle, mockedFunc) {
+	expectTweets(tweets, mockedFunc, hideHandle) {
 		const timelineElem = expectOne(this.getTimelineDiv(), "MainTimelineElement");
 		expect(timelineElem.prop("tweets")).toEqual(tweets);
 		expect(timelineElem.prop("message")).toBeFalsy();

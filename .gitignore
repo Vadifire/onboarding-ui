@@ -6,3 +6,8 @@
 
 # CSS will be built by Sass
 /dist/css
+
+# VS Files
+onboarding-ui.sln
+.vs
+onboarding-ui.mdproj

@@ -6,15 +6,7 @@
 	text-align: left;
 
 	.button-div {
-		.update-timeline {
-			margin-bottom: 4px;
-			text-align: left;
-		}
-	}
-
-	.error-div {
-		font-size: 12px;
-		margin-top: 5px;
+		margin-bottom: 4px;
 	}
 
 	.title {
@@ -22,14 +14,19 @@
 		text-align: center;
 	}
 
-	.tweets {
+	.timeline-container {
 		border: 1px solid;
 		margin-top: 10px;
+			.tweet {
 
-		.tweet {
-			&:last-child {
-				border-bottom: none;
+				&:last-child {
+					border-bottom: none;
 			}
+		}
+
+		.timeline-message {
+			font-size: 12px;
+			padding: 5px;
 		}
 	}
 }

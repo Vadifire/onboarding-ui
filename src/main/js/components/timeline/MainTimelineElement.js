@@ -1,5 +1,5 @@
 import TweetBlock from "./TweetBlock";
-import React, { Component } from "react";
+import React from "react";
 
 // Display List of Tweets or error message
 export default class MainTimelineElement extends React.Component {
@@ -8,7 +8,22 @@ export default class MainTimelineElement extends React.Component {
 		return "Failed to fetch tweets.";
 	}
 
+	static get loadingMessage() {
+		return "Loading timeline...";
+	}
+
 	render() {
+
+		function renderMessage(msg) {
+			return (
+				<div className="timeline-container">
+					<div className="timeline-message">
+						{msg}
+					</div>
+				</div>
+			);
+		}
+
 		try {
 			if (this.props.tweets) {
 				const tweets = this.props.tweets.map(tweet => {
@@ -16,14 +31,14 @@ export default class MainTimelineElement extends React.Component {
 						<TweetBlock key={tweet.url} tweet={tweet} hideHandle={this.props.hideHandle}/>
 					);
 				});
-				return <div className="tweets">{tweets}</div>;
+				return <div className="timeline-container">{tweets}</div>;
 			} else if (this.props.message) {
-				return <div className="error-div">{this.props.message}</div>
-			} else {
-				return <div className="error-div">{MainTimelineElement.errorMessage}</div>
+				return renderMessage(this.props.message);
+			} else { // Nothing passed to this component yet
+				return renderMessage(MainTimelineElement.loadingMessage);
 			}
-		} catch { // In case map function cannot be applied to tweets
-			return <div className="error-div">{MainTimelineElement.errorMessage}</div>
+		} catch (err) { // In case map function cannot be applied to tweets
+			return renderMessage(MainTimelineElement.errorMessage);
 		}
 	}
 }
