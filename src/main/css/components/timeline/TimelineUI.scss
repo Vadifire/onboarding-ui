@@ -9,24 +9,24 @@
 		margin-bottom: 4px;
 	}
 
-	.timeline-message {
-		font-size: 12px;
-		margin-top: 5px;
-	}
-
 	.title {
 		font-size: 30px;
 		text-align: center;
 	}
 
-	.tweets {
+	.timeline-container {
 		border: 1px solid;
 		margin-top: 10px;
+			.tweet {
 
-		.tweet {
-			&:last-child {
-				border-bottom: none;
+				&:last-child {
+					border-bottom: none;
 			}
+		}
+
+		.timeline-message {
+			font-size: 12px;
+			padding: 5px;
 		}
 	}
 }

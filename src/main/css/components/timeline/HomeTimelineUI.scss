@@ -2,7 +2,7 @@
 
 .home-timeline {
 	
-	.tweets {
+	.timeline-container {
 		.tweet {
 			&:nth-child(odd) {
 				background-color: #e8f5fd;
@@ -19,7 +19,7 @@
 		justify-content: flex-end;
 
 		.filter-timeline {
-			margin-left: 6px;
+			margin-left: 10px;
 		}
 
 		.update-timeline {
