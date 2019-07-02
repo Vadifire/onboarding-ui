@@ -2,6 +2,7 @@ import HttpMethods from "http-methods-enum";
 import HttpStatuses from "http-status-codes";
 
 export const maxTweetLength = 280;
+export const messageKey = "message=";
 
 export const tweetEndpoint = "http://localhost:8080/api/1.0/twitter/tweet";
 export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline";
@@ -67,7 +68,7 @@ export function fetchUserTimeline(callback) {
 
 export function postTweet(callback, message) {
 	var xhttp = new XMLHttpRequest();
-	xhttp.open("POST", tweetEndpoint, true);
+	xhttp.open(HttpMethods.POST, tweetEndpoint);
 	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
 	xhttp.onreadystatechange = function() {
@@ -80,5 +81,5 @@ export function postTweet(callback, message) {
 		}
 	};
 
-	xhttp.send("message=" + message);
+	xhttp.send(messageKey + message);
 }

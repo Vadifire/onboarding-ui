@@ -26,7 +26,6 @@ describe("HomeTimelineUI", () => {
 		return expectOne(timelineUI, "button.filter-timeline");
 	}
 
-
 	test("should render message: '" + HomeTimelineUI.apiErrorMessage + "'", done => {
 		Api.fetchHomeTimeline.mockImplementation(callback => {
 			callback(Error());
@@ -58,11 +57,6 @@ describe("HomeTimelineUI", () => {
 		const button = util.getUpdateButton();
 		expect(button.text()).toEqual(HomeTimelineUI.updateButtonText);
 	});
-
-	test("should render header", () => {
-		util.expectHeader(HomeTimelineUI.timelineName);
-	});
-
 
 	/* Filtered Home Timeline Tests */
 	test("should render filter button with expected text, disabled by default", () => {

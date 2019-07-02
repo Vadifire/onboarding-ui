@@ -11,7 +11,7 @@
 	.nav-link {
 		font-size: 14px;
 		padding: 6px;
-		border: 1px solid;
+		border-radius: 6px 6px 0px 0px;
 		&:not(:last-child) {
 			//border-right: 0px;
 		}

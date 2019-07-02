@@ -1,5 +1,5 @@
 import React from "react";
-import {Tabs, Tab} from 'react-bootstrap-tabs';
+import { Tabs, Tab } from 'react-bootstrap-tabs';
 import HomeTimelineUI from "./timeline/HomeTimelineUI";
 import UserTimelineUI from "./timeline/UserTimelineUI";
 import PostTweetUI from "./PostTweetUI";
