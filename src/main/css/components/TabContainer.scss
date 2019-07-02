@@ -1,0 +1,28 @@
+.nav-tabs {
+	display: flex;
+	justify-content: center;
+	list-style-type: none;
+	padding: 0px; // Removes padding from invisible bullets
+
+	.nav-link {
+		font-size: 14px;
+		padding: 6px;
+		border: 1px solid;
+		&:not(:last-child) {
+			//border-right: 0px;
+		}
+		&:hover {
+			background-color: whitesmoke;
+		}
+	}
+	.nav-item {
+		.active {
+			background-color: cornflowerblue;
+		}
+	}
+}
+
+.tab-content {
+	display: flex;
+	justify-content: center;
+}
