@@ -55,6 +55,5 @@ export default class UserTimelineUI extends React.Component {
 				}
 			}
 		});
-		this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage}); // Problem with calling API
 	}
 }
