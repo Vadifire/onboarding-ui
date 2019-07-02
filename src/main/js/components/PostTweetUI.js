@@ -43,7 +43,7 @@ export default class PostTweetUI extends React.Component {
 					</div>
 					<button className="post-tweet" onClick={this.postTweet} 
 								disabled={!(this.state.input.replace(/\s/g, "").length)}>
-							{PostTweetUI.buttonText}
+						{PostTweetUI.buttonText}
 					</button>
 				</div>
 			</div>
@@ -56,7 +56,7 @@ export default class PostTweetUI extends React.Component {
 
 	postTweet() {
 		postTweet((err) => {
-			this.setState({input: ""}); // Clear message
+			this.setState({input: ""});
 			if (err) {
 				this.setState({output: PostTweetUI.failureMessage});
 			} else {
