@@ -23,11 +23,7 @@ export default class UserTimelineUI extends React.Component {
 	}
 
 	static get updateButtonText() {
-		return "Update " + UserTimelineUI.timelineName;
-	}
-
-	static get timelineName() {
-		return "User Timeline";
+		return "Update User Timeline";
 	}
 
 	componentDidMount() {
@@ -37,7 +33,6 @@ export default class UserTimelineUI extends React.Component {
 	render() {
 		return (
 			<div className="user-timeline timeline-component">
-				<h3 className="title">{UserTimelineUI.timelineName}</h3>
 				<div className="button-div">
 					<button className="update-timeline" onClick={this.updateTimeline}>
 						{UserTimelineUI.updateButtonText}

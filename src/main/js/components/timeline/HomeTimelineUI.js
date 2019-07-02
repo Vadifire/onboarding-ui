@@ -32,15 +32,11 @@ export default class HomeTimelineUI extends React.Component {
 	}
 
 	static get updateButtonText() {
-		return "Update " + HomeTimelineUI.timelineName;
+		return "Update Home Timeline";
 	}
 
 	static get filterButtonText() {
 		return "Filter";
-	}
-
-	static get timelineName() {
-		return "Home Timeline";
 	}
 
 	componentDidMount() {
@@ -50,7 +46,6 @@ export default class HomeTimelineUI extends React.Component {
 	render() {
 		return (
 			<div className="home-timeline timeline-component">
-				<h3 className="title">{HomeTimelineUI.timelineName}</h3>
 				<div className="button-div">
 					<button className="update-timeline" onClick={this.updateTimeline}>
 						{HomeTimelineUI.updateButtonText}
