@@ -1,6 +1,10 @@
-.nav-tabs {
+@mixin center() {
 	display: flex;
 	justify-content: center;
+}
+
+.nav-tabs {
+	@include center;
 	list-style-type: none;
 	padding: 0px; // Removes padding from invisible bullets
 
@@ -22,7 +26,7 @@
 	}
 }
 
-.tab-content {
-	display: flex;
-	justify-content: center;
+.tab-content > div {
+	@include center;
+	width: 100%;
 }
