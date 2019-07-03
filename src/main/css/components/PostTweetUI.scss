@@ -10,7 +10,6 @@
 
 		.char-count {
 			position: absolute;
-			float: right;
 			z-index: 5; // Put in front of tweet-input
 			pointer-events: none;
 			right: 4px;

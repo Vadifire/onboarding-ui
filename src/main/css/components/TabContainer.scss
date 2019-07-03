@@ -8,12 +8,12 @@
 	.nav-tabs {
 		@include center;
 		list-style-type: none;
-		padding: 0px; // Removes padding from invisible bullets
+		padding: 0; // Removes padding from invisible bullets
 		display: inline-block;
 
 		.nav-item {
 			display: flex;
-			margin: 0px 2px;
+			margin: 0 2px;
 			float: left;
 
 			.nav-link {
@@ -33,7 +33,7 @@
 	}
 
 	.tab-content {
-		margin: 0px 20px;
+		margin: 0 20px;
 	}
 
 	.tab-content > div {

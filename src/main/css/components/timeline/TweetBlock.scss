@@ -13,7 +13,7 @@ $names-padding: ($user-div-width - $names-width) / 2;
 	align-items: center;
 	display: inline-grid;
 	grid-template-areas: "user-grid content-grid";
-	padding: 20px 10px 20px 0px;
+	padding: 20px 10px 20px 0;
 	width: 100%;
 	border-bottom: 1px solid #bbbbbb;
 
@@ -31,13 +31,13 @@ $names-padding: ($user-div-width - $names-width) / 2;
 			@include names;
 			font-size: 15px; 
 			font-weight: bold;
-			padding: 4px 0px 2px $names-padding;
+			padding: 4px 0 2px $names-padding;
 		}
 
 		.twitter-handle {
 			@include names;
 			font-size: 12px;
-			padding: 1px 10px 0px $names-padding;
+			padding: 1px 10px 0 $names-padding;
 		}
 
 	}
