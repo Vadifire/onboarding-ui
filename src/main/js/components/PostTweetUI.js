@@ -56,10 +56,10 @@ export default class PostTweetUI extends React.Component {
 
 	postTweet() {
 		postTweet((err) => {
-			this.setState({input: ""});
 			if (err) {
 				this.setState({output: PostTweetUI.failureMessage});
 			} else {
+				this.setState({input: ""});
 				this.setState({output: PostTweetUI.successMessage});
 			}
 		}, this.state.input);

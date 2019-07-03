@@ -3,27 +3,41 @@
 	justify-content: center;
 }
 
-.nav-tabs {
-	@include center;
-	list-style-type: none;
-	padding: 0px; // Removes padding from invisible bullets
+.tabs {
+	text-align: center;
+	.nav-tabs {
+		@include center;
+		list-style-type: none;
+		padding: 0px; // Removes padding from invisible bullets
+		display: inline-block;
 
-	.nav-link {
-		font-size: 14px;
-		padding: 6px;
-		border-radius: 6px 6px 0px 0px;
-		&:hover {
-			background-color: #d8d8d8;
+		.nav-item {
+			display: flex;
+			margin: 0px 2px;
+			float: left;
+
+			.nav-link {
+				font-size: 14px;
+				padding: 6px;
+				border-radius: 6px;
+				border: 1px solid;
+				&:hover {
+					background-color: #d8d8d8;
+				}
+			}
+
+			.active {
+				background-color: #b4caf3;
+			}
 		}
 	}
-	.nav-item {
-		.active {
-			background-color: #b4caf3;
-		}
-	}
-}
 
-.tab-content > div {
-	@include center;
-	width: 100%;
+	.tab-content {
+		margin: 0px 20px;
+	}
+
+	.tab-content > div {
+		@include center;
+		width: 100%;
+	}
 }
