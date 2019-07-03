@@ -1,7 +1,6 @@
 .post-tweet-ui {
 	width: 360px;
 	border: 1px solid;
-	background-color: #d7edfb;
 	padding: 10px 10px 8px;
 	
 	.input-container {
@@ -16,6 +15,8 @@
 			bottom: 4px;
 			opacity: .5;
 		}
+
+
 
 		.tweet-input {
 			resize: none;
@@ -37,6 +38,14 @@
 
 		.post-result {
 			margin-right: auto;
+		}
+
+		.post-success {
+			color: #008400;
+		}
+
+		.post-error {
+			color: #e00000;
 		}
 	}
 	

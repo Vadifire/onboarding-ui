@@ -8,7 +8,8 @@ export default class PostTweetUI extends React.Component {
 		super();
 		this.state = {
 			input: "",
-			output: ""
+			output: "",
+			success: false
 		};
 		this.postCallback = this.postCallback.bind(this);
 		this.updateMessage = this.updateMessage.bind(this);
@@ -32,13 +33,23 @@ export default class PostTweetUI extends React.Component {
 
 	postCallback(err) {
 		if (err) {
-			this.setState({output: PostTweetUI.failureMessage});
+			this.setState({output: PostTweetUI.failureMessage, success: false});
 		} else {
-			this.setState({input: "", output: PostTweetUI.successMessage});
+			this.setState({input: "", output: PostTweetUI.successMessage, success: true});
 		}
 	}
 
 	render() {
+		const postResult = this.state.success ? (
+			<div className="post-result post-success">
+				{this.state.output}
+			</div>
+		) : (
+			<div className="post-result post-error">
+				{this.state.output}
+			</div>
+		);
+
 		return (
 			<div className="post-tweet-ui">
 				<div className="input-container">
@@ -50,9 +61,7 @@ export default class PostTweetUI extends React.Component {
 					</textarea>
 				</div>
 				<div className="post-bottom-div">
-					<div className="post-result">
-						{this.state.output}
-					</div>
+					{postResult}
 					<button className="post-tweet"
 							onClick={() => postTweet(this.postCallback, this.state.input)}
 							disabled={!(this.state.input.replace(/\s/g, "").length)}>
