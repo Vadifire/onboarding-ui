@@ -30,19 +30,6 @@ export default class UserTimelineUI extends React.Component {
 		this.updateTimeline();
 	}
 
-	render() {
-		return (
-			<div className="user-timeline timeline-component">
-				<div className="button-div">
-					<button className="update-timeline" onClick={this.updateTimeline}>
-						{UserTimelineUI.updateButtonText}
-					</button>
-				</div>
-				<MainTimelineElement tweets={this.state.tweets} message={this.state.message} hideHandle={true}/>
-			</div>
-		);
-	}
-
 	updateTimeline() {
 		fetchUserTimeline((err, tweets) => {
 			if (err) {
@@ -56,4 +43,18 @@ export default class UserTimelineUI extends React.Component {
 			}
 		});
 	}
+
+	render() {
+		return (
+			<div className="user-timeline timeline-component">
+				<div className="button-div">
+					<button className="update-timeline" onClick={this.updateTimeline}>
+						{UserTimelineUI.updateButtonText}
+					</button>
+				</div>
+				<MainTimelineElement tweets={this.state.tweets} message={this.state.message} hideHandle={true}/>
+			</div>
+		);
+	}
+
 }

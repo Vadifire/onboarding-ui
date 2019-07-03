@@ -43,27 +43,7 @@ export default class HomeTimelineUI extends React.Component {
 		this.updateTimeline();
 	}
 
-	render() {
-		return (
-			<div className="home-timeline timeline-component">
-				<div className="button-div">
-					<button className="update-timeline" onClick={this.updateTimeline}>
-						{HomeTimelineUI.updateButtonText}
-					</button>
-					<input type="text" className="filter-input" onChange={this.updateFilter} 
-							onKeyPress={this.handleKeyPress}>
-					</input>
-					<button className="filter-timeline" onClick={this.filterTimeline} 
-							disabled={!this.state.keyword.length}>
-						{HomeTimelineUI.filterButtonText}
-					</button>
-				</div>
-				<MainTimelineElement tweets={this.state.tweets} message={this.state.message}/>
-			</div>
-		);
-	}
-
-    updateTimeline() {
+	updateTimeline() {
 		fetchHomeTimeline((err, tweets) => {
 			if (err) {
 				this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
@@ -100,5 +80,25 @@ export default class HomeTimelineUI extends React.Component {
 				}
 			}
 		}, this.state.keyword);
+	}
+
+	render() {
+		return (
+			<div className="home-timeline timeline-component">
+				<div className="button-div">
+					<button className="update-timeline" onClick={this.updateTimeline}>
+						{HomeTimelineUI.updateButtonText}
+					</button>
+					<input type="text" className="filter-input" onChange={this.updateFilter}
+							onKeyPress={this.handleKeyPress}>
+					</input>
+					<button className="filter-timeline" onClick={this.filterTimeline}
+							disabled={!this.state.keyword.length}>
+						{HomeTimelineUI.filterButtonText}
+					</button>
+				</div>
+				<MainTimelineElement tweets={this.state.tweets} message={this.state.message}/>
+			</div>
+		);
 	}
 }

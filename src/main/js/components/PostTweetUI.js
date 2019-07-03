@@ -11,7 +11,7 @@ export default class PostTweetUI extends React.Component {
 			output: ""
 		};
 		this.updateMessage = this.updateMessage.bind(this);
-		this.postTweet = this.postTweet.bind(this);
+		this.submitTweet = this.submitTweet.bind(this);
 	}
 
 	static get buttonText() {
@@ -24,6 +24,20 @@ export default class PostTweetUI extends React.Component {
 
 	static get failureMessage() {
 		return "Could not post tweet.";
+	}
+
+	updateMessage(event) {
+		this.setState({input: event.target.value});
+	}
+
+	submitTweet() {
+		postTweet((err) => {
+			if (err) {
+				this.setState({output: PostTweetUI.failureMessage});
+			} else {
+				this.setState({input: "", output: PostTweetUI.successMessage});
+			}
+		}, this.state.input);
 	}
 
 	render() {
@@ -41,27 +55,12 @@ export default class PostTweetUI extends React.Component {
 					<div className="post-result">
 						{this.state.output}
 					</div>
-					<button className="post-tweet" onClick={this.postTweet} 
+					<button className="post-tweet" onClick={this.submitTweet}
 								disabled={!(this.state.input.replace(/\s/g, "").length)}>
 						{PostTweetUI.buttonText}
 					</button>
 				</div>
 			</div>
 		);
-	}
-
-	updateMessage(event) {
-		this.setState({input: event.target.value});
-	}
-
-	postTweet() {
-		postTweet((err) => {
-			if (err) {
-				this.setState({output: PostTweetUI.failureMessage});
-			} else {
-				this.setState({input: ""});
-				this.setState({output: PostTweetUI.successMessage});
-			}
-		}, this.state.input);
 	}
 }
