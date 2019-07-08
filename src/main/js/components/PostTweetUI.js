@@ -40,16 +40,6 @@ export default class PostTweetUI extends React.Component {
 	}
 
 	render() {
-		const postResult = this.state.success ? (
-			<div className="post-result post-success">
-				{this.state.output}
-			</div>
-		) : (
-			<div className="post-result post-error">
-				{this.state.output}
-			</div>
-		);
-
 		return (
 			<div className="post-tweet-ui">
 				<div className="input-container">
@@ -61,7 +51,11 @@ export default class PostTweetUI extends React.Component {
 					</textarea>
 				</div>
 				<div className="post-bottom-div">
-					{postResult}
+					{
+						<div className= {"post-result " + (this.state.success ? "post-success" : "post-error")}>
+							{this.state.output}
+						</div>
+					}
 					<button className="post-tweet"
 							onClick={() => postTweet(this.postCallback, this.state.input)}
 							disabled={!(this.state.input.replace(/\s/g, "").length)}>
