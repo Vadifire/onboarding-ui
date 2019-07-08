@@ -4,24 +4,25 @@ import HttpStatuses from "http-status-codes";
 
 describe("twitter-api", () => {
 
-	let mockedRequest, dummyKeyword;
+	let mockedRequest, dummyString;
 
 	beforeAll(() => {
 		mockedRequest = {
 			open: jest.fn(),
 			send: jest.fn(),
+			setRequestHeader: jest.fn(),
 			readyState: XMLHttpRequest.DONE,
 		};
-		dummyKeyword = "some keyword";
+		dummyString = "some string";
 		window.XMLHttpRequest = jest.fn(() => mockedRequest);
 		window.XMLHttpRequest.DONE = mockedRequest.readyState;
 	});
 
 	/* Utility functions for code shared across fetch tests */
 
-	function assertEndpointCalled(endpoint) { // Ensure XHR retrieves from correct endpoint
+	function assertEndpointCalled(endpoint, method = HttpMethods.GET) { // Ensure XHR retrieves from correct endpoint
 		expect(mockedRequest.open).toHaveBeenCalledTimes(1);
-		expect(mockedRequest.open).toHaveBeenCalledWith(HttpMethods.GET, endpoint);
+		expect(mockedRequest.open).toHaveBeenCalledWith(method, endpoint);
 		mockedRequest.open.mockClear();
 		expect(mockedRequest.send).toHaveBeenCalledTimes(1);
 		mockedRequest.send.mockClear();
@@ -99,16 +100,44 @@ describe("twitter-api", () => {
 
 	/* Filtered Home Timeline Cases */
 	test("should fetch from filtered timeline, then execute callback with error for non-OK status code", done => {
-		testFetchStatusError(done, Api.fetchFilteredHomeTimeline, Api.filteredHomeTimelineEndpoint(dummyKeyword), 
-			dummyKeyword);
+		testFetchStatusError(done, Api.fetchFilteredHomeTimeline, Api.filteredHomeTimelineEndpoint(dummyString),
+			dummyString);
 	});
 	test("should fetch from filtered timeline, then execute callback with error when JSON parsing fails", done => {
-		testFetchStatusError(done, Api.fetchFilteredHomeTimeline, Api.filteredHomeTimelineEndpoint(dummyKeyword), 
-			dummyKeyword);
+		testFetchStatusError(done, Api.fetchFilteredHomeTimeline, Api.filteredHomeTimelineEndpoint(dummyString),
+			dummyString);
 	});
 	test("should successfully parse tweets from filtered home timeline", done => {
-		testFetchStatusError(done, Api.fetchFilteredHomeTimeline, Api.filteredHomeTimelineEndpoint(dummyKeyword), 
-			dummyKeyword);
+		testFetchStatusError(done, Api.fetchFilteredHomeTimeline, Api.filteredHomeTimelineEndpoint(dummyString),
+			dummyString);
+	});
+
+	/* Post Tweet Cases */
+	test("should successfully post tweet", done => {
+		mockedRequest.status = HttpStatuses.CREATED;
+		Api.postTweet((err) => {
+			if (err) {
+				done.fail();
+			}
+			expect(mockedRequest.send).toHaveBeenCalledWith(Api.messageKey + dummyString);
+			assertEndpointCalled(Api.tweetEndpoint, HttpMethods.POST);
+			done();
+		}, dummyString);
+		mockedRequest.onreadystatechange();
+	});
+
+	test("should fail to post tweet and execute callback with error", done => {
+		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
+		Api.postTweet((err) => {
+			if (err) {
+				expect(mockedRequest.send).toHaveBeenCalledWith(Api.messageKey + dummyString);
+				assertEndpointCalled(Api.tweetEndpoint, HttpMethods.POST);
+				done();
+			} else {
+				done.fail();
+			}
+		}, dummyString);
+		mockedRequest.onreadystatechange();
 	});
 
 });

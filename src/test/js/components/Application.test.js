@@ -16,9 +16,7 @@ describe("Application", () => {
 		expectOne(application, "div.title");
 	});
 	
-	test("should contain div with UserTimelineUI and HomeTimelineUI components", () => {
-		const timelines = expectOne(application, "div.timelines");
-		expectOne(timelines, "UserTimelineUI");
-		expectOne(timelines, "HomeTimelineUI");
+	test("should contain TabContainer", () => {
+		expectOne(application, "TabContainer");
 	});
 });

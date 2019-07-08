@@ -1,22 +1,8 @@
 body {
-	font: "Times New Roman";
+	font: 12px "Times New Roman";
 }
 
 .title {
 	font: bold 40px "Times New Roman";
 	text-align: center;
-}
-
-.timelines {
-
-	.timeline-component:nth-child(1) {
-		padding-left: 25px;
-		padding-right: 20px;
-		width: 55%;
-	}
-
-	.timeline-component:nth-child(2) {
-		padding-right: 25px;
-		width: 45%;
-	}
 }

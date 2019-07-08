@@ -1,6 +1,5 @@
 import React from "react";
-import HomeTimelineUI from "./timeline/HomeTimelineUI";
-import UserTimelineUI from "./timeline/UserTimelineUI";
+import TabContainer from "./TabContainer";
 import "../../css/components/Application.scss";
 
 export default class Application extends React.Component {
@@ -8,10 +7,7 @@ export default class Application extends React.Component {
 		return (
 			<React.Fragment>
 				<div className="title">Lab for Cedric</div>
-				<div className="timelines">
-					<HomeTimelineUI/>
-					<UserTimelineUI/>
-				</div>
+				<TabContainer />
 			</React.Fragment>
 		);
 	}

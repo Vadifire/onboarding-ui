@@ -13,9 +13,9 @@ export default class HomeTimelineUI extends React.Component {
 			message: null,
 			keyword: ""
 		};
-		this.updateTimeline = this.updateTimeline.bind(this);
+		this.updateCallback = this.updateCallback.bind(this);
+		this.filterCallback = this.filterCallback.bind(this);
 		this.updateFilter = this.updateFilter.bind(this);
-		this.filterTimeline = this.filterTimeline.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
 
@@ -32,60 +32,45 @@ export default class HomeTimelineUI extends React.Component {
 	}
 
 	static get updateButtonText() {
-		return "Update " + HomeTimelineUI.timelineName;
+		return "Update Home Timeline";
 	}
 
 	static get filterButtonText() {
 		return "Filter";
 	}
 
-	static get timelineName() {
-		return "Home Timeline";
-	}
-
 	componentDidMount() {
-		this.updateTimeline();
+		fetchHomeTimeline(this.updateCallback);
 	}
 
-	render() {
-		return (
-			<div className="home-timeline timeline-component">
-				<h3 className="title">{HomeTimelineUI.timelineName}</h3>
-				<div className="button-div">
-					<button className="update-timeline" onClick={this.updateTimeline}>
-						{HomeTimelineUI.updateButtonText}
-					</button>
-					<input type="text" className="filter-input" onChange={this.updateFilter} 
-							onKeyPress={this.handleKeyPress}>
-					</input>
-					<button className="filter-timeline" onClick={this.filterTimeline} 
-							disabled={!this.state.keyword.length}>
-						{HomeTimelineUI.filterButtonText}
-					</button>
-				</div>
-				<MainTimelineElement tweets={this.state.tweets} message={this.state.message}/>
-			</div>
-		);
-	}
-
-    updateTimeline() {
-		fetchHomeTimeline((err, tweets) => {
-			if (err) {
-				this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
+	updateCallback(err, tweets) {
+		if (err) {
+			this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
+		} else {
+			if (tweets.length) {
+				this.setState({tweets: tweets, message: null});
 			} else {
-				if (tweets.length) {
-					this.setState({tweets: tweets, message: null});
-				} else {
-					this.setState({tweets : null, message: HomeTimelineUI.emptyTimelineMessage});
-				}
+				this.setState({tweets : null, message: HomeTimelineUI.emptyTimelineMessage});
 			}
-		});
+		}
+	}
+
+	filterCallback(err, tweets) {
+		if (err) {
+			this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
+		} else {
+			if (tweets.length) {
+				this.setState({tweets: tweets, message: null});
+			} else {
+				this.setState({tweets : null, message: HomeTimelineUI.noResultsForFilterMessage});
+			}
+		}
 	}
 
 	handleKeyPress(event) {
 		if ((event.charCode === KeyCode.KEY_RETURN || event.charCode === KeyCode.KEY_ENTER)
 					&& this.state.keyword.length) {
-			this.filterTimeline();
+			fetchFilteredHomeTimeline(this.filterCallback, this.state.keyword);
 		}
 	}
 
@@ -93,17 +78,25 @@ export default class HomeTimelineUI extends React.Component {
 		this.setState({keyword: event.target.value});
 	}
 
-	filterTimeline() {
-		fetchFilteredHomeTimeline((err, tweets) => {
-			if (err) {
-				this.setState({tweets: null, message: HomeTimelineUI.apiErrorMessage});
-			} else {
-				if (tweets.length) {
-					this.setState({tweets: tweets, message: null});
-				} else {
-					this.setState({tweets : null, message: HomeTimelineUI.noResultsForFilterMessage});
-				}
-			}
-		}, this.state.keyword);
+	render() {
+		return (
+			<div className="home-timeline timeline-component">
+				<div className="button-div">
+					<button className="update-timeline"
+							onClick={() => fetchHomeTimeline(this.updateCallback)}>
+						{HomeTimelineUI.updateButtonText}
+					</button>
+					<input type="text" className="filter-input" onChange={this.updateFilter}
+							onKeyPress={this.handleKeyPress}>
+					</input>
+					<button className="filter-timeline"
+							onClick={() => fetchFilteredHomeTimeline(this.filterCallback, this.state.keyword)}
+							disabled={!this.state.keyword.length}>
+						{HomeTimelineUI.filterButtonText}
+					</button>
+				</div>
+				<MainTimelineElement tweets={this.state.tweets} message={this.state.message}/>
+			</div>
+		);
 	}
 }

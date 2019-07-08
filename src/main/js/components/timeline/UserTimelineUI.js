@@ -11,7 +11,7 @@ export default class UserTimelineUI extends React.Component {
 			tweets: null,
 			message: null
 		};
-		this.updateTimeline = this.updateTimeline.bind(this);
+		this.updateCallback = this.updateCallback.bind(this);
 	}
 
 	static get apiErrorMessage() {
@@ -23,23 +23,31 @@ export default class UserTimelineUI extends React.Component {
 	}
 
 	static get updateButtonText() {
-		return "Update " + UserTimelineUI.timelineName;
-	}
-
-	static get timelineName() {
-		return "User Timeline";
+		return "Update User Timeline";
 	}
 
 	componentDidMount() {
-		this.updateTimeline();
+		fetchUserTimeline(this.updateCallback);
+	}
+
+	updateCallback(err, tweets) {		
+		if (err) {
+				this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage});
+		} else {
+			if (tweets.length) {
+				this.setState({tweets: tweets, message: null});
+			} else {
+				this.setState({tweets : null, message: UserTimelineUI.emptyTimelineMessage});
+			}
+		}
 	}
 
 	render() {
 		return (
 			<div className="user-timeline timeline-component">
-				<h3 className="title">{UserTimelineUI.timelineName}</h3>
 				<div className="button-div">
-					<button className="update-timeline" onClick={this.updateTimeline}>
+					<button className="update-timeline"
+							onClick={() => fetchUserTimeline(this.updateCallback)}>
 						{UserTimelineUI.updateButtonText}
 					</button>
 				</div>
@@ -48,18 +56,4 @@ export default class UserTimelineUI extends React.Component {
 		);
 	}
 
-	updateTimeline() {
-		fetchUserTimeline((err, tweets) => {
-			if (err) {
-				this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage});
-			} else {
-				if (tweets.length) {
-					this.setState({tweets: tweets, message: null});
-				} else {
-					this.setState({tweets : null, message: UserTimelineUI.emptyTimelineMessage});
-				}
-			}
-		});
-		this.setState({tweets: null, message: UserTimelineUI.apiErrorMessage}); // Problem with calling API
-	}
 }

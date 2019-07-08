@@ -1,6 +1,10 @@
 import HttpMethods from "http-methods-enum";
 import HttpStatuses from "http-status-codes";
 
+export const maxTweetLength = 280;
+export const messageKey = "message=";
+
+export const tweetEndpoint = "http://localhost:8080/api/1.0/twitter/tweet";
 export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline";
 export const userTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline/user";
 export function filteredHomeTimelineEndpoint(keyword) {
@@ -17,6 +21,7 @@ export function statusError(status) {
 function fetchJson(callback, endpoint) {
 
 	const xhttp = new XMLHttpRequest();
+	xhttp.open(HttpMethods.GET, endpoint);
 
 	xhttp.onreadystatechange = function() {
 		if (this.readyState === XMLHttpRequest.DONE) {
@@ -31,7 +36,6 @@ function fetchJson(callback, endpoint) {
 			}
 		}
 	};
-	xhttp.open(HttpMethods.GET, endpoint);
 	xhttp.send();
 }
 
@@ -60,4 +64,22 @@ export function fetchFilteredHomeTimeline(callback, keyword) {
  */
 export function fetchUserTimeline(callback) {
 	fetchJson(callback, userTimelineEndpoint);
+}
+
+export function postTweet(callback, message) {
+	var xhttp = new XMLHttpRequest();
+	xhttp.open(HttpMethods.POST, tweetEndpoint);
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	xhttp.onreadystatechange = function() {
+		if (this.readyState === XMLHttpRequest.DONE) {
+			if (this.status === HttpStatuses.CREATED) {
+				callback();
+			} else {
+				callback(statusError(this.status));
+			}
+		}
+	};
+
+	xhttp.send(messageKey + message);
 }

@@ -1,0 +1,51 @@
+.post-tweet-ui {
+	width: 360px;
+	border: 1px solid;
+	padding: 10px 10px 8px;
+	
+	.input-container {
+		width: 100%;
+		position: relative;
+
+		.char-count {
+			position: absolute;
+			z-index: 5; // Put in front of tweet-input
+			pointer-events: none;
+			right: 4px;
+			bottom: 4px;
+			opacity: .5;
+		}
+
+		.tweet-input {
+			resize: none;
+			width: 100%;
+			position: relative;
+			height: 80px;
+			box-sizing: border-box;
+			padding: 6px;
+		}
+	}
+
+	.post-bottom-div {
+		width: 360px;
+		margin-top: 4px;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+
+		.post-result {
+			margin-right: auto;
+		}
+
+		.post-success {
+			color: #008400;
+		}
+
+		.post-error {
+			color: #e00000;
+		}
+	}
+	
+	
+}

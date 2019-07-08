@@ -18,10 +18,6 @@ describe("UserTimelineUI", () => {
 		Api.fetchUserTimeline.mockClear();
 	});
 
-	test("should render header", () => {
-		util.expectHeader(UserTimelineUI.timelineName);
-	});
-
 	test("should render button with expected text", () => {
 		const button = util.getUpdateButton();
 		expect(button.text()).toEqual(UserTimelineUI.updateButtonText);

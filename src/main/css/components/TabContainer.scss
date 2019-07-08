@@ -1,0 +1,43 @@
+@mixin center() {
+	display: flex;
+	justify-content: center;
+}
+
+.tabs {
+	text-align: center;
+	.nav-tabs {
+		@include center;
+		list-style-type: none;
+		padding: 0; // Removes padding from invisible bullets
+		display: inline-block;
+
+		.nav-item {
+			display: flex;
+			margin: 0 2px;
+			float: left;
+
+			.nav-link {
+				font-size: 14px;
+				padding: 6px;
+				border-radius: 6px;
+				border: 1px solid;
+				&:hover {
+					background-color: #d8d8d8;
+				}
+			}
+
+			.active {
+				background-color: #b4caf3;
+			}
+		}
+	}
+
+	.tab-content {
+		margin: 0 20px;
+	}
+
+	.tab-content > div {
+		@include center;
+		width: 100%;
+	}
+}
