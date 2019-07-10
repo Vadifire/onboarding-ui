@@ -1,5 +1,6 @@
 import React from "react";
-export default class TweetBlock extends React.Component {
+
+export default class Modal extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -35,8 +36,8 @@ export default class TweetBlock extends React.Component {
 				{this.props.show ? 
 					(
 						<div id="modal-background">
-							<div className="reply-modal" ref={this.modalRef}>
-								<div className="modal-body">
+							<div className="modal-wrapper" ref={this.modalRef}>
+								<div className="modal-content">
 									<span className="close-reply-modal-span" onClick={this.props.onClose}>&times;</span>
 									{this.props.children}
 								</div>
