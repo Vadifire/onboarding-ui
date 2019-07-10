@@ -40,7 +40,7 @@ export default class ReplyToTweetUI extends React.Component {
 		if (err) {
 			this.setState({success: false, output: ReplyToTweetUI.failureMessage});
 		} else {
-			this.setState({success: true, output: ReplyToTweetUI.successMessage});
+			this.setState({input: "", success: true, output: ReplyToTweetUI.successMessage});
 		}
 	}
 
