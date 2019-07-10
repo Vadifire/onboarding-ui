@@ -1,21 +1,31 @@
 import React from "react";
 import Modal from "../Modal";
 import TweetBlock from "./TweetBlock";
-import { maxTweetLength } from "../../services/twitter-api";
+import { maxTweetLength, replyToTweet } from "../../services/twitter-api";
+import "../../../css/components/timeline/ReplyToUI.scss";
 
-export default class ReplyModal extends React.Component {
+export default class ReplyToTweetUI extends React.Component {
 
 	constructor() {
 		super();
 		this.state = {
 			showReply: false,
-			input: ""
+			input: "",
+			output: ""
 		};
 
-		this.handleReply = this.handleReply.bind(this);
+		this.replyCallback = this.replyCallback.bind(this);
 		this.openReplyModal = this.openReplyModal.bind(this);
 		this.closeReplyModal = this.closeReplyModal.bind(this);
 		this.updateMessage = this.updateMessage.bind(this);
+	}
+
+	static get successMessage() {
+		return "Successfully posted tweet.";
+	}
+
+	static get failureMessage() {
+		return "Could not post tweet.";
 	}
 
 	static get replyButtonText() {
@@ -26,8 +36,12 @@ export default class ReplyModal extends React.Component {
 		return "Close";
 	}
 
-	handleReply() {
-		alert("To implement");
+	replyCallback(err) {
+		if (err) {
+			this.setState({success: false, output: ReplyToTweetUI.failureMessage});
+		} else {
+			this.setState({success: true, output: ReplyToTweetUI.successMessage});
+		}
 	}
 
 	updateMessage(event) {
@@ -58,12 +72,17 @@ export default class ReplyModal extends React.Component {
 							maxLength={maxTweetLength} value={this.state.input}>
 						</textarea>
 					</div>
-					<div className="reply-modal-buttons-div">
+					<div className="reply-modal-bottom-div">
+						<div className= {"reply-result " + (this.state.success ? "reply-success" : "reply-error")}>
+							{this.state.output}
+						</div>
 						<button className="close-reply-modal-button" onClick={this.closeReplyModal}>
-							{ReplyModal.closeButtonText}
+							{ReplyToTweetUI.closeButtonText}
 						</button>
-						<button className="send-reply-button" onClick={this.handleReply}>
-							{ReplyModal.replyButtonText}
+						<button className="send-reply-button" 
+								onClick={() => replyToTweet(this.replyCallback, this.props.tweet.tweetId, this.state.input)}
+								disabled={!(this.state.input.replace(/\s/g, "").length)}>
+							{ReplyToTweetUI.replyButtonText}
 						</button>
 					</div>
 				</Modal>

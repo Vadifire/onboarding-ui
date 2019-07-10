@@ -51,7 +51,8 @@ export default class UserTimelineUI extends React.Component {
 						{UserTimelineUI.updateButtonText}
 					</button>
 				</div>
-				<MainTimelineElement tweets={this.state.tweets} message={this.state.message} hideHandle={true}/>
+				<MainTimelineElement tweets={this.state.tweets} message={this.state.message} hideHandle={true}
+						includeReplyOption={true}/>
 			</div>
 		);
 	}

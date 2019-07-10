@@ -3,8 +3,10 @@ import HttpStatuses from "http-status-codes";
 
 export const maxTweetLength = 280;
 export const messageKey = "message=";
+export const parentIdKey = "parentId=";
 
 export const tweetEndpoint = "http://localhost:8080/api/1.0/twitter/tweet";
+export const replyEndpoint = "http://localhost:8080/api/1.0/twitter/tweet/reply";
 export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline";
 export const userTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline/user";
 export function filteredHomeTimelineEndpoint(keyword) {
@@ -82,4 +84,22 @@ export function postTweet(callback, message) {
 	};
 
 	xhttp.send(messageKey + message);
+}
+
+export function replyToTweet(callback, parentId, message) {
+	var xhttp = new XMLHttpRequest();
+	xhttp.open(HttpMethods.POST, replyEndpoint);
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	xhttp.onreadystatechange = function() {
+		if (this.readyState === XMLHttpRequest.DONE) {
+			if (this.status === HttpStatuses.CREATED) {
+				callback();
+			} else {
+				callback(statusError(this.status));
+			}
+		}
+	};
+
+	xhttp.send(parentIdKey + parentId + "&" + messageKey + message);
 }
