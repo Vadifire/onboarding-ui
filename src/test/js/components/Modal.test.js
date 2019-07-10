@@ -9,7 +9,7 @@ describe("Modal", () => {
 
 	beforeAll(() => {
 		onClose = jest.fn();
-		modalChild = <div id="modal-child">My parent is a modal.</div>
+		modalChild = <div id="modal-child">My parent is a modal.</div>;
 	});
 
 	test("should display modal with passed in child", () => {

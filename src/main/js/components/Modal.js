@@ -34,10 +34,12 @@ export default class TweetBlock extends React.Component {
 			<React.Fragment>
 				{this.props.show ? 
 					(
-						<div className="reply-modal" ref={this.modalRef}>
-							<span className="close-reply-modal-span" onClick={this.props.onClose}>&times;</span>
-							<div className="modal-body">
-								{this.props.children}
+						<div id="modal-background">
+							<div className="reply-modal" ref={this.modalRef}>
+								<div className="modal-body">
+									<span className="close-reply-modal-span" onClick={this.props.onClose}>&times;</span>
+									{this.props.children}
+								</div>
 							</div>
 						</div>
 					) : (

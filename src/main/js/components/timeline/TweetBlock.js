@@ -92,6 +92,9 @@ export default class TweetBlock extends React.Component {
 							<Modal className="reply-modal" show={this.state.showReply} onClose={this.closeReplyModal}>
 								<TweetBlock tweet={this.props.tweet} />
 								<div className="reply-input-container">
+									<div className="char-count">
+										{this.state.input.length + " / " + maxTweetLength}
+									</div>
 									<textarea type="text" className="reply-input" onChange={this.updateMessage} 
 										maxLength={maxTweetLength} value={this.state.input}>
 									</textarea>

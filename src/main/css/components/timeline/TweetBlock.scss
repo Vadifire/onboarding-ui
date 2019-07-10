@@ -25,59 +25,81 @@ $names-padding: ($user-div-width - $names-width) / 2;
 		bottom: 4px;
 	}
 
-	.reply-modal {
-		box-sizing: border-box;
-		border: 1px solid black;
-		width: 500px;
-		z-index: 10;
+	#modal-background {
+		background-color: #00000066;
 		position: fixed;
-		right: 0;
 		top: 0;
+		right: 0;
+		left: 0;
 		bottom: 0;
-		margin: 10px;
-		padding: 10px;
-		background-color: white;
+		z-index: 7;
 
-		.close-reply-modal-span {
-			font-size: 28px;
-			float: right;
-			color: #aaaaaa;
-			&:hover {
-				color: #000000;
-				cursor: pointer;
-			}
-		}
+		.reply-modal {
+			box-sizing: border-box;
+			border: 1px solid black;
+			width: 500px;
+			z-index: 10;
+			position: fixed;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: 10px;
+			padding: 10px;
+			background-color: white;
 
-		.modal-body {
-			height: 100%;
+			.modal-body {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
 
-			.tweet {
-				border-bottom: 0px;
-			}
+				.close-reply-modal-span {
+					font-size: 28px;
+					text-align: right;
+					color: #aaaaaa;
+					&:hover {
+						color: #000000;
+						cursor: pointer;
+					}
+				}
 
-			.reply-input-container {
-				width: 100%;
-				position: relative;
-				margin-top: 10px;
+				.tweet {
+					background-color: white;
+					border-bottom: 0px;
+				}
 
-				.reply-input {
-					resize: none;
+				.reply-input-container {
 					width: 100%;
 					position: relative;
-					//height: 80px;
-					box-sizing: border-box;
-					padding: 6px;
+					margin-top: 10px;
+					flex-grow: 1;
+
+					.char-count {
+						position: absolute;
+						z-index: 10;
+						pointer-events: none;
+						right: 4px;
+						bottom: 4px;
+						opacity: .5;
+					}
+
+					.reply-input {
+						resize: none;
+						width: 100%;
+						position: relative;
+						height: 100%;
+						box-sizing: border-box;
+						padding: 6px;
+					}
 				}
 			}
-		}
-		
-
-		.reply-modal-buttons-div {
-			display: flex;
-			justify-content: flex-end;
-			margin-top: 5px;
-			.close-reply-modal-button {
-				margin-right: 10px;
+			
+			.reply-modal-buttons-div {
+				display: flex;
+				justify-content: flex-end;
+				margin-top: 5px;
+				.close-reply-modal-button {
+					margin-right: 10px;
+				}
 			}
 		}
 	}
