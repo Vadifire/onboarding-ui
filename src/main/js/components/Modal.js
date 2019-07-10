@@ -1,5 +1,4 @@
 import React from "react";
-import { maxTweetLength } from "../services/twitter-api";
 export default class TweetBlock extends React.Component {
 
 	constructor(props) {
@@ -27,9 +26,9 @@ export default class TweetBlock extends React.Component {
 
 	render() {
 		if (this.props.show) {
-			document.body.style.overflow = "unset";
-		} else {
 			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "unset";
 		}
 		return (
 			<React.Fragment>

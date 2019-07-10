@@ -112,7 +112,6 @@ export default class TweetBlock extends React.Component {
 				</div>
 			);
 		} catch (err) {
-			console.log(err);
 			return null;
 		}
 	}

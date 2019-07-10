@@ -26,11 +26,15 @@ $names-padding: ($user-div-width - $names-width) / 2;
 	}
 
 	.reply-modal {
+		box-sizing: border-box;
 		border: 1px solid black;
 		width: 500px;
 		z-index: 10;
-		position: absolute;
-		right: 4px;
+		position: fixed;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: 10px;
 		padding: 10px;
 		background-color: white;
 
@@ -44,24 +48,29 @@ $names-padding: ($user-div-width - $names-width) / 2;
 			}
 		}
 
-		.tweet {
-			border-bottom: 0px;
-		}
+		.modal-body {
+			height: 100%;
 
-		.reply-input-container {
-			width: 100%;
-			position: relative;
-			margin-top: 10px;
+			.tweet {
+				border-bottom: 0px;
+			}
 
-			.reply-input {
-				resize: none;
+			.reply-input-container {
 				width: 100%;
 				position: relative;
-				height: 80px;
-				box-sizing: border-box;
-				padding: 6px;
+				margin-top: 10px;
+
+				.reply-input {
+					resize: none;
+					width: 100%;
+					position: relative;
+					//height: 80px;
+					box-sizing: border-box;
+					padding: 6px;
+				}
 			}
 		}
+		
 
 		.reply-modal-buttons-div {
 			display: flex;
