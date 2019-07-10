@@ -16,6 +16,62 @@ $names-padding: ($user-div-width - $names-width) / 2;
 	padding: 20px 10px 20px 0;
 	width: 100%;
 	border-bottom: 1px solid #bbbbbb;
+	position: relative;
+
+	.open-reply {
+		position: absolute;
+		z-index: 5;
+		right: 4px;
+		bottom: 4px;
+	}
+
+	.reply-modal {
+		border: 1px solid black;
+		width: 500px;
+		z-index: 10;
+		position: absolute;
+		right: 4px;
+		padding: 10px;
+		background-color: white;
+
+		.close-reply-modal-span {
+			font-size: 28px;
+			float: right;
+			color: #aaaaaa;
+			&:hover {
+				color: #000000;
+				cursor: pointer;
+			}
+		}
+
+		.tweet {
+			border-bottom: 0px;
+		}
+
+		.reply-input-container {
+			width: 100%;
+			position: relative;
+			margin-top: 10px;
+
+			.reply-input {
+				resize: none;
+				width: 100%;
+				position: relative;
+				height: 80px;
+				box-sizing: border-box;
+				padding: 6px;
+			}
+		}
+
+		.reply-modal-buttons-div {
+			display: flex;
+			justify-content: flex-end;
+			margin-top: 5px;
+			.close-reply-modal-button {
+				margin-right: 10px;
+			}
+		}
+	}
 
 	.user-div {
 		grid-area: user-grid;

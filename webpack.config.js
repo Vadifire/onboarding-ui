@@ -26,7 +26,7 @@ module.exports = {
 
     module: {
         rules: [{
-            test: /\.(scss)$/, // Regular expression rule to find SCSS files
+            test: /\.(scss|css)$/, // Regular expression rule to find SCSS files
             use: [
                 "style-loader", // Injects <style> tags into DOM elements
                 "css-loader", // Reads in CSS file as a String and resolves @imports
