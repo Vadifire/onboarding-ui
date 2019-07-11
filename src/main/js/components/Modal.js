@@ -4,9 +4,6 @@ export default class Modal extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-
-		};
 		this.modalRef = React.createRef();
 		this.handleClickOutside = this.handleClickOutside.bind(this);
 	}
@@ -37,7 +34,7 @@ export default class Modal extends React.Component {
 					(
 						<div id="background-overlay">
 							<div className="modal-container" ref={this.modalRef}>
-								<span className="close-reply-modal-span" onClick={this.props.onClose}>&times;</span>
+								<span className="close-modal-span" onClick={this.props.onClose}>&times;</span>
 								<div className="modal-content">
 									{this.props.children}
 								</div>

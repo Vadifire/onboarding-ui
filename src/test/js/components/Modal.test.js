@@ -34,7 +34,7 @@ describe("Modal", () => {
 		const modal = shallow(
 			<Modal show={true} onClose={onClose}/>
 		);
-		const xButton = expectOne(modal, ".close-reply-modal-span");
+		const xButton = expectOne(modal, ".close-modal-span");
 		xButton.simulate("click");
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});

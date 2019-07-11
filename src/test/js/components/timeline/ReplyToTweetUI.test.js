@@ -28,8 +28,8 @@ describe("ReplyToTweetUI", () => {
 	function typeMessage(message) {
 		const textArea = expectOne(replyUI, "textarea.reply-input");
 		textArea.simulate("change", {target: {value: message}});
-		const submitReplyButton = expectOne(replyUI, "button.send-reply-button");
-		submitReplyButton.simulate("click");
+		const sendReplyButton = expectOne(replyUI, "button.send-reply-button");
+		sendReplyButton.simulate("click");
 	}
 
 	test("Should not show modal by default", () => {
@@ -37,9 +37,9 @@ describe("ReplyToTweetUI", () => {
 		expect(modal.prop("show")).toEqual(false);
 	});
 
-	test("Should show modal when reply button clicked", () => {
-		const replyButton = expectOne(replyUI, ".open-reply");
-		replyButton.simulate("click");
+	test("Should show modal when reply button is clicked", () => {
+		const openReplyModal = expectOne(replyUI, "div.open-reply");
+		openReplyModal.simulate("click");
 		const modal = expectOne(replyUI, ".reply-modal");
 		expect(modal.prop("show")).toEqual(true);
 	});
@@ -47,7 +47,7 @@ describe("ReplyToTweetUI", () => {
 	test("Should render successful reply message", done => {
 		Api.replyToTweet.mockImplementation(callback => {
 			callback();
-			const result = expectOne(replyUI, ".reply-result");
+			const result = expectOne(replyUI, "div.reply-result");
 			expect(result.text()).toEqual(ReplyToTweetUI.successMessage);
 			expect(Api.replyToTweet).toHaveBeenCalledWith(callback, dummyTweet.tweetId, dummyMessage);
 			done();
@@ -58,7 +58,7 @@ describe("ReplyToTweetUI", () => {
 	test("Should render failed reply message", done => {
 		Api.replyToTweet.mockImplementation(callback => {
 			callback(Error);
-			const result = expectOne(replyUI, ".reply-result");
+			const result = expectOne(replyUI, "div.reply-result");
 			expect(result.text()).toEqual(ReplyToTweetUI.failureMessage);
 			expect(Api.replyToTweet).toHaveBeenCalledWith(callback, dummyTweet.tweetId, dummyMessage);
 			done();
