@@ -37,8 +37,8 @@ export default class Modal extends React.Component {
 					(
 						<div id="background-overlay">
 							<div className="modal-container" ref={this.modalRef}>
+								<span className="close-reply-modal-span" onClick={this.props.onClose}>&times;</span>
 								<div className="modal-content">
-									<span className="close-reply-modal-span" onClick={this.props.onClose}>&times;</span>
 									{this.props.children}
 								</div>
 							</div>

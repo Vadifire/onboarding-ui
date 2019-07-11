@@ -10,6 +10,7 @@
 	position: fixed;
 	top: 0;
 	left: 0;
+	bottom: 0;
 	width: 100%;
 	height: 100%;
 	z-index: 100;
@@ -17,41 +18,39 @@
 	.modal-container {
 		box-sizing: border-box;
 		border: 1px solid black;
-		width: 50%;
+		width: 40%;
 		z-index: 110;
 		position: fixed;
 		right: 0;
 		top: 0;
-		height: 100%;
+		bottom: 0;
 		margin: 10px;
 		padding: 20px;
 		background-color: white;
+
+		.close-reply-modal-span {
+			font-size: 28px;
+			float: right;
+			color: #aaaaaa;
+			&:hover {
+				color: #000000;
+				cursor: pointer;
+			}
+		}
 
 		.modal-content {
 			display: flex;
 			flex-direction: column;
 			height: 100%;
-
-			.close-reply-modal-span {
-				font-size: 28px;
-				text-align: right;
-				color: #aaaaaa;
-				&:hover {
-					color: #000000;
-					cursor: pointer;
-				}
-			}
-
+			justify-content: center;
 			.tweet {
 				background-color: white;
 				border-bottom: 0px;
 			}
 
 			.reply-input-container {
-				width: 100%;
 				position: relative;
 				margin-top: 10px;
-				flex-grow: 1;
 
 				.char-count {
 					position: absolute;
@@ -69,28 +68,29 @@
 					height: 100%;
 					box-sizing: border-box;
 					padding: 6px;
+					height: 80px;
 				}
 			}
-		}
-		
-		.reply-modal-bottom-div {
-			display: flex;
-			justify-content: flex-end;
-			margin-top: 20px;
-			.close-reply-modal-button {
-				margin-right: 10px;
-			}
+			
+			.reply-modal-bottom-div {
+				display: flex;
+				justify-content: flex-end;
+				margin-top: 20px;
+				.close-reply-modal-button {
+					margin-right: 10px;
+				}
 
-			.reply-result {
-				margin-right: auto;
-			}
+				.reply-result {
+					margin-right: auto;
+				}
 
-			.reply-success {
-				color: #008400;
-			}
+				.reply-success {
+					color: #008400;
+				}
 
-			.reply-error {
-				color: #e00000;
+				.reply-error {
+					color: #e00000;
+				}
 			}
 		}
 	}

@@ -33,7 +33,7 @@ export default class ReplyToTweetUI extends React.Component {
 	}
 
 	static get closeButtonText() {
-		return "Close";
+		return "Cancel";
 	}
 
 	replyCallback(err) {
