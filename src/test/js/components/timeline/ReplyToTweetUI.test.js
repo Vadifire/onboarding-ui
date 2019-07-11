@@ -14,10 +14,6 @@ describe("ReplyToTweetUI", () => {
 		dummyTweet = {
 			tweetId: 123
 		};
-
-	});
-
-	beforeEach(() => {
 		replyUI = shallow(<ReplyToTweetUI tweet={dummyTweet}/>);
 	});
 
@@ -32,7 +28,9 @@ describe("ReplyToTweetUI", () => {
 		sendReplyButton.simulate("click");
 	}
 
-	test("Should not show modal by default", () => {
+	test("Should hide modal when close button is clicked", () => {
+		const closeReplyModal = expectOne(replyUI, "button.close-reply-modal-button");
+		closeReplyModal.simulate("click");
 		const modal = replyUI.find(".reply-modal");
 		expect(modal.prop("show")).toEqual(false);
 	});
