@@ -2,8 +2,6 @@ import HttpMethods from "http-methods-enum";
 import HttpStatuses from "http-status-codes";
 
 export const maxTweetLength = 280;
-export const messageKey = "message=";
-export const parentIdKey = "parentId=";
 
 export const tweetEndpoint = "http://localhost:8080/api/1.0/twitter/tweet";
 export const replyEndpoint = "http://localhost:8080/api/1.0/twitter/tweet/reply";
@@ -11,6 +9,12 @@ export const homeTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timel
 export const userTimelineEndpoint = "http://localhost:8080/api/1.0/twitter/timeline/user";
 export function filteredHomeTimelineEndpoint(keyword) {
 	return "http://localhost:8080/api/1.0/twitter/timeline/filter?keyword=" + keyword;
+}
+export function postTweetParams(message) {
+	return "message=" + message;
+}
+export function replyToTweetParams(parentId, message) {
+	return "parentId=" + parentId + "&" + "message=" + message;
 }
 
 export function statusError(status) {
@@ -83,7 +87,7 @@ export function postTweet(callback, message) {
 		}
 	};
 
-	xhttp.send(messageKey + message);
+	xhttp.send(postTweetParams(message));
 }
 
 export function replyToTweet(callback, parentId, message) {
@@ -100,6 +104,5 @@ export function replyToTweet(callback, parentId, message) {
 			}
 		}
 	};
-
-	xhttp.send(parentIdKey + parentId + "&" + messageKey + message);
+	xhttp.send(replyToTweetParams(parentId, message));
 }

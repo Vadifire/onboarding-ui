@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "../Modal";
 import TweetBlock from "./TweetBlock";
 import { maxTweetLength, replyToTweet } from "../../services/twitter-api";
-import "../../../css/components/timeline/ReplyToUI.scss";
+import "../../../css/components/timeline/ReplyToTweetUI.scss";
 
 export default class ReplyToTweetUI extends React.Component {
 
@@ -60,7 +60,7 @@ export default class ReplyToTweetUI extends React.Component {
 		return (
 			<React.Fragment>
 				<div className="open-reply" onClick={this.openReplyModal}>
-					<i className="fas fa-comment fa-2x"></i>
+					<i className="fas fa-reply fa-2x"></i>
 				</div>
 				<Modal className="reply-modal" show={this.state.showReply} onClose={this.closeReplyModal}>
 					<TweetBlock tweet={this.props.tweet} />
