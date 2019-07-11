@@ -9,11 +9,11 @@ export default class Modal extends React.Component {
 	}
 
 	componentDidMount() {
-		document.addEventListener('mousedown', this.handleClickOutside);
+		document.addEventListener("mousedown", this.handleClickOutside);
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('mousedown', this.handleClickOutside);
+		document.removeEventListener("mousedown", this.handleClickOutside);
 	}
 
 	handleClickOutside(event) {

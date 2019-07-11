@@ -5,11 +5,15 @@ import { expectOne } from "../test-util";
 
 describe("Modal", () => {
 
-	let modalChild, onClose;
+	let modalChild, onClose, exteriorElement;
 
 	beforeAll(() => {
 		onClose = jest.fn();
 		modalChild = <div id="modal-child">My parent is a modal.</div>;
+	});
+
+	afterEach(() => {
+		onClose.mockClear();
 	});
 
 	test("should display modal with passed in child", () => {
@@ -18,9 +22,10 @@ describe("Modal", () => {
 				{modalChild}
 			</Modal>
 		);
+		expectOne(modal, "#background-overlay");
 		expectOne(modal, "#modal-child");
 	});
-	
+
 	test("should display nothing if modal if show prop is false", () => {
 		const modal = shallow(
 			<Modal show={false}>
@@ -28,6 +33,7 @@ describe("Modal", () => {
 			</Modal>
 		);
 		expect(modal.children().length).toEqual(0);
+		expect(document.body.style.overflow).toEqual("unset");
 	});
 
 	test("should call onClose prop when X button is clicked", () => {
@@ -37,5 +43,7 @@ describe("Modal", () => {
 		const xButton = expectOne(modal, ".close-modal-span");
 		xButton.simulate("click");
 		expect(onClose).toHaveBeenCalledTimes(1);
+		expect(document.body.style.overflow).toEqual("hidden");
 	});
+
 });

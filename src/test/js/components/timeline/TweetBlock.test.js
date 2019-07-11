@@ -48,9 +48,24 @@ describe("TweetBlock", () => {
 		expect(tweetLink.prop("href")).toEqual(dummyTweet.url);
 	});
 
+	test("should show twitterHandle by default", () => {
+		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet}/>);
+		expectOne(tweetBlock, ".twitter-handle");
+	});
+
 	test("should hide twitterHandle", () => {
-		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} hideHandle={true}/>);
-		expect(tweetBlock.find("twitter-handle").length).toEqual(0);
+		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} hideHandle={true} />);
+		expect(tweetBlock.find(".twitter-handle").length).toEqual(0);
+	});
+
+	test("should have no reply option by default", () => {
+		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} />);
+		expect(tweetBlock.find("ReplyToTweetUI").length).toEqual(0);
+	});
+
+	test("should show reply option", () => {
+		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} includeReplyOption={true} />);
+		expectOne(tweetBlock, "ReplyToTweetUI");
 	});
 
 	test("should render null in case of missing tweet prop", () => {
@@ -63,5 +78,5 @@ describe("TweetBlock", () => {
 		const displayName = expectOne(tweetBlock, "div.display-name");
 		expect(displayName.text()).toEqual(TweetBlock.defaultDisplayName);
 	});
-	
+
 });

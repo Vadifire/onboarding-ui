@@ -44,12 +44,12 @@ export default class TweetBlock extends React.Component {
 								{this.props.tweet.message}
 							</a>
 						</div>
+						{this.props.includeReplyOption ? (
+							<ReplyToTweetUI tweet={this.props.tweet}/>
+						) : (
+							null
+						)}
 					</div>
-					{this.props.includeReplyOption ? (
-						<ReplyToTweetUI tweet={this.props.tweet}/>
-					) : (
-						null
-					)}
 				</div>
 			);
 		} catch (err) {

@@ -60,10 +60,10 @@ export default class ReplyToTweetUI extends React.Component {
 		return (
 			<React.Fragment>
 				<div className="open-reply" onClick={this.openReplyModal}>
-					<i className="fas fa-reply fa-2x"></i>
+					<i className="fas fa-reply fa-sm"></i>
 				</div>
 				<Modal className="reply-modal" show={this.state.showReply} onClose={this.closeReplyModal}>
-					<TweetBlock tweet={this.props.tweet} />
+					<TweetBlock tweet={this.props.tweet} hideHandle={true}/>
 					<div className="reply-input-container">
 						<div className="char-count">
 							{this.state.input.length + " / " + maxTweetLength}
