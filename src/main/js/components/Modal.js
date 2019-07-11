@@ -18,7 +18,9 @@ export default class Modal extends React.Component {
 
 	handleClickOutside(event) {
 		if (this.modalRef.current && !this.modalRef.current.contains(event.target)) {
-			this.props.onClose();
+			try {
+				this.props.onClose();
+			} catch (err) { }
 		}
 	}
 
