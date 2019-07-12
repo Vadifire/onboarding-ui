@@ -1,7 +1,8 @@
 import React from "react";
 import Modal from "../Modal";
 import TweetBlock from "./TweetBlock";
-import { maxTweetLength, replyToTweet } from "../../services/twitter-api";
+import TweetInput from "../TweetInput"
+import { replyToTweet } from "../../services/twitter-api";
 import "../../../css/components/timeline/ReplyToTweetUI.scss";
 
 export default class ReplyToTweetUI extends React.Component {
@@ -60,14 +61,7 @@ export default class ReplyToTweetUI extends React.Component {
 		return (
 			<Modal className="reply-modal" show={this.props.show} onClose={this.onClose}>
 				<TweetBlock tweet={this.props.tweet} hideHandle={true}/>
-				<div className="reply-input-container">
-					<div className="char-count">
-						{this.state.input.length + " / " + maxTweetLength}
-					</div>
-					<textarea type="text" className="reply-input" onChange={this.updateMessage}
-						maxLength={maxTweetLength} value={this.state.input}>
-					</textarea>
-				</div>
+				<TweetInput onChange={this.updateMessage} input={this.state.input} />
 				<div className="reply-modal-bottom-div">
 					<div className= {"reply-result " + (this.state.success ? "reply-success" : "reply-error")}>
 						{this.state.output}

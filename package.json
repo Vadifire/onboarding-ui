@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "react": "^16.8.6",
     "react-bootstrap-tabs": "^1.0.2",
     "react-dom": "^16.8.6"

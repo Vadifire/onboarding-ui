@@ -1,4 +1,5 @@
 import React from "react";
+import TweetInput from "./TweetInput";
 import "../../css/components/PostTweetUI.scss";
 import { maxTweetLength, postTweet } from "../services/twitter-api";
 
@@ -42,14 +43,7 @@ export default class PostTweetUI extends React.Component {
 	render() {
 		return (
 			<div className="post-tweet-ui">
-				<div className="input-container">
-					<div className="char-count">
-						{this.state.input.length + " / " + maxTweetLength}
-					</div>
-					<textarea type="text" className="tweet-input" onChange={this.updateMessage} 
-						maxLength={maxTweetLength} value={this.state.input}>
-					</textarea>
-				</div>
+				<TweetInput onChange={this.updateMessage} input={this.state.input}/>
 				<div className="post-bottom-div">
 					<div className= {"post-result " + (this.state.success ? "post-success" : "post-error")}>
 						{this.state.output}

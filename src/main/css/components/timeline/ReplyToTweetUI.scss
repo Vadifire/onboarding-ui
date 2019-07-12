@@ -33,35 +33,14 @@
 			flex-direction: column;
 			height: 100%;
 			justify-content: center;
+			clear: right;
+			
 			.tweet {
 				background-color: white;
 				border-bottom: 0px;
+				margin-bottom: 10px;
 			}
 
-			.reply-input-container {
-				position: relative;
-				margin-top: 10px;
-
-				.char-count {
-					position: absolute;
-					z-index: 10;
-					pointer-events: none;
-					right: 4px;
-					bottom: 4px;
-					opacity: .5;
-				}
-
-				.reply-input {
-					resize: none;
-					width: 100%;
-					position: relative;
-					height: 100%;
-					box-sizing: border-box;
-					padding: 6px;
-					height: 80px;
-				}
-			}
-			
 			.reply-modal-bottom-div {
 				display: flex;
 				justify-content: flex-end;
