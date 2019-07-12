@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../css/components/timeline/TweetBlock.scss";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faReply } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faReply } from "@fortawesome/free-solid-svg-icons";
 
 export default class TweetBlock extends React.Component {
 

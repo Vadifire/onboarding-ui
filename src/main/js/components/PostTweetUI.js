@@ -1,7 +1,7 @@
 import React from "react";
 import TweetInput from "./TweetInput";
 import "../../css/components/PostTweetUI.scss";
-import { maxTweetLength, postTweet } from "../services/twitter-api";
+import { postTweet } from "../services/twitter-api";
 
 export default class PostTweetUI extends React.Component {
 

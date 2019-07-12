@@ -23,8 +23,8 @@ describe("ReplyToTweetUI", () => {
 	});
 
 	function typeMessage(message) {
-		const textArea = expectOne(replyUI, "textarea.reply-input");
-		textArea.simulate("change", {target: {value: message}});
+		const textInput = expectOne(replyUI, "TweetInput");
+		textInput.simulate("change", {target: {value: message}});
 		const sendReplyButton = expectOne(replyUI, "button.send-reply-button");
 		sendReplyButton.simulate("click");
 	}

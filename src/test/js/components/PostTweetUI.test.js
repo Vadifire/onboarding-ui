@@ -19,8 +19,8 @@ describe("PostTweetUI", () => {
 	});
 
 	function typeMessage(message) {
-		const textArea = expectOne(tweetUI, "textarea.tweet-input");
-		textArea.simulate("change", {target: {value: message}});
+		const tweetInput = expectOne(tweetUI, "TweetInput");
+		tweetInput.simulate("change", {target: {value: message}});
 		const button = expectOne(tweetUI, "button.post-tweet");
 		button.simulate("click");
 	}
