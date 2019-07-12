@@ -1,6 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReply } from "@fortawesome/free-solid-svg-icons";
 
 import "../../../css/components/timeline/TweetBlock.scss";
 
@@ -48,7 +46,7 @@ export default class TweetBlock extends React.Component {
 						</div>
 						{this.props.openReplyFunction ? (
 							<div className="open-reply" onClick={() => this.props.openReplyFunction(this.props.tweet)}>
-								<FontAwesomeIcon icon={faReply} />
+								<i className="fa fa-reply"> </i>
 							</div>
 						) : (
 							null
