@@ -2,6 +2,15 @@ body {
 	font: 12px "Times New Roman";
 }
 
+button, a {
+	&:hover {
+		cursor: pointer;
+	}
+	&:disabled {
+		cursor: auto;
+	}
+}
+
 .title {
 	font: bold 40px "Times New Roman";
 	text-align: center;
