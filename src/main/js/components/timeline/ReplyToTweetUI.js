@@ -53,7 +53,7 @@ export default class ReplyToTweetUI extends React.Component {
 	}
 
 	closeReplyModal() {
-		this.setState({input: "", showReply: false});
+		this.setState({input: "", output: "", showReply: false});
 	}
 
 	render() {
