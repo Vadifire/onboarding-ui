@@ -156,13 +156,14 @@ describe("twitter-api", () => {
 
 	});
 	test("should fail to reply to tweet and execute callback with error", done => {
+		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
 		Api.replyToTweet((err) => {
 			if (err) {
 				expect(mockedRequest.send).toHaveBeenCalledWith(Api.replyToTweetParams(dummyParentId, dummyString));
 				assertEndpointCalled(Api.replyEndpoint, HttpMethods.POST);
 				done();
 			} else {
-				done();
+				done.fail();
 			}
 		}, dummyParentId, dummyString);
 		mockedRequest.onreadystatechange();
