@@ -51,7 +51,9 @@ export default class ReplyToTweetUI extends React.Component {
 		try {
 			this.setState({input: "", output: ""});
 			this.props.onClose();
-		} catch (err) { }
+		} catch (err) {
+			console.log("Failed to close Reply UI.");
+		}
 	}
 
 	render() {

@@ -20,7 +20,9 @@ export default class Modal extends React.Component {
 		if (this.modalRef.current && !this.modalRef.current.contains(event.target)) {
 			try {
 				this.props.onClose();
-			} catch (err) { }
+			} catch (err) {
+				console.log("Failed to close modal.");
+			}
 		}
 	}
 
