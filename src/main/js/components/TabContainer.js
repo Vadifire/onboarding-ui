@@ -7,9 +7,21 @@ import "../../css/components/TabContainer.scss";
 
 export default class TabContainer extends React.Component {
 
+	constructor() {
+		super();
+		this.state = {
+			selected: 0
+		};
+		this.onSelect = this.onSelect.bind(this);
+	}
+
+	onSelect(index) {
+		this.setState({selected: index});
+	}
+
 	render() {
 		return (
-			<Tabs>
+			<Tabs onSelect={this.onSelect} selected={this.state.selected}>
 				<Tab label="Home Timeline">
 					<HomeTimelineUI />
 				</Tab>
