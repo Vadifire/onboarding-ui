@@ -62,4 +62,11 @@ $names-padding: ($user-div-width - $names-width) / 2;
 			}
 		}
 	}
+
+	.open-reply {
+		margin-top: 5px;
+		&:hover {
+			cursor: pointer;
+		}
+	}
 }
