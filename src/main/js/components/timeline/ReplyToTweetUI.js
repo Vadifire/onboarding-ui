@@ -1,8 +1,10 @@
 import React from "react";
 import Modal from "../Modal";
+
 import TweetBlock from "./TweetBlock";
 import TweetInput from "../TweetInput";
 import { replyToTweet } from "../../services/twitter-api";
+
 import "../../../css/components/timeline/ReplyToTweetUI.scss";
 
 export default class ReplyToTweetUI extends React.Component {

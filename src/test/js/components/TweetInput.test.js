@@ -1,6 +1,7 @@
 import React from "react";
-import TweetInput from "../../../main/js/components/TweetInput";
 import { shallow } from "enzyme";
+
+import TweetInput from "../../../main/js/components/TweetInput";
 import { expectOne } from "../test-util";
 
 describe("TweetInput", () => {

@@ -1,8 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
+
 import UserTimelineUI from "../../../../main/js/components/timeline/UserTimelineUI";
-import * as Api from "../../../../main/js/services/twitter-api";
 import TimelineTestUtil from "./TimelineTestUtil";
+import * as Api from "../../../../main/js/services/twitter-api";
 
 describe("UserTimelineUI", () => {
 

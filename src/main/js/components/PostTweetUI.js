@@ -1,7 +1,9 @@
 import React from "react";
+
 import TweetInput from "./TweetInput";
-import "../../css/components/PostTweetUI.scss";
 import { postTweet } from "../services/twitter-api";
+
+import "../../css/components/PostTweetUI.scss";
 
 export default class PostTweetUI extends React.Component {
 

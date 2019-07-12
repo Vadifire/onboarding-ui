@@ -1,6 +1,8 @@
 import React from "react";
-import "../../css/components/TweetInput.scss";
+
 import {maxTweetLength} from "../services/twitter-api.js";
+
+import "../../css/components/TweetInput.scss";
 
 export default class TweetInput extends React.Component {
 

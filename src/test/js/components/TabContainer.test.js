@@ -1,5 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
+
 import TabContainer from "../../../main/js/components/TabContainer";
 import { expectOne } from "../test-util";
 

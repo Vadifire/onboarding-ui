@@ -1,5 +1,6 @@
-import TweetBlock from "./TweetBlock";
 import React from "react";
+
+import TweetBlock from "./TweetBlock";
 
 // Display List of Tweets or error message
 export default class MainTimelineElement extends React.Component {

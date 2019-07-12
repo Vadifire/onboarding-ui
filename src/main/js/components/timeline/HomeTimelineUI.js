@@ -1,8 +1,10 @@
 import React from "react";
-import MainTimelineElement from "./MainTimelineElement";
-import "../../../css/components/timeline/HomeTimelineUI.scss";
 import KeyCode from "keycode-js";
+
+import MainTimelineElement from "./MainTimelineElement";
 import { fetchHomeTimeline, fetchFilteredHomeTimeline } from "../../services/twitter-api";
+
+import "../../../css/components/timeline/HomeTimelineUI.scss";
 
 export default class HomeTimelineUI extends React.Component {
 

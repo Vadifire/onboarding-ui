@@ -1,6 +1,8 @@
 import React from "react";
+
 import TabContainer from "./TabContainer";
 import ReplyToTweetUI from "./timeline/ReplyToTweetUI";
+
 import "../../css/components/Application.scss";
 
 export default class Application extends React.Component {

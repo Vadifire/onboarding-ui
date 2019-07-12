@@ -1,8 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
+
 import ReplyToTweetUI from "../../../../main/js/components/timeline/ReplyToTweetUI";
-import { expectOne } from "../../test-util";
 import * as Api from "../../../../main/js/services/twitter-api";
+import { expectOne } from "../../test-util";
 
 describe("ReplyToTweetUI", () => {
 

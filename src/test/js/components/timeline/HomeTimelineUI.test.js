@@ -1,10 +1,11 @@
 import React from "react";
 import { shallow } from "enzyme";
-import HomeTimelineUI from "../../../../main/js/components/timeline/HomeTimelineUI";
-import * as Api from "../../../../main/js/services/twitter-api";
-import TimelineTestUtil from "./TimelineTestUtil";
-import { expectOne } from "../../test-util";
 import KeyCode from "keycode-js";
+
+import HomeTimelineUI from "../../../../main/js/components/timeline/HomeTimelineUI";
+import TimelineTestUtil from "./TimelineTestUtil";
+import * as Api from "../../../../main/js/services/twitter-api";
+import { expectOne } from "../../test-util";
 
 describe("HomeTimelineUI", () => {
 

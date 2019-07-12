@@ -1,7 +1,9 @@
 import React from "react";
+
 import MainTimelineElement from "./MainTimelineElement";
-import "../../../css/components/timeline/UserTimelineUI.scss";
 import { fetchUserTimeline } from "../../services/twitter-api";
+
+import "../../../css/components/timeline/UserTimelineUI.scss";
 
 export default class UserTimelineUI extends React.Component {
 

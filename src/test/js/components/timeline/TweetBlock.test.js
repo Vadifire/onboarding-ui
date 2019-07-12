@@ -1,5 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
+
 import TweetBlock from "../../../../main/js/components/timeline/TweetBlock";
 import { expectOne } from "../../test-util";
 
