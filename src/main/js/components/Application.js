@@ -25,7 +25,12 @@ export default class Application extends React.Component {
 	}
 
 	closeReplyModal() {
-		this.setState({showReplyModal: false});
+		this.setState(
+			{
+				showReplyModal: false,
+				tweetBeingRepliedTo: null
+			}
+		);
 	}
 
 	render() {
