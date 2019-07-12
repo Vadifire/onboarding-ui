@@ -9,8 +9,7 @@ export default class UserTimelineUI extends React.Component {
 		super();
 		this.state = {
 			tweets: null,
-			message: null,
-			tweetBeingRepliedTo: null
+			message: null
 		};
 		this.updateCallback = this.updateCallback.bind(this);
 	}
