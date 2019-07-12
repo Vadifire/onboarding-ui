@@ -32,7 +32,6 @@ describe("ReplyToTweetUI", () => {
 	test("Should call onClose prop when close button is clicked", () => {
 		const closeReplyModal = expectOne(replyUI, "button.close-reply-modal-button");
 		closeReplyModal.simulate("click");
-		const modal = replyUI.find(".reply-modal");
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
