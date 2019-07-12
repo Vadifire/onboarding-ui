@@ -10,18 +10,18 @@ export default class TabContainer extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			selected: 0
+			selectedTab: 0
 		};
 		this.onSelect = this.onSelect.bind(this);
 	}
 
 	onSelect(index) {
-		this.setState({selected: index});
+		this.setState({selectedTab: index});
 	}
 
 	render() {
 		return (
-			<Tabs onSelect={this.onSelect} selected={this.state.selected}>
+			<Tabs onSelect={this.onSelect} selected={this.state.selectedTab}>
 				<Tab label="Home Timeline">
 					<HomeTimelineUI />
 				</Tab>

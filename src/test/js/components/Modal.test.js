@@ -5,7 +5,7 @@ import { expectOne } from "../test-util";
 
 describe("Modal", () => {
 
-	let modalChild, onClose, exteriorElement;
+	let modalChild, onClose;
 
 	beforeAll(() => {
 		onClose = jest.fn();

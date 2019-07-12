@@ -19,4 +19,8 @@ describe("Application", () => {
 	test("should contain TabContainer", () => {
 		expectOne(application, "TabContainer");
 	});
+
+	test("should contain ReplyToTweetUI", () => {
+		expectOne(application, "ReplyToTweetUI");
+	});
 });

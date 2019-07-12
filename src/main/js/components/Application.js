@@ -33,14 +33,9 @@ export default class Application extends React.Component {
 			<React.Fragment>
 				<div className="title">Lab for Cedric</div>
 				<TabContainer openReplyFunction={this.openReplyModal}/>
-				{
-					this.state.showReplyModal ? (
-						<ReplyToTweetUI tweet={this.state.tweetBeingRepliedTo} 
-								onClose={this.closeReplyModal}/>
-					) : (
-						null
-					)
-				}
+				<ReplyToTweetUI show={this.state.showReplyModal}
+						tweet={this.state.tweetBeingRepliedTo}
+						onClose={this.closeReplyModal}/>
 			</React.Fragment>
 		);
 	}

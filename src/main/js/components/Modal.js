@@ -30,16 +30,20 @@ export default class Modal extends React.Component {
 		} else {
 			document.body.style.overflow = "unset";
 		}
-		return (
-			<div id="background-overlay">
-				<div className="modal-container" ref={this.modalRef}>
-					<span className="close-modal-span" onClick={this.props.onClose}>&times;</span>
-					<div className="modal-content">
-						{this.props.children}
+		if (this.props.show) {
+			return (
+				<div id="background-overlay">
+					<div className="modal-container" ref={this.modalRef}>
+						<span className="close-modal-span" onClick={this.props.onClose}>&times;</span>
+						<div className="modal-content">
+							{this.props.children}
+						</div>
 					</div>
 				</div>
-			</div>
-		);
+			);
+		} else {
+			return null;
+		}
 	}
 
 }

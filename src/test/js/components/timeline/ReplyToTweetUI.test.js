@@ -32,14 +32,7 @@ describe("ReplyToTweetUI", () => {
 		const closeReplyModal = expectOne(replyUI, "button.close-reply-modal-button");
 		closeReplyModal.simulate("click");
 		const modal = replyUI.find(".reply-modal");
-		expect(modal.prop("show")).toEqual(false);
-	});
-
-	test("Should show modal when reply button is clicked", () => {
-		const openReplyModal = expectOne(replyUI, "div.open-reply");
-		openReplyModal.simulate("click");
-		const modal = expectOne(replyUI, ".reply-modal");
-		expect(modal.prop("show")).toEqual(true);
+		expect(modal.prop("show")).toBeFalsy();
 	});
 
 	test("Should render successful reply message", done => {

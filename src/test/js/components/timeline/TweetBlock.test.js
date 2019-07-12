@@ -64,8 +64,11 @@ describe("TweetBlock", () => {
 	});
 
 	test("should show reply option", () => {
-		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} includeReplyOption={true} />);
-		expectOne(tweetBlock, "ReplyToTweetUI");
+		const openReplyFunction = jest.fn();
+		const tweetBlock = shallow(<TweetBlock tweet={dummyTweet} openReplyFunction={openReplyFunction} />);
+		const replyOption = expectOne(tweetBlock, "div.open-reply");
+		replyOption.simulate("click");
+		expect(openReplyFunction).toHaveBeenCalledTimes(1);
 	});
 
 	test("should render null in case of missing tweet prop", () => {

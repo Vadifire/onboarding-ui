@@ -1,6 +1,5 @@
 import React from "react";
 import MainTimelineElement from "./MainTimelineElement";
-import ReplyToTweetUI from "./ReplyToTweetUI";
 import "../../../css/components/timeline/UserTimelineUI.scss";
 import { fetchUserTimeline } from "../../services/twitter-api";
 
