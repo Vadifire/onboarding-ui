@@ -72,7 +72,7 @@ export default class ReplyToTweetUI extends React.Component {
 					<div className= {"reply-result " + (this.state.success ? "reply-success" : "reply-error")}>
 						{this.state.output}
 					</div>
-					<button className="close-reply-modal-button" onClick={this.closeReplyModal}>
+					<button className="close-reply-modal-button" onClick={this.onClose}>
 						{ReplyToTweetUI.closeButtonText}
 					</button>
 					<button className="send-reply-button"

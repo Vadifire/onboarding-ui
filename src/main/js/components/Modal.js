@@ -29,10 +29,6 @@ export default class Modal extends React.Component {
 	render() {
 		if (this.props.show) {
 			document.body.style.overflow = "hidden";
-		} else {
-			document.body.style.overflow = "unset";
-		}
-		if (this.props.show) {
 			return (
 				<div id="background-overlay">
 					<div className="modal-container" ref={this.modalRef}>
@@ -44,6 +40,7 @@ export default class Modal extends React.Component {
 				</div>
 			);
 		} else {
+			document.body.style.overflow = "unset";
 			return null;
 		}
 	}
