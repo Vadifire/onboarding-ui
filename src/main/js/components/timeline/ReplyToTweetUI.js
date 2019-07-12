@@ -9,14 +9,11 @@ export default class ReplyToTweetUI extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			showReply: false,
 			input: "",
 			output: ""
 		};
 
 		this.replyCallback = this.replyCallback.bind(this);
-		this.openReplyModal = this.openReplyModal.bind(this);
-		this.closeReplyModal = this.closeReplyModal.bind(this);
 		this.updateMessage = this.updateMessage.bind(this);
 	}
 
@@ -48,21 +45,10 @@ export default class ReplyToTweetUI extends React.Component {
 		this.setState({input: event.target.value});
 	}
 
-	openReplyModal() {
-		this.setState({showReply: true});
-	}
-
-	closeReplyModal() {
-		this.setState({input: "", output: "", showReply: false});
-	}
-
 	render() {
 		return (
 			<React.Fragment>
-				<div className="open-reply" onClick={this.openReplyModal}>
-					<i className="fas fa-reply fa-sm"></i>
-				</div>
-				<Modal className="reply-modal" show={this.state.showReply} onClose={this.closeReplyModal}>
+				<Modal className="reply-modal" onClose={this.props.onClose}>
 					<TweetBlock tweet={this.props.tweet} hideHandle={true}/>
 					<div className="reply-input-container">
 						<div className="char-count">

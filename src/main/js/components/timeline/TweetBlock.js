@@ -1,5 +1,4 @@
 import React from "react";
-import ReplyToTweetUI from "./ReplyToTweetUI";
 import "../../../css/components/timeline/TweetBlock.scss";
 
 export default class TweetBlock extends React.Component {
@@ -44,8 +43,10 @@ export default class TweetBlock extends React.Component {
 								{this.props.tweet.message}
 							</a>
 						</div>
-						{this.props.includeReplyOption ? (
-							<ReplyToTweetUI tweet={this.props.tweet}/>
+						{this.props.openReplyFunction ? (
+							<div className="open-reply" onClick={() => this.props.openReplyFunction(this.props.tweet)}>
+								<i className="fas fa-reply fa-sm"></i>
+							</div>
 						) : (
 							null
 						)}

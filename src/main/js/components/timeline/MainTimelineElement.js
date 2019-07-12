@@ -13,7 +13,6 @@ export default class MainTimelineElement extends React.Component {
 	}
 
 	render() {
-
 		function renderMessage(msg) {
 			return (
 				<div className="timeline-container">
@@ -29,7 +28,7 @@ export default class MainTimelineElement extends React.Component {
 				const tweets = this.props.tweets.map(tweet => {
 					return (
 						<TweetBlock key={tweet.url} tweet={tweet} hideHandle={this.props.hideHandle}
-								includeReplyOption={this.props.includeReplyOption}/>
+								openReplyFunction={this.props.openReplyFunction}/>
 					);
 				});
 				return <div className="timeline-container">{tweets}</div>;

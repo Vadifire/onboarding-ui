@@ -14,7 +14,7 @@ export default class TabContainer extends React.Component {
 					<HomeTimelineUI />
 				</Tab>
 				<Tab label="User Timeline">
-					<UserTimelineUI />
+					<UserTimelineUI openReplyFunction={this.props.openReplyFunction}/>
 				</Tab>
 				<Tab label="Post Tweet">
 					<PostTweetUI />

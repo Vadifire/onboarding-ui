@@ -31,22 +31,14 @@ export default class Modal extends React.Component {
 			document.body.style.overflow = "unset";
 		}
 		return (
-			<React.Fragment>
-				{this.props.show ? 
-					(
-						<div id="background-overlay">
-							<div className="modal-container" ref={this.modalRef}>
-								<span className="close-modal-span" onClick={this.props.onClose}>&times;</span>
-								<div className="modal-content">
-									{this.props.children}
-								</div>
-							</div>
-						</div>
-					) : (
-						null
-					)
-				}
-			</React.Fragment>
+			<div id="background-overlay">
+				<div className="modal-container" ref={this.modalRef}>
+					<span className="close-modal-span" onClick={this.props.onClose}>&times;</span>
+					<div className="modal-content">
+						{this.props.children}
+					</div>
+				</div>
+			</div>
 		);
 	}
 
