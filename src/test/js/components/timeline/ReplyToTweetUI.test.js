@@ -6,15 +6,16 @@ import * as Api from "../../../../main/js/services/twitter-api";
 
 describe("ReplyToTweetUI", () => {
 
-	let replyUI, dummyMessage, dummyTweet;
+	let replyUI, dummyMessage, dummyTweet, onClose;
 
 	beforeAll(() => {
+		onClose = jest.fn();
 		Api.replyToTweet = jest.fn();
 		dummyMessage = "some message";
 		dummyTweet = {
 			tweetId: 123
 		};
-		replyUI = shallow(<ReplyToTweetUI tweet={dummyTweet}/>);
+		replyUI = shallow(<ReplyToTweetUI tweet={dummyTweet} onClose={onClose}/>);
 	});
 
 	afterEach(() => {
@@ -28,11 +29,11 @@ describe("ReplyToTweetUI", () => {
 		sendReplyButton.simulate("click");
 	}
 
-	test("Should hide modal when close button is clicked", () => {
+	test("Should call onClose prop when close button is clicked", () => {
 		const closeReplyModal = expectOne(replyUI, "button.close-reply-modal-button");
 		closeReplyModal.simulate("click");
 		const modal = replyUI.find(".reply-modal");
-		expect(modal.prop("show")).toBeFalsy();
+		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
 	test("Should render successful reply message", done => {
