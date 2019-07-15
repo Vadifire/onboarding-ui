@@ -1,0 +1,66 @@
+#background-overlay {
+	background-color: #00000066;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 100;
+
+	.modal-container {
+		box-sizing: border-box;
+		width: 40%;
+		z-index: 110;
+		position: fixed;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		padding: 20px;
+		background-color: white;
+
+		.close-modal-span {
+			font-size: 28px;
+			float: right;
+			color: #aaaaaa;
+			&:hover {
+				color: #000000;
+				cursor: pointer;
+			}
+		}
+
+		.modal-content {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			justify-content: center;
+			clear: right;
+			
+			.tweet {
+				background-color: white;
+				border-bottom: 0px;
+				margin-bottom: 10px;
+			}
+
+			.reply-modal-bottom-div {
+				display: flex;
+				justify-content: flex-end;
+				margin-top: 15px;
+				.close-reply-modal-button {
+					margin-right: 10px;
+				}
+
+				.reply-result {
+					margin-right: auto;
+				}
+
+				.reply-success {
+					color: #008400;
+				}
+
+				.reply-error {
+					color: #e00000;
+				}
+			}
+		}
+	}
+}

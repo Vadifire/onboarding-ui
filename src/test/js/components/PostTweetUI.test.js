@@ -1,8 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
+
 import PostTweetUI from "../../../main/js/components/PostTweetUI";
-import { expectOne } from "../test-util";
 import * as Api from "../../../main/js/services/twitter-api";
+import { expectOne } from "../test-util";
 
 describe("PostTweetUI", () => {
 
@@ -19,8 +20,8 @@ describe("PostTweetUI", () => {
 	});
 
 	function typeMessage(message) {
-		const textArea = expectOne(tweetUI, "textarea.tweet-input");
-		textArea.simulate("change", {target: {value: message}});
+		const tweetInput = expectOne(tweetUI, "TweetInput");
+		tweetInput.simulate("change", {target: {value: message}});
 		const button = expectOne(tweetUI, "button.post-tweet");
 		button.simulate("click");
 	}

@@ -1,5 +1,6 @@
-import TweetBlock from "./TweetBlock";
 import React from "react";
+
+import TweetBlock from "./TweetBlock";
 
 // Display List of Tweets or error message
 export default class MainTimelineElement extends React.Component {
@@ -13,7 +14,6 @@ export default class MainTimelineElement extends React.Component {
 	}
 
 	render() {
-
 		function renderMessage(msg) {
 			return (
 				<div className="timeline-container">
@@ -28,7 +28,8 @@ export default class MainTimelineElement extends React.Component {
 			if (this.props.tweets) {
 				const tweets = this.props.tweets.map(tweet => {
 					return (
-						<TweetBlock key={tweet.url} tweet={tweet} hideHandle={this.props.hideHandle}/>
+						<TweetBlock key={tweet.url} tweet={tweet} hideHandle={this.props.hideHandle}
+								openReplyFunction={this.props.openReplyFunction}/>
 					);
 				});
 				return <div className="timeline-container">{tweets}</div>;

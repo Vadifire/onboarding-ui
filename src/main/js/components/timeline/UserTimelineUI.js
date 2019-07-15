@@ -1,7 +1,9 @@
 import React from "react";
+
 import MainTimelineElement from "./MainTimelineElement";
-import "../../../css/components/timeline/UserTimelineUI.scss";
 import { fetchUserTimeline } from "../../services/twitter-api";
+
+import "../../../css/components/timeline/UserTimelineUI.scss";
 
 export default class UserTimelineUI extends React.Component {
 
@@ -44,15 +46,20 @@ export default class UserTimelineUI extends React.Component {
 
 	render() {
 		return (
-			<div className="user-timeline timeline-component">
-				<div className="button-div">
-					<button className="update-timeline"
-							onClick={() => fetchUserTimeline(this.updateCallback)}>
-						{UserTimelineUI.updateButtonText}
-					</button>
+			<React.Fragment>
+				<div className="user-timeline timeline-component">
+					<div className="button-div">
+						<button className="update-timeline"
+								onClick={() => fetchUserTimeline(this.updateCallback)}>
+							{UserTimelineUI.updateButtonText}
+						</button>
+					</div>
+					<MainTimelineElement tweets={this.state.tweets}
+							message={this.state.message} 
+							hideHandle={true}
+							openReplyFunction={this.props.openReplyFunction} />
 				</div>
-				<MainTimelineElement tweets={this.state.tweets} message={this.state.message} hideHandle={true}/>
-			</div>
+			</React.Fragment>
 		);
 	}
 

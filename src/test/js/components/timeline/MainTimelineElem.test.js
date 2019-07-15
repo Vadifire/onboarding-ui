@@ -1,8 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
+
 import MainTimelineElement from "../../../../main/js/components/timeline/MainTimelineElement";
-import { expectOne } from "../../test-util";
 import TimelineTestUtil from "./TimelineTestUtil";
+import { expectOne } from "../../test-util";
 
 describe("MainTimelineElem", () => {
 

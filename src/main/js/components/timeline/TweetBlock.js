@@ -1,4 +1,5 @@
 import React from "react";
+
 import "../../../css/components/timeline/TweetBlock.scss";
 
 export default class TweetBlock extends React.Component {
@@ -43,11 +44,17 @@ export default class TweetBlock extends React.Component {
 								{this.props.tweet.message}
 							</a>
 						</div>
+						{this.props.openReplyFunction ? (
+							<div className="open-reply" onClick={() => this.props.openReplyFunction(this.props.tweet)}>
+								<i className="fa fa-reply"> </i>
+							</div>
+						) : (
+							null
+						)}
 					</div>
 				</div>
 			);
 		} catch (err) {
-			// tweet prop should always be defined. If not, don't render this block.
 			return null;
 		}
 	}

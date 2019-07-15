@@ -1,10 +1,11 @@
-import * as Api from "../../../main/js/services/twitter-api";
 import HttpMethods from "http-methods-enum";
 import HttpStatuses from "http-status-codes";
 
+import * as Api from "../../../main/js/services/twitter-api";
+
 describe("twitter-api", () => {
 
-	let mockedRequest, dummyString;
+	let mockedRequest, dummyString, dummyParentId;
 
 	beforeAll(() => {
 		mockedRequest = {
@@ -14,6 +15,7 @@ describe("twitter-api", () => {
 			readyState: XMLHttpRequest.DONE,
 		};
 		dummyString = "some string";
+		dummyParentId = 123;
 		window.XMLHttpRequest = jest.fn(() => mockedRequest);
 		window.XMLHttpRequest.DONE = mockedRequest.readyState;
 	});
@@ -119,7 +121,7 @@ describe("twitter-api", () => {
 			if (err) {
 				done.fail();
 			}
-			expect(mockedRequest.send).toHaveBeenCalledWith(Api.messageKey + dummyString);
+			expect(mockedRequest.send).toHaveBeenCalledWith(Api.postTweetParams(dummyString));
 			assertEndpointCalled(Api.tweetEndpoint, HttpMethods.POST);
 			done();
 		}, dummyString);
@@ -130,7 +132,7 @@ describe("twitter-api", () => {
 		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
 		Api.postTweet((err) => {
 			if (err) {
-				expect(mockedRequest.send).toHaveBeenCalledWith(Api.messageKey + dummyString);
+				expect(mockedRequest.send).toHaveBeenCalledWith(Api.postTweetParams(dummyString));
 				assertEndpointCalled(Api.tweetEndpoint, HttpMethods.POST);
 				done();
 			} else {
@@ -139,5 +141,37 @@ describe("twitter-api", () => {
 		}, dummyString);
 		mockedRequest.onreadystatechange();
 	});
+
+	/* Reply to Tweet Cases */
+	test("should successfully reply to tweet", done => {
+		mockedRequest.status = HttpStatuses.CREATED;
+		Api.replyToTweet((err) => {
+			if (err) {
+				done.fail();
+			}
+			expect(mockedRequest.send).toHaveBeenCalledWith(Api.replyToTweetParams(dummyParentId, dummyString));
+			assertEndpointCalled(Api.replyEndpoint, HttpMethods.POST);
+			done();
+		}, dummyParentId, dummyString);
+		mockedRequest.onreadystatechange();
+
+	});
+	test("should fail to reply to tweet and execute callback with error", done => {
+		mockedRequest.status = HttpStatuses.INTERNAL_SERVER_ERROR;
+		Api.replyToTweet((err) => {
+			if (err) {
+				expect(mockedRequest.send).toHaveBeenCalledWith(Api.replyToTweetParams(dummyParentId, dummyString));
+				assertEndpointCalled(Api.replyEndpoint, HttpMethods.POST);
+				done();
+			} else {
+				done.fail();
+			}
+		}, dummyParentId, dummyString);
+		mockedRequest.onreadystatechange();
+	});
+
+
+
+
 
 });

@@ -1,8 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
+
 import Application from "../../../main/js/components/Application";
 import { expectOne } from "../test-util";
-
 
 describe("Application", () => {
 
@@ -18,5 +18,9 @@ describe("Application", () => {
 	
 	test("should contain TabContainer", () => {
 		expectOne(application, "TabContainer");
+	});
+
+	test("should contain ReplyToTweetUI", () => {
+		expectOne(application, "ReplyToTweetUI");
 	});
 });
